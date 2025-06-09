@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, NavLink, useNavigate } from "react-router-dom";
-import "../../sass/components/SideBar/Sidebar.css"; // pastikan ini SCSS, bukan CSS
+import "../../sass/components/SideBar/SideBar.css"; // pastikan ini SCSS, bukan CSS
 import logo from "../../assets/images/logo.svg";
 import Builder from "../../assets/images/builder1.svg";
 import Home from "../../assets/icons/home.svg";
