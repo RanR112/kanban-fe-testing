@@ -1,0 +1,989 @@
+.container-detail-admin {
+    padding: 20px 50px;
+    width: 87vw;
+    height: 100vw;
+    font-family: "Poppins", sans-serif;
+
+    .head-detail-admin {
+        text-align: start;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 17px;
+        font-size: 30px;
+    }
+
+    .grid-detail-admin {
+        display: grid;
+        padding-top: 8px;
+        grid-template-columns: 1.8fr 1fr 2.3fr;
+        grid-template-areas:
+            "production-date-detail-admin parts-number-detail-admin parts-number-detail-admin"
+            "request-name-detail-admin classification-detail-admin box-detail-admin"
+            "process-detail-admin information-detail-admin information-detail-admin"
+            "location-detail-admin information-detail-admin information-detail-admin";
+        gap: 15px 8px;
+
+        .production-date-detail-admin {
+            grid-area: production-date-detail-admin;
+
+            input {
+                display: flex;
+                width: 180px;
+                height: 45px;
+            }
+        }
+
+        .parts-number-detail-admin {
+            grid-area: parts-number-detail-admin;
+
+            input {
+                width: 180px;
+                height: 45px;
+                display: flex;
+            }
+        }
+
+        .request-name-detail-admin {
+            grid-area: request-name-detail-admin;
+
+            input {
+                display: flex;
+                width: 400px;
+                height: 45px;
+            }
+        }
+
+        .classification-detail-admin {
+            grid-area: classification-detail-admin;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+
+            select {
+                display: block;
+                width: 200px;
+                height: 45px;
+                padding: 6px 12px;
+                padding-right: 36px;
+                border-radius: 8px;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208L10%2013L15%208%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 10px center;
+                background-size: 16px;
+            }
+        }
+
+        .box-detail-admin {
+            grid-area: box-detail-admin;
+
+            input {
+                display: flex;
+                width: 150px;
+                height: 45px;
+            }
+        }
+
+        .process-detail-admin {
+            grid-area: process-detail-admin;
+
+            input {
+                display: flex;
+                width: 400px;
+                height: 45px;
+            }
+        }
+
+        .information-detail-admin {
+            grid-area: information-detail-admin;
+
+            textarea {
+                display: flex;
+                width: 700px;
+                height: 150px;
+                padding: 10px;
+                resize: none;
+            }
+        }
+
+        .location-detail-admin {
+            grid-area: location-detail-admin;
+
+            input {
+                display: flex;
+                width: 400px;
+                height: 45px;
+            }
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 3px;
+            display: inline-block;
+        }
+
+        input,
+        select,
+        textarea {
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            padding: 6px 10px;
+            border: 1px solid rgba(0, 102, 175, 0.5);
+            border-radius: 8px;
+            background-color: white;
+            font-size: 16px;
+            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+        }
+    }
+}
+
+.statusContainer-detail-admin {
+    display: flex;
+    gap: 40px;
+    padding-top: 25px;
+    background-color: #eaf4f9;
+    flex-wrap: wrap;
+}
+
+.card-detail-admin {
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 400px;
+    height: 190px;
+    padding: 0;
+
+    .cardHeader-detail-admin {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #0066af;
+        width: 400px;
+        height: 50px;
+        color: white;
+        padding: 1rem 15px;
+        font-weight: 600;
+        font-size: 16px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+    }
+
+    .row-detail-admin {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 18px;
+        font-size: 14px;
+        height: 32px;
+        border-bottom: 1px solid #eee;
+
+        &.header-detail-admin {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            border-top: 1px solid #eee;
+        }
+
+        .role-detail-admin {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+
+            .approval-icon-detail-admin {
+                width: 15px;
+                height: 15px;
+            }
+        }
+
+        span {
+            font-size: 13px;
+            flex: 1;
+        }
+
+        span:nth-child(1) {
+            flex: 2;
+        }
+        span:nth-child(2) {
+            flex: 2;
+        }
+    }
+}
+
+.button-back-detail-admin {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 45px;
+    padding-right: 60px;
+}
+
+.backButton-detail-admin {
+    background: #374dd6;
+    font-family: "Poppins", sans-serif;
+    width: 200px;
+    height: 40px;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+        background: #576bf0;
+    }
+}
+
+@media (max-width: 1700px) {
+    .container-detail-admin {
+        width: 85vw;
+
+        max-height: 87vh;
+        overflow-y: auto;
+
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .head-detail-admin {
+            text-align: start;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 17px;
+            font-size: 20px;
+        }
+
+        .grid-detail-admin {
+            display: grid;
+            padding-top: 8px;
+            grid-template-columns: 1.4fr 1fr 1.3fr;
+            grid-template-areas:
+                "production-date-detail-admin parts-number-detail-admin parts-number-detail-admin"
+                "request-name-detail-admin classification-detail-admin box-detail-admin"
+                "process-detail-admin information-detail-admin information-detail-admin"
+                "location-detail-admin information-detail-admin information-detail-admin";
+            gap: 8px 8px;
+
+            .production-date-detail-admin {
+                grid-area: production-date-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 150px;
+                    height: 35px;
+                }
+            }
+
+            .parts-number-detail-admin {
+                grid-area: parts-number-detail-admin;
+
+                input {
+                    width: 150px;
+                    height: 35px;
+                    display: flex;
+                }
+            }
+
+            .request-name-detail-admin {
+                grid-area: request-name-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 280px;
+                    height: 35px;
+                }
+            }
+
+            .classification-detail-admin {
+                grid-area: classification-detail-admin;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+
+                select {
+                    display: block;
+                    width: 200px;
+                    height: 35px;
+                    padding: 6px 12px;
+                    padding-right: 36px;
+                    border-radius: 8px;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208L10%2013L15%208%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 10px center;
+                    background-size: 16px;
+                }
+            }
+
+            .box-detail-admin {
+                grid-area: box-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 120px;
+                    height: 35px;
+                }
+            }
+
+            .process-detail-admin {
+                grid-area: process-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 280px;
+                    height: 35px;
+                }
+            }
+
+            .information-detail-admin {
+                grid-area: information-detail-admin;
+
+                textarea {
+                    display: flex;
+                    width: 550px;
+                    height: 117px;
+                    padding: 10px;
+                    resize: none;
+                }
+            }
+
+            .location-detail-admin {
+                grid-area: location-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 280px;
+                    height: 35px;
+                }
+            }
+
+            label {
+                font-size: 14px;
+                font-weight: 600;
+                font-style: italic;
+                margin-bottom: 3px;
+                display: inline-block;
+            }
+
+            input,
+            select,
+            textarea {
+                font-family: "Poppins", sans-serif;
+                font-weight: 500;
+                padding: 8px 10px;
+                border: 1px solid rgba(0, 102, 175, 0.5);
+                border-radius: 8px;
+                background-color: white;
+                font-size: 13px;
+                box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .statusContainer-detail-admin {
+        display: flex;
+        gap: 2rem;
+        padding-top: 15px;
+        background-color: #eaf4f9;
+        flex-wrap: wrap;
+    }
+
+    .card-detail-admin {
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        width: 330px;
+        height: 170px;
+        padding: 0;
+
+        .cardHeader-detail-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0066af;
+            width: 330px;
+            height: 40px;
+            color: white;
+            padding: 1rem 15px;
+            font-weight: 600;
+            font-size: 11px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .row-detail-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 18px;
+            font-size: 13px;
+            height: 32px;
+            border-bottom: 1px solid #eee;
+
+            &.header-detail-admin {
+                background-color: #f2f2f2;
+                font-weight: bold;
+                border-top: 1px solid #eee;
+            }
+
+            .role-detail-admin {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 500;
+
+                .approval-icon-detail-admin {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+
+            span {
+                font-size: 12px;
+                flex: 1;
+            }
+
+            span:nth-child(1) {
+                flex: 2;
+            }
+            span:nth-child(2) {
+                flex: 2;
+            }
+        }
+    }
+
+    .button-back-detail-admin {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 35px;
+        padding-right: 30px;
+    }
+
+    .backButton-detail-admin {
+        background: #374dd6;
+        font-family: "Poppins", sans-serif;
+        width: 150px;
+        height: 35px;
+        color: white;
+        padding: 8px 30px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+            background: #576bf0;
+        }
+    
+    }
+}
+
+@media (max-width: 1440px) {
+    .container-detail-admin {
+        width: 82.5vw;
+
+        max-height: 85vh;
+        overflow-y: auto;
+
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .head-detail-admin {
+            text-align: start;
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 17px;
+            font-size: 20px;
+        }
+
+        .grid-detail-admin {
+            display: grid;
+            padding-top: 8px;
+            grid-template-columns: 1.4fr 1fr 1.3fr;
+            grid-template-areas:
+                "production-date-detail-admin parts-number-detail-admin parts-number-detail-admin"
+                "request-name-detail-admin classification-detail-admin box-detail-admin"
+                "process-detail-admin information-detail-admin information-detail-admin"
+                "location-detail-admin information-detail-admin information-detail-admin";
+            gap: 8px 8px;
+
+            .production-date-detail-admin {
+                grid-area: production-date-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 150px;
+                    height: 35px;
+                }
+            }
+
+            .parts-number-detail-admin {
+                grid-area: parts-number-detail-admin;
+
+                input {
+                    width: 150px;
+                    height: 35px;
+                    display: flex;
+                }
+            }
+
+            .request-name-detail-admin {
+                grid-area: request-name-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 280px;
+                    height: 35px;
+                }
+            }
+
+            .classification-detail-admin {
+                grid-area: classification-detail-admin;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+
+                select {
+                    display: block;
+                    width: 200px;
+                    height: 35px;
+                    padding: 6px 12px;
+                    padding-right: 36px;
+                    border-radius: 8px;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208L10%2013L15%208%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 10px center;
+                    background-size: 16px;
+                }
+            }
+
+            .box-detail-admin {
+                grid-area: box-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 120px;
+                    height: 35px;
+                }
+            }
+
+            .process-detail-admin {
+                grid-area: process-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 280px;
+                    height: 35px;
+                }
+            }
+
+            .information-detail-admin {
+                grid-area: information-detail-admin;
+
+                textarea {
+                    display: flex;
+                    width: 550px;
+                    height: 117px;
+                    padding: 10px;
+                    resize: none;
+                }
+            }
+
+            .location-detail-admin {
+                grid-area: location-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 280px;
+                    height: 35px;
+                }
+            }
+
+            label {
+                font-size: 14px;
+                font-weight: 600;
+                font-style: italic;
+                margin-bottom: 3px;
+                display: inline-block;
+            }
+
+            input,
+            select,
+            textarea {
+                font-family: "Poppins", sans-serif;
+                font-weight: 500;
+                padding: 8px 10px;
+                border: 1px solid rgba(0, 102, 175, 0.5);
+                border-radius: 8px;
+                background-color: white;
+                font-size: 13px;
+                box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .statusContainer-detail-admin {
+        display: flex;
+        gap: 2rem;
+        padding-top: 15px;
+        background-color: #eaf4f9;
+        flex-wrap: wrap;
+    }
+
+    .card-detail-admin {
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        width: 330px;
+        height: 170px;
+        padding: 0;
+
+        .cardHeader-detail-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0066af;
+            width: 330px;
+            height: 40px;
+            color: white;
+            padding: 1rem 15px;
+            font-weight: 600;
+            font-size: 11px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .row-detail-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 18px;
+            font-size: 13px;
+            height: 32px;
+            border-bottom: 1px solid #eee;
+
+            &.header-detail-admin {
+                background-color: #f2f2f2;
+                font-weight: bold;
+                border-top: 1px solid #eee;
+            }
+
+            .role-detail-admin {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 500;
+
+                .approval-icon-detail-admin {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+
+            span {
+                font-size: 12px;
+                flex: 1;
+            }
+
+            span:nth-child(1) {
+                flex: 2;
+            }
+            span:nth-child(2) {
+                flex: 2;
+            }
+        }
+    }
+
+    .button-back-detail-admin {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 35px;
+        padding-right: 30px;
+    }
+
+    .backButton-detail-admin {
+        background: #374dd6;
+        font-family: "Poppins", sans-serif;
+        width: 150px;
+        height: 35px;
+        color: white;
+        padding: 8px 30px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+            background: #576bf0;
+        }
+    }
+}
+
+@media (max-width: 1280px) {
+    .container-detail-admin {
+        width: 80.5vw;
+        height: 100vw;
+
+        max-height: 82vh;
+        overflow-y: auto;
+
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .head-detail-admin {
+            margin-bottom: 17px;
+            font-size: 20px;
+        }
+
+        .grid-detail-admin {
+            display: grid;
+            padding-top: 8px;
+            grid-template-columns: 1.4fr 1fr 1.3fr;
+            grid-template-areas:
+                "production-date-detail-admin parts-number-detail-admin parts-number-detail-admin"
+                "request-name-detail-admin classification-detail-admin box-detail-admin"
+                "process-detail-admin information-detail-admin information-detail-admin"
+                "location-detail-admin information-detail-admin information-detail-admin";
+            gap: 8px 8px;
+
+            .production-date-detail-admin {
+                grid-area: production-date-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 150px;
+                    height: 35px;
+                }
+            }
+
+            .parts-number-detail-admin {
+                grid-area: parts-number-detail-admin;
+
+                input {
+                    width: 150px;
+                    height: 35px;
+                    display: flex;
+                }
+            }
+
+            .request-name-detail-admin {
+                grid-area: request-name-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 260px;
+                    height: 35px;
+                }
+            }
+
+            .classification-detail-admin {
+                grid-area: classification-detail-admin;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+
+                select {
+                    display: block;
+                    width: 200px;
+                    height: 35px;
+                    padding: 6px 12px;
+                    padding-right: 36px;
+                    border-radius: 8px;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208L10%2013L15%208%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 10px center;
+                    background-size: 16px;
+                }
+            }
+
+            .box-detail-admin {
+                grid-area: box-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 120px;
+                    height: 35px;
+                }
+            }
+
+            .process-detail-admin {
+                grid-area: process-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 260px;
+                    height: 35px;
+                }
+            }
+
+            .information-detail-admin {
+                grid-area: information-detail-admin;
+
+                textarea {
+                    display: flex;
+                    width: 550px;
+                    height: 117px;
+                    padding: 10px;
+                    resize: none;
+                }
+            }
+
+            .location-detail-admin {
+                grid-area: location-detail-admin;
+
+                input {
+                    display: flex;
+                    width: 260px;
+                    height: 35px;
+                }
+            }
+
+            label {
+                font-size: 13px;
+                font-weight: 600;
+                font-style: italic;
+                margin-bottom: 3px;
+                display: inline-block;
+            }
+
+            input,
+            select,
+            textarea {
+                font-family: "Poppins", sans-serif;
+                font-weight: 500;
+                padding: 8px 10px;
+                border: 1px solid rgba(0, 102, 175, 0.5);
+                border-radius: 8px;
+                background-color: white;
+                font-size: 13px;
+                box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+
+    .statusContainer-detail-admin {
+        display: flex;
+        gap: 2rem;
+        padding-top: 15px;
+        background-color: #eaf4f9;
+        flex-wrap: wrap;
+    }
+
+    .card-detail-admin {
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        width: 330px;
+        height: 170px;
+        padding: 0;
+
+        .cardHeader-detail-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0066af;
+            width: 330px;
+            height: 40px;
+            color: white;
+            padding: 1rem 15px;
+            font-weight: 600;
+            font-size: 11px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .row-detail-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 18px;
+            font-size: 13px;
+            height: 32px;
+            border-bottom: 1px solid #eee;
+
+            &.header-detail-admin {
+                background-color: #f2f2f2;
+                font-weight: bold;
+                border-top: 1px solid #eee;
+            }
+
+            .role-detail-admin {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 500;
+
+                .approval-icon-detail-admin {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+
+            span {
+                font-size: 12px;
+                flex: 1;
+            }
+
+            span:nth-child(1) {
+                flex: 2;
+            }
+            span:nth-child(2) {
+                flex: 2;
+            }
+        }
+    }
+
+    .button-back-detail-admin {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 35px;
+        padding-right: 20px;
+    }
+
+    .backButton-detail-admin {
+        background: #374dd6;
+        font-family: "Poppins", sans-serif;
+        width: 150px;
+        height: 35px;
+        color: white;
+        padding: 8px 30px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: background 0.3s;
+
+        &:hover {
+            background: #576bf0;
+        }
+    }
+}

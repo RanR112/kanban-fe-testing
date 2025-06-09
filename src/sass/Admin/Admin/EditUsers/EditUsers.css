@@ -1,0 +1,430 @@
+.edit-users-admin {
+  padding: 20px 40px;
+  width: 87vw;
+  height: 100vw;
+  font-family: "Poppins", sans-serif;
+}
+.edit-users-admin input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: #000 !important;
+}
+.edit-users-admin h2 {
+  text-align: start;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 30px;
+  font-size: 30px;
+}
+.edit-users-admin .form-container-edit-admin {
+  display: flex;
+  gap: 13px;
+  flex-wrap: wrap;
+}
+.edit-users-admin .left-section-edit-admin {
+  flex: 1;
+  display: flex;
+  padding-top: 30px;
+}
+.edit-users-admin .left-section-edit-admin .user-image-edit-admin {
+  width: 400px;
+  height: 400px;
+  background-color: white;
+  border-radius: 13px;
+  box-shadow: -3px 3px 6px rgba(0, 0, 0, 0.25);
+}
+.edit-users-admin .right-section-edit-admin {
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
+  padding-top: 25px;
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin {
+  display: flex;
+  flex-direction: column;
+  width: calc(45% - 1rem);
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin label {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin input,
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin select {
+  width: 350px;
+  height: 45px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 8px 10px;
+  border: 1px solid rgba(0, 102, 175, 0.5);
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin input:focus,
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin select:focus {
+  outline: none;
+  border-color: rgba(0, 102, 175, 0.5);
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin select {
+  padding-right: 36px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208L10%2013L15%208%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin {
+  position: relative;
+  display: inline-block;
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin input {
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin span {
+  position: absolute;
+  top: 40%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin span svg {
+  margin-right: 110px;
+  width: 25px;
+  height: 25px;
+  color: #1c85b7;
+}
+.edit-users-admin .right-section-edit-admin .button-group-edit-admin {
+  margin-top: 20px;
+  margin-right: 35px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+}
+.edit-users-admin .right-section-edit-admin .button-group-edit-admin .back-btn-edit-admin {
+  background: #374dd6;
+  font-family: "Poppins", sans-serif;
+  width: 200px;
+  height: 40px;
+  color: white;
+  padding: 8px 30px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.edit-users-admin .right-section-edit-admin .button-group-edit-admin .back-btn-edit-admin:hover {
+  background: #576bf0;
+}
+.edit-users-admin .right-section-edit-admin .button-group-edit-admin .update-btn-edit-admin {
+  background: #219cdf;
+  font-family: "Poppins", sans-serif;
+  width: 200px;
+  height: 40px;
+  color: white;
+  padding: 8px 30px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.edit-users-admin .right-section-edit-admin .button-group-edit-admin .update-btn-edit-admin:hover {
+  background: #4ebefa;
+}
+
+@media (max-width: 1700px) {
+  .edit-users-admin {
+    width: 85vw;
+  }
+  .edit-users-admin h2 {
+    text-align: start;
+    font-weight: 700;
+    font-style: italic;
+    margin-bottom: 30px;
+    font-size: 20px;
+  }
+  .edit-users-admin .form-container-edit-admin {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .edit-users-admin .left-section-edit-admin {
+    flex: 1;
+    display: flex;
+    padding-top: 30px;
+  }
+  .edit-users-admin .left-section-edit-admin .user-image-edit-admin {
+    width: 280px;
+    height: 270px;
+    background-color: white;
+    border-radius: 13px;
+    box-shadow: -3px 3px 6px rgba(0, 0, 0, 0.25);
+  }
+  .edit-users-admin .right-section-edit-admin {
+    flex: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding-top: 0;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 1rem);
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin label {
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin input,
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin select {
+    width: 230px;
+    height: 35px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 8px 10px;
+    border: 1px solid rgba(0, 102, 175, 0.5);
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin input:focus,
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin select:focus {
+    outline: none;
+    border-color: rgba(0, 102, 175, 0.5);
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin select {
+    padding-right: 36px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208L10%2013L15%208%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin {
+    position: relative;
+    display: inline-block;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin input {
+    padding-right: 35px;
+    box-sizing: border-box;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin span {
+    position: absolute;
+    top: 40%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin span svg {
+    margin-right: 156px;
+    width: 18px;
+    height: 18px;
+    color: #1c85b7;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin {
+    margin-top: 13px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.5rem;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin .back-btn-edit-admin {
+    background: #374dd6;
+    font-family: "Poppins", sans-serif;
+    width: 150px;
+    height: 35px;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin .back-btn-edit-admin:hover {
+    background: #576bf0;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin .update-btn-edit-admin {
+    background: #219cdf;
+    font-family: "Poppins", sans-serif;
+    width: 150px;
+    height: 35px;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin .update-btn-edit-admin:hover {
+    background: #4ebefa;
+  }
+}
+@media (max-width: 1440px) {
+  .edit-users-admin {
+    width: 82.5vw;
+  }
+  .edit-users-admin h2 {
+    text-align: start;
+    font-weight: 700;
+    font-style: italic;
+    margin-bottom: 30px;
+    font-size: 20px;
+  }
+  .edit-users-admin .form-container-edit-admin {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .edit-users-admin .left-section-edit-admin {
+    flex: 1;
+    display: flex;
+    padding-top: 30px;
+  }
+  .edit-users-admin .left-section-edit-admin .user-image-edit-admin {
+    width: 280px;
+    height: 270px;
+    background-color: white;
+    border-radius: 13px;
+    box-shadow: -3px 3px 6px rgba(0, 0, 0, 0.25);
+  }
+  .edit-users-admin .right-section-edit-admin {
+    flex: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding-top: 0;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin {
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 1rem);
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin label {
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin input,
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin select {
+    width: 230px;
+    height: 35px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 8px 10px;
+    border: 1px solid rgba(0, 102, 175, 0.5);
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin input:focus,
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin select:focus {
+    outline: none;
+    border-color: rgba(0, 102, 175, 0.5);
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin select {
+    padding-right: 36px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208L10%2013L15%208%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin {
+    position: relative;
+    display: inline-block;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin input {
+    padding-right: 35px;
+    box-sizing: border-box;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin span {
+    position: absolute;
+    top: 40%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin span svg {
+    margin-right: 115px;
+    width: 18px;
+    height: 18px;
+    color: #1c85b7;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin {
+    margin-top: 13px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.5rem;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin .back-btn-edit-admin {
+    background: #374dd6;
+    font-family: "Poppins", sans-serif;
+    width: 150px;
+    height: 35px;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin .back-btn-edit-admin:hover {
+    background: #576bf0;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin .update-btn-edit-admin {
+    background: #219cdf;
+    font-family: "Poppins", sans-serif;
+    width: 150px;
+    height: 35px;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .edit-users-admin .right-section-edit-admin .button-group-edit-admin .update-btn-edit-admin:hover {
+    background: #4ebefa;
+  }
+}
+@media (max-width: 1280px) {
+  .edit-users-admin {
+    width: 80.5vw;
+    max-height: 84vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .edit-users-admin::-webkit-scrollbar {
+    display: none;
+  }
+  .edit-users-admin .right-section-edit-admin .form-group-edit-admin .input-with-icon-edit-admin span svg {
+    margin-right: 65px;
+  }
+}/*# sourceMappingURL=EditUsers.css.map */
