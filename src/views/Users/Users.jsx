@@ -111,7 +111,7 @@ export default function Users() {
                     <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan="7" className="empty-row">
+                                <td colSpan="7" className="empty-row" style={{ height: '100px' }}>
                                     <LoaderTable />
                                 </td>
                             </tr>

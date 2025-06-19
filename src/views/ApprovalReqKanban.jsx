@@ -139,7 +139,7 @@ export default function ApprovalReqKanban({
                     <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan="6" className="approval-request__empty-row">
+                                <td colSpan="6" className="approval-request__empty-row" style={{ height: '100px' }}>
                                     <LoaderTable />
                                 </td>
                             </tr>
