@@ -1,176 +1,193 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Login from "../src/views/Login";
-import HomeUser from "../src/views/DashboardUser/User/HomeUser";
-import ReqKanban from "../src/views/DashboardUser/User/ReqKanban";
+import ReqKanban from "./views/Kanban/ReqKanban";
 import ProtectedRoute from "./components/ProtectedRoute";
-import LayoutUser from "./components/Layouts/LayoutUser";
-import DetailReq from "./views/DashboardUser/User/DetailReq";
-import ReqForm from "./views/DashboardUser/User/ReqForm";
-import LayoutUserLead from "./components/Layouts/LayoutUserLead";
-import HomeLead from "./views/DashboardUser/UserLead/HomeLead";
-import ReqKanbanLead from "./views/DashboardUser/UserLead/ReqKanbanLead";
-import ApprovalLead from "./views/DashboardUser/UserLead/ApprovalLead";
-import DetailReqLead from "./views/DashboardUser/UserLead/DetailReqLead";
-import LayoutAdmin from "./components/Layouts/LayoutAdmin";
-import HomeAdmin from "./views/DashboardAdmin/Admin/HomeAdmin";
-import KanbanReq from "./views/DashboardAdmin/Admin/KanbanReq";
-import DetailKanbanReq from "./views/DashboardAdmin/Admin/DetailKanbanReq";
-import Users from "./views/DashboardAdmin/Admin/Users";
-import ReportAdmin from "./views/DashboardAdmin/Admin/ReportAdmin";
-import LayoutPCLead from "./components/Layouts/LayoutPCLead";
-import HomePC from "./views/DashboardAdmin/PCLead/HomePC";
-import KanbanReqPC from "./views/DashboardAdmin/PCLead/KanbanReqPC";
-import ApprovalPC from "./views/DashboardAdmin/PCLead/ApprovalPC";
-import DetailReqPC from "./views/DashboardAdmin/PCLead/DetailReqPC";
-import ReportPC from "./views/DashboardAdmin/PCLead/ReportPC";
-import AddUsers from "./views/DashboardAdmin/Admin/AddUsers";
-import EditUser from "./views/DashboardAdmin/Admin/EditUsers";
+import ReqForm from "./views/Kanban/ReqForm";
+import Users from "./views/Users/Users";
+import AddUser from "./views/Users/AddUser";
+import EditUser from "./views/Users/EditUser";
+import Layout from "./components/Layout";
+import Home from "./views/Home";
+import DetailReqKanban from "./views/Kanban/DetailReqKanban";
+import ApprovalReqKanban from "./views/ApprovalReqKanban";
+import Report from "./views/Report";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Navigate to="/login" replace />, // Route untuk login
-  },
-  {
-    path: "/login",
-    element: <Login />, // Route untuk login
-  },
-  {
-    path: "/user", // Semua route dengan layout
-    element: (
-      <ProtectedRoute>
-        <LayoutUser />
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true, // Default route saat buka "/"
-        element: <HomeUser />,
-      },
-      {
-        path: "home-user",
-        element: <HomeUser />,
-      },
-      {
-        path: "request-kanban",
-        element: <ReqKanban />,
-      },
-      {
-        path: "request-form",
-        element: <ReqForm />,
-      },
-      {
-        path: "detail-request",
-        element: <DetailReq />,
-      },
-    ],
-  },
-  {
-    path: "/user-lead", // Semua route dengan layout
-    element: (
-      <ProtectedRoute>
-        <LayoutUserLead />
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true, // Default route saat buka "/"
-        element: <HomeLead />,
-      },
-      {
-        path: "home-user-lead",
-        element: <HomeLead />,
-      },
-      {
-        path: "reqkanban-user-lead",
-        element: <ReqKanbanLead />,
-      },
-      {
-        path: "approve-user-lead",
-        element: <ApprovalLead />,
-      },
-      {
-        path: "detailreq-user-lead",
-        element: <DetailReqLead />,
-      },
-    ],
-  },
-  {
-    path: "/admin", // Semua route dengan layout
-    element: (
-      <ProtectedRoute>
-        <LayoutAdmin />
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true, // Default route saat buka "/"
-        element: <HomeAdmin />,
-      },
-      {
-        path: "home-admin",
-        element: <HomeAdmin />,
-      },
-      {
-        path: "kanbanreq-admin",
-        element: <KanbanReq />,
-      },
-      {
-        path: "detail-kanbanreq",
-        element: <DetailKanbanReq />,
-      },
-      {
-        path: "users",
-        element: <Users />,
-      },
-      {
-        path: "add-users",
-        element: <AddUsers />,
-      },
-      {
-        path: "edit-users",
-        element: <EditUser />,
-      },
-      {
-        path: "report-admin",
-        element: <ReportAdmin />,
-      },
-    ],
-  },
-  {
-    path: "/pc-lead", // Semua route dengan layout
-    element: (
-      <ProtectedRoute>
-        <LayoutPCLead />
-      </ProtectedRoute>
-    ),
-    children: [
-      {
-        index: true, // Default route saat buka "/"
-        element: <HomePC />,
-      },
-      {
-        path: "home-pc-lead",
-        element: <HomePC />,
-      },
-      {
-        path: "kanbanreq-pc-lead",
-        element: <KanbanReqPC />,
-      },
-      {
-        path: "detailreq-pc-lead",
-        element: <DetailReqPC />,
-      },
-      {
-        path: "approve-pc-lead",
-        element: <ApprovalPC />,
-      },
-      {
-        path: "report-pc-lead",
-        element: <ReportPC />,
-      },
-    ],
-  },
+    {
+        path: "/",
+        element: <Navigate to="/login" replace />, // Route untuk login
+    },
+    {
+        path: "/login",
+        element: <Login />, // Route untuk login
+    },
+    {
+        path: "/user", // Semua route dengan layout
+        element: (
+            <ProtectedRoute>
+                <Layout layoutType="user" />
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true, // Default route saat buka "/"
+                element: <Home />,
+            },
+            {
+                path: "home-user",
+                element: <Home />,
+            },
+            {
+                path: "request-kanban",
+                element: (
+                    <ReqKanban
+                        userType="user"
+                        title="REQUEST KANBAN"
+                        apiEndpoint="/kanban/all"
+                        showCreateButton={true}
+                    />
+                ),
+            },
+            {
+                path: "request-form",
+                element: <ReqForm />,
+            },
+            {
+                path: "detail-request",
+                element: <DetailReqKanban />,
+            },
+        ],
+    },
+    {
+        path: "/user-lead", // Semua route dengan layout
+        element: (
+            <ProtectedRoute>
+                <Layout layoutType="userLead" />
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true, // Default route saat buka "/"
+                element: <Home />,
+            },
+            {
+                path: "home-user-lead",
+                element: <Home />,
+            },
+            {
+                path: "reqkanban-user-lead",
+                element: (
+                    <ReqKanban
+                        userType="user-lead"
+                        title="REQUEST KANBAN"
+                        apiEndpoint="/kanban/pending"
+                        showApproveReject={true}
+                    />
+                ),
+            },
+            {
+                path: "approve-user-lead",
+                element: (
+                    <ApprovalReqKanban navigationPath="/user-lead/detailreq-user-lead" />
+                ),
+            },
+            {
+                path: "detailreq-user-lead",
+                element: <DetailReqKanban />,
+            },
+        ],
+    },
+    {
+        path: "/admin", // Semua route dengan layout
+        element: (
+            <ProtectedRoute>
+                <Layout layoutType="admin" />
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true, // Default route saat buka "/"
+                element: <Home />,
+            },
+            {
+                path: "home-admin",
+                element: <Home />,
+            },
+            {
+                path: "kanbanreq-admin",
+                element: (
+                    <ReqKanban
+                        userType="admin"
+                        title="KANBAN REQUEST"
+                        apiEndpoint="/kanban/all"
+                    />
+                ),
+            },
+            {
+                path: "detail-kanbanreq",
+                element: <DetailReqKanban />,
+            },
+            {
+                path: "users",
+                element: <Users />,
+            },
+            {
+                path: "add-users",
+                element: <AddUser />,
+            },
+            {
+                path: "edit-users",
+                element: <EditUser />,
+            },
+            {
+                path: "report-admin",
+                element: <Report />,
+            },
+        ],
+    },
+    {
+        path: "/pc-lead", // Semua route dengan layout
+        element: (
+            <ProtectedRoute>
+                <Layout layoutType="pcLead" />
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                index: true, // Default route saat buka "/"
+                element: <Home />,
+            },
+            {
+                path: "home-pc-lead",
+                element: <Home />,
+            },
+            {
+                path: "kanbanreq-pc-lead",
+                element: (
+                    <ReqKanban
+                        userType="pc-lead"
+                        title="REQUEST KANBAN"
+                        apiEndpoint="/kanban/pending"
+                        showApproveReject={true}
+                    />
+                ),
+            },
+            {
+                path: "detailreq-pc-lead",
+                element: <DetailReqKanban />,
+            },
+            {
+                path: "approve-pc-lead",
+                element: (
+                    <ApprovalReqKanban navigationPath="/pc-lead/detailreq-pc-lead" />
+                ),
+            },
+            {
+                path: "report-pc-lead",
+                element: <Report />,
+            },
+        ],
+    },
 ]);
 
 export default router;

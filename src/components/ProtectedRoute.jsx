@@ -18,7 +18,7 @@ export default function ProtectedRoute({ children }) {
         }
 
         const tokenTimer = setTimeout(() => {
-            localStorage.removeItem("token");
+            localStorage.clear();
             setIsExpired(true);
             setAlertConfirm(true);
         }, 30 * 60 * 1000);
@@ -29,7 +29,7 @@ export default function ProtectedRoute({ children }) {
     }, [token]);
 
     const handleConfirm = () => {
-        localStorage.removeItem("token");
+        localStorage.clear();
 
         setFadeOutConfirm(true);
         setTimeout(() => {
