@@ -3,6 +3,7 @@ import Clipboard from "../assets/icons/clipboard.svg";
 import Users from "../assets/icons/users.svg";
 import File from "../assets/icons/file.svg";
 import FileApprv from "../assets/icons/approve.svg";
+import Profile from "../assets/icons/profile.svg";
 
 const SIDEBAR_CONFIGS = {
     user: {
@@ -25,6 +26,12 @@ const SIDEBAR_CONFIGS = {
                     "/user/request-form",
                     "/user/detail-request",
                 ],
+            },
+            {
+                path: "/user/profile",
+                icon: Profile,
+                label: "Profile",
+                class: "primary",
             },
         ],
     },
@@ -53,6 +60,12 @@ const SIDEBAR_CONFIGS = {
                 path: "/user-lead/approve-user-lead",
                 icon: FileApprv,
                 label: "Approval",
+                class: "primary",
+            },
+            {
+                path: "/user-lead/profile",
+                icon: Profile,
+                label: "Profile",
                 class: "primary",
             },
         ],
@@ -95,6 +108,12 @@ const SIDEBAR_CONFIGS = {
                 label: "Report",
                 class: "secondary",
             },
+            {
+                path: "/admin/profile",
+                icon: Profile,
+                label: "Profile",
+                class: "primary",
+            },
         ],
     },
 
@@ -129,6 +148,12 @@ const SIDEBAR_CONFIGS = {
                 icon: File,
                 label: "Report",
                 class: "secondary",
+            },
+            {
+                path: "/pc-lead/profile",
+                icon: Profile,
+                label: "Profile",
+                class: "primary",
             },
         ],
     },

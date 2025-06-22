@@ -32,8 +32,8 @@ const PasswordField = ({
     </div>
 );
 
-const SelectField = ({ name, value, onChange, options }) => (
-    <select name={name} value={value} onChange={onChange} required>
+const SelectField = ({ name, value, onChange, options, onBack }) => (
+    <select name={name} value={value} onChange={onChange} required disabled={onBack === null}>
         {options.map((option) => (
             <option key={option.value} value={option.value}>
                 {option.label}
@@ -100,6 +100,7 @@ export const UserForm = ({
                             onChange={onChange}
                             options={DEPARTMENTS}
                             required
+                            onBack={onBack}
                         />
                     </FormField>
 
@@ -127,6 +128,7 @@ export const UserForm = ({
                             onChange={onChange}
                             options={ROLES}
                             required
+                            onBack={onBack}
                         />
                     </FormField>
 
@@ -158,13 +160,13 @@ export const UserForm = ({
                     </FormField>
 
                     <div className="button-group-user-form-admin">
-                        <button
+                        { onBack !== null && <button
                             type="button"
                             className="back-btn-user-form-admin"
                             onClick={onBack}
                         >
                             Back
-                        </button>
+                        </button>}
                         <button
                             type="submit"
                             className={`${submitButtonText.toLowerCase()}-btn-user-form-admin`}

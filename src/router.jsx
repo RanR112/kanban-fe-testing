@@ -13,6 +13,7 @@ import ApprovalReqKanban from "./views/ApprovalReqKanban";
 import Report from "./views/Report";
 import SignUp from "./views/Auth/Signup";
 import ForgotPassword from "./views/Auth/ForgotPassword";
+import Profile from "./views/Users/Profile";
 
 const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
                 path: "detail-request",
                 element: <DetailReqKanban />,
             },
+            {
+                path: "profile",
+                element: <Profile />
+            }
         ],
     },
     {
@@ -105,6 +110,10 @@ const router = createBrowserRouter([
                 path: "detailreq-user-lead",
                 element: <DetailReqKanban />,
             },
+            {
+                path: "profile",
+                element: <Profile />
+            }
         ],
     },
     {
@@ -153,6 +162,10 @@ const router = createBrowserRouter([
                 path: "report-admin",
                 element: <Report />,
             },
+            {
+                path: "profile",
+                element: <Profile />
+            }
         ],
     },
     {
@@ -196,6 +209,10 @@ const router = createBrowserRouter([
                 path: "report-pc-lead",
                 element: <Report />,
             },
+            {
+                path: "profile",
+                element: <Profile />
+            }
         ],
     },
 ]);

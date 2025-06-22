@@ -543,21 +543,3 @@
         transform: rotate(360deg);
     }
 }
-
-// Print styles
-@media print {
-    .kanban-request-table {
-        width: 100%;
-        padding: 0;
-
-        .table-header .create-button,
-        .search-container,
-        .pagination {
-            display: none;
-        }
-
-        .table-container {
-            box-shadow: none;
-        }
-    }
-}

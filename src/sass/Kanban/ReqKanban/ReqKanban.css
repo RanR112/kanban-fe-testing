@@ -390,18 +390,4 @@
   100% {
     transform: rotate(360deg);
   }
-}
-@media print {
-  .kanban-request-table {
-    width: 100%;
-    padding: 0;
-  }
-  .kanban-request-table .table-header .create-button,
-  .kanban-request-table .search-container,
-  .kanban-request-table .pagination {
-    display: none;
-  }
-  .kanban-request-table .table-container {
-    box-shadow: none;
-  }
 }/*# sourceMappingURL=ReqKanban.css.map */
