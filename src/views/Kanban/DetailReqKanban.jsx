@@ -148,7 +148,7 @@ export default function DetailReqKanban() {
                 </div>
 
                 <div className="request-name-detail">
-                    <label>Requesting Name</label>
+                    <label>Requester Name</label>
                     <input type="text" value={kanban.nama_requester} readOnly />
                 </div>
 

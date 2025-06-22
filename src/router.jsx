@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import Login from "../src/views/Login";
+import Login from "./views/Auth/Login";
 import ReqKanban from "./views/Kanban/ReqKanban";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ReqForm from "./views/Kanban/ReqForm";
@@ -11,6 +11,8 @@ import Home from "./views/Home";
 import DetailReqKanban from "./views/Kanban/DetailReqKanban";
 import ApprovalReqKanban from "./views/ApprovalReqKanban";
 import Report from "./views/Report";
+import SignUp from "./views/Auth/Signup";
+import ForgotPassword from "./views/Auth/ForgotPassword";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login />, // Route untuk login
+    },
+    {
+        path: "/signup",
+        element: <SignUp />, // Route untuk login
+    },
+    {
+        path: "/forgot-password",
+        element: <ForgotPassword />, // Route untuk login
     },
     {
         path: "/user", // Semua route dengan layout

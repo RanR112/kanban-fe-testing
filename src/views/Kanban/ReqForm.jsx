@@ -3,6 +3,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import API from "../../service/api";
 import { DEPARTMENT_MAP } from "../../utils/constants";
 import "../../sass/Kanban/ReqForm/ReqForm.css";
+import { LoaderButton } from "../../components/LoaderButton";
 
 export default function ReqForm() {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function ReqForm() {
         keterangan: "",
     });
     const [process, setProcess] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const fetchProcess = async () => {
         try {
@@ -33,7 +35,6 @@ export default function ReqForm() {
     fetchProcess();
 
     const { handleShowAlertFormReq } = useOutletContext();
-
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -52,6 +53,7 @@ export default function ReqForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         const tanggal = new Date(formData.tgl_produksi).toISOString();
         const dataToSend = {
@@ -75,7 +77,11 @@ export default function ReqForm() {
 
             // Tampilkan alert sukses
             handleShowAlertFormReq(true);
-        } catch (error) {error}
+        } catch (error) {
+            error;
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -89,6 +95,7 @@ export default function ReqForm() {
                             type="date"
                             name="tgl_produksi"
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="parts-number">
@@ -97,14 +104,16 @@ export default function ReqForm() {
                             type="text"
                             name="parts_number"
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="request-name">
-                        <label>Requesting Name</label>
+                        <label>Requester Name</label>
                         <input
                             type="text"
                             name="nama_requester"
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="classification">
@@ -119,6 +128,7 @@ export default function ReqForm() {
                                     onChange={handleChange}
                                     ref={inputRef}
                                     className="classification-input"
+                                    required
                                     onBlur={() => {
                                         // Jika user mengosongkan field "lainnya", kembali ke select
                                         if (!formData.customClassification) {
@@ -158,12 +168,12 @@ export default function ReqForm() {
                             <select
                                 name="klasifikasi"
                                 value={formData.klasifikasi}
+                                required
                                 onChange={(e) => {
                                     const value = e.target.value;
                                     setFormData((prev) => ({
                                         ...prev,
                                         klasifikasi: value,
-                                        // Kosongkan custom jika pindah dari "Lainnya"
                                         ...(value !== "Lainnya" && {
                                             customClassification: "",
                                         }),
@@ -192,7 +202,7 @@ export default function ReqForm() {
 
                     <div className="box">
                         <label>Box</label>
-                        <input type="text" name="box" onChange={handleChange} />
+                        <input type="text" name="box" onChange={handleChange} required />
                     </div>
                     <div className="process">
                         <label>Process</label>
@@ -209,6 +219,7 @@ export default function ReqForm() {
                             type="text"
                             name="lokasi"
                             onChange={handleChange}
+                            required
                         />
                     </div>
                     <div className="information">
@@ -217,6 +228,7 @@ export default function ReqForm() {
                             typeof="text"
                             name="keterangan"
                             onChange={handleChange}
+                            required
                         ></textarea>
                     </div>
                 </div>
@@ -228,8 +240,12 @@ export default function ReqForm() {
                     >
                         Back
                     </button>
-                    <button type="submit" className="submit-btn">
-                        Submit
+                    <button
+                        type="submit"
+                        className="submit-btn"
+                        disabled={loading}
+                    >
+                        {loading ? <LoaderButton /> : "Submit"}
                     </button>
                 </div>
             </form>

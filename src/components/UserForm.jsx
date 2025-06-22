@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Builder from "../assets/images/builder1.svg";
 import { DEPARTMENTS, ROLES } from "../utils/constants";
-import '../sass/Users/UserForm/UserForm.css'
+import "../sass/Users/UserForm/UserForm.css";
+import { LoaderButton } from "./LoaderButton";
 
 const FormField = ({ label, children }) => (
-    <div className='form-group-user-form-admin'>
+    <div className="form-group-user-form-admin">
         <label>{label}</label>
         {children}
     </div>
@@ -18,7 +19,7 @@ const PasswordField = ({
     showPassword,
     onToggleVisibility,
 }) => (
-    <div className='input-with-icon-user-form-admin'>
+    <div className="input-with-icon-user-form-admin">
         <input
             type={showPassword ? "text" : "password"}
             name={name}
@@ -32,7 +33,7 @@ const PasswordField = ({
 );
 
 const SelectField = ({ name, value, onChange, options }) => (
-    <select name={name} value={value} onChange={onChange}>
+    <select name={name} value={value} onChange={onChange} required>
         {options.map((option) => (
             <option key={option.value} value={option.value}>
                 {option.label}
@@ -52,9 +53,10 @@ export const UserForm = ({
     onTogglePassword,
     submitButtonText = "Save",
     isEdit = false,
+    loading = false,
 }) => {
     return (
-        <div className='user-form-admin'>
+        <div className="user-form-admin">
             <h2>
                 <strong>{title}</strong>
             </h2>
@@ -62,58 +64,48 @@ export const UserForm = ({
                 className={`form-container-user-form-admin`}
                 onSubmit={onSubmit}
             >
-                <div
-                    className={`left-section-user-form-admin`}
-                >
+                <div className={`left-section-user-form-admin`}>
                     <img
                         src={Builder}
                         alt="User Default"
-                        className='user-image-user-form-admin'
+                        className="user-image-user-form-admin"
                     />
                 </div>
 
-                <div
-                    className='right-section-user-form-admin'
-                >
-                    <FormField
-                        label="Full Name"
-                        className='user-form-admin'
-                    >
+                <div className="right-section-user-form-admin">
+                    <FormField label="Full Name" className="user-form-admin">
                         <input
                             type="text"
                             name="name"
                             value={formData.name}
                             onChange={onChange}
+                            required
                         />
                     </FormField>
 
-                    <FormField
-                        label="Phone Number"
-                        className='user-form-admin'
-                    >
+                    <FormField label="Phone Number" className="user-form-admin">
                         <input
                             type="text"
                             name="no_hp"
                             value={formData.no_hp}
                             onChange={onChange}
+                            required
                         />
                     </FormField>
 
-                    <FormField
-                        label="Department"
-                        className='user-form-admin'
-                    >
+                    <FormField label="Department" className="user-form-admin">
                         <SelectField
                             name="id_department"
                             value={formData.id_department}
                             onChange={onChange}
                             options={DEPARTMENTS}
+                            required
                         />
                     </FormField>
 
                     <FormField
                         label={isEdit ? "Change Password" : "Password"}
-                        className='user-form-admin'
+                        className="user-form-admin"
                     >
                         <PasswordField
                             name="password"
@@ -123,25 +115,24 @@ export const UserForm = ({
                             onToggleVisibility={() =>
                                 onTogglePassword("password")
                             }
-                            className='user-form-admin'
+                            className="user-form-admin"
+                            required
                         />
                     </FormField>
 
-                    <FormField
-                        label="Role"
-                        className='user-form-admin'
-                    >
+                    <FormField label="Role" className="user-form-admin">
                         <SelectField
                             name="role"
                             value={formData.role}
                             onChange={onChange}
                             options={ROLES}
+                            required
                         />
                     </FormField>
 
                     <FormField
                         label="Confirm Password"
-                        className='user-form-admin'
+                        className="user-form-admin"
                     >
                         <PasswordField
                             name="confirmPassword"
@@ -151,28 +142,25 @@ export const UserForm = ({
                             onToggleVisibility={() =>
                                 onTogglePassword("confirmPassword")
                             }
-                            className='user-form-admin'
+                            className="user-form-admin"
+                            required
                         />
                     </FormField>
 
-                    <FormField
-                        label="Email"
-                        className='user-form-admin'
-                    >
+                    <FormField label="Email" className="user-form-admin">
                         <input
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={onChange}
+                            required
                         />
                     </FormField>
 
-                    <div
-                        className='button-group-user-form-admin'
-                    >
+                    <div className="button-group-user-form-admin">
                         <button
                             type="button"
-                            className='back-btn-user-form-admin'
+                            className="back-btn-user-form-admin"
                             onClick={onBack}
                         >
                             Back
@@ -180,8 +168,9 @@ export const UserForm = ({
                         <button
                             type="submit"
                             className={`${submitButtonText.toLowerCase()}-btn-user-form-admin`}
+                            disabled={loading}
                         >
-                            {submitButtonText}
+                            {loading ? <LoaderButton /> : submitButtonText}
                         </button>
                     </div>
                 </div>

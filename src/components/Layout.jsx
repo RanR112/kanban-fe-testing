@@ -25,6 +25,12 @@ const Layout = ({ layoutType }) => {
         );
     };
 
+    const closeSidebar = () => {
+        if (isSidebarOpen === true) {
+            setIsSidebarOpen(false)
+        }
+    }
+
     // Generate content for special cases
     const getContentForAlert = (alertType, alertConfig) => {
         if (layoutType === "admin" && alertType === "confirmDelete") {
@@ -55,7 +61,7 @@ const Layout = ({ layoutType }) => {
                     isSidebarOpen={isSidebarOpen}
                     toggleSidebar={toggleSidebar}
                 />
-                <div className="page-container">
+                <div className="page-container" onClick={closeSidebar}>
                     <Outlet context={handlers} />
                 </div>
             </div>

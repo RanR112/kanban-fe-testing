@@ -156,6 +156,43 @@
   outline: none;
   border-color: rgba(0, 102, 175, 0.5);
 }
+.req-form-container form .form-grid .alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;
+}
+.req-form-container form .alert {
+  background-color: #fef3f2;
+  color: red;
+  font-size: 15px;
+  padding: 3px 8px;
+  margin-top: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 50px;
+  text-align: center;
+  pointer-events: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: opacity 0.5s ease-in-out;
+}
+.req-form-container form .alert.error {
+  border: 1px solid #f44336;
+}
+.req-form-container form .alert.fade-out {
+  opacity: 0;
+}
 .req-form-container form .form-buttons {
   display: flex;
   justify-content: flex-end;

@@ -129,6 +129,7 @@ const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
                                           isActive ? " active" : ""
                                       }`
                         }
+                        onClick={toggleSidebar}
                     >
                         <img src={item.icon} alt="" className="img-nav" />
                         <span>{item.label}</span>

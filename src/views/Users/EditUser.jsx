@@ -11,9 +11,11 @@ export default function EditUsers() {
 
     const {
         formData,
-        setFormData,
         showPassword,
         showConfirmPassword,
+        loading,
+        setLoading,
+        setFormData,
         handleChange,
         togglePasswordVisibility,
         validateForm,
@@ -49,12 +51,16 @@ export default function EditUsers() {
         const filteredData = prepareDataForSubmit(true);
 
         try {
+            setLoading(true);
             const userId = localStorage.getItem("id_users");
             await API.put(`/user/${userId}`, filteredData);
             navigate("/admin/users");
         } catch (err) {
+            setLoading(false);
             alert("Gagal memperbarui user!");
             console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -75,6 +81,7 @@ export default function EditUsers() {
             onTogglePassword={togglePasswordVisibility}
             submitButtonText="Update"
             isEdit={true}
+            loading={loading}
         />
     );
 }

@@ -36,9 +36,9 @@ export default function Users() {
             setData(res.data);
             setTotalPages(res.totalPages);
         } catch (error) {
-            alert("Gagal memuat data user!", error);
+            console.log(error);
         } finally {
-          setLoading(false)
+            setLoading(false);
         }
     };
 
@@ -111,7 +111,11 @@ export default function Users() {
                     <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan="7" className="empty-row" style={{ height: '100px' }}>
+                                <td
+                                    colSpan="7"
+                                    className="empty-row"
+                                    style={{ height: "100px" }}
+                                >
                                     <LoaderTable />
                                 </td>
                             </tr>

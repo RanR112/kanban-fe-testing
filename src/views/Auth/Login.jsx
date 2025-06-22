@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "../sass/Login/Login.css";
-import Logo from "../assets/images/logo.svg";
-import { useNavigate } from "react-router-dom";
+import "../../sass/Login/Login.css";
+import Logo from "../../assets/images/logo.svg";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import API from "../service/api";
-import { LoaderButton } from "../components/LoaderButton";
+import API from "../../service/api";
+import { LoaderButton } from "../../components/LoaderButton";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -67,8 +67,7 @@ export default function Login() {
             setAlert({
                 type: "error",
                 message:
-                    error.response?.data?.message ||
-                    "Email atau Password Salah.",
+                    error.response?.data?.message || "Internal Server Error",
             });
         } finally {
             setIsLoading(false); // Matikan loader setelah selesai
@@ -136,6 +135,9 @@ export default function Login() {
                                 )}
                             </span>
                         </div>
+                        <NavLink to="/forgot-password">
+                            <p>Forgot Password?</p>
+                        </NavLink>
                     </div>
                 </div>
 
@@ -146,6 +148,13 @@ export default function Login() {
                 >
                     {isLoading ? <LoaderButton /> : "Sign In"}
                 </button>
+
+                <p className="auth-text">
+                    Don't have account?{" "}
+                    <NavLink to="/signup">
+                        <span>Sign Up</span>
+                    </NavLink>
+                </p>
 
                 {alert && (
                     <div className="alert-overlay">

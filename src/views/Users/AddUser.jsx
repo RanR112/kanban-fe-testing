@@ -12,10 +12,12 @@ export default function AddUsers() {
         formData,
         showPassword,
         showConfirmPassword,
+        loading,
         handleChange,
         togglePasswordVisibility,
         validateForm,
         prepareDataForSubmit,
+        setLoading,
     } = useUserForm();
 
     const handleSubmit = async (e) => {
@@ -28,11 +30,15 @@ export default function AddUsers() {
         const dataToSend = prepareDataForSubmit();
 
         try {
+            setLoading(true);
             await API.post("/user", dataToSend);
             navigate("/admin/users");
         } catch (error) {
+            setLoading(false);
             alert("Gagal menambahkan user!");
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -47,6 +53,7 @@ export default function AddUsers() {
             showConfirmPassword={showConfirmPassword}
             onTogglePassword={togglePasswordVisibility}
             submitButtonText="Save"
+            loading={loading}
         />
     );
 }
