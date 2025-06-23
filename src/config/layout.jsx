@@ -34,7 +34,6 @@ const LAYOUT_CONFIGS = {
             updateSuccess: {
                 icon: successIcon,
                 title: "Profile Successfully Updated",
-                content: "Your profile has been updated successfully.",
                 className: "success-update",
             },
         },

@@ -20,11 +20,11 @@
   background: #fff;
   padding: 10px 25px;
   width: 400px;
-  height: 268px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-align: left;
-  animation: fadeIn 0.3s ease-in-out;
+  -webkit-animation: fadeIn 0.3s ease-in-out;
+          animation: fadeIn 0.3s ease-in-out;
 }
 
 .alert-icon-confirm-update {
@@ -108,7 +108,8 @@
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
   font-family: "Poppins", sans-serif;
-  animation: fadeIn 0.3s ease-in-out;
+  -webkit-animation: fadeIn 0.3s ease-in-out;
+          animation: fadeIn 0.3s ease-in-out;
 }
 
 .alert-icon-success-update {
@@ -156,6 +157,17 @@
   color: white;
 }
 
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -164,6 +176,16 @@
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
   }
 }
 @keyframes fadeOut {
@@ -175,4 +197,5 @@
     opacity: 0;
     transform: scale(0.9);
   }
-}/*# sourceMappingURL=AlertEditUsers.css.map */
+}
+/*# sourceMappingURL=AlertEditUsers.css.map */
