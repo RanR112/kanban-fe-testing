@@ -7,7 +7,10 @@ import API from "../../service/api";
 export default function Profile() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { showConfirmUpdate } = useOutletContext();
+    const context = useOutletContext();
+    
+    // Ambil showConfirmUpdate dari context jika tersedia
+    const { showConfirmUpdate } = context || {};
 
     const {
         formData,
@@ -26,7 +29,7 @@ export default function Profile() {
         const fetchUser = async () => {
             try {
                 const userStorage = JSON.parse(localStorage.getItem("user"));
-                const userId = userStorage.id_users
+                const userId = userStorage.id_users;
                 const response = await API.get(`/user/me/${userId}`);
                 const userData = response.data.data;
 
@@ -53,12 +56,25 @@ export default function Profile() {
 
         try {
             setLoading(true);
-            const userId = localStorage.getItem("id_users");
+            const userStorage = JSON.parse(localStorage.getItem("user"));
+            const userId = userStorage.id_users;
             await API.put(`/user/me/${userId}`, filteredData);
-            navigate("/admin/users");
+            
+            // Redirect berdasarkan role atau gunakan fallback
+            const userRole = userStorage.role;
+            if (userRole === 'admin') {
+                navigate("/admin/users");
+            } else if (userRole === 'user-lead') {
+                navigate("/user-lead/approve-user-lead");
+            } else if (userRole === 'pc-lead') {
+                navigate("/pc-lead/approve-pc-lead");
+            } else {
+                navigate("/user/request-kanban");
+            }
+            
         } catch (err) {
             setLoading(false);
-            alert("Gagal memperbarui user!");
+            alert("Gagal memperbarui profil!");
             console.error(err);
         } finally {
             setLoading(false);
@@ -67,7 +83,17 @@ export default function Profile() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        showConfirmUpdate(() => handleUpdate());
+        
+        // Cek apakah showConfirmUpdate tersedia dan valid
+        if (showConfirmUpdate && typeof showConfirmUpdate === 'function') {
+            // Gunakan alert konfirmasi dari layout
+            showConfirmUpdate(handleUpdate);
+        } else {
+            // Fallback: gunakan browser confirm
+            if (window.confirm("Apakah Anda yakin ingin mengupdate profil ini?")) {
+                handleUpdate();
+            }
+        }
     };
 
     return (

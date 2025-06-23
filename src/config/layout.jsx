@@ -24,11 +24,39 @@ const LAYOUT_CONFIGS = {
                 ),
                 className: "formreq",
             },
+            // TAMBAHAN: Alert untuk profile update
+            confirmUpdate: {
+                icon: changeIcon,
+                title: "Update Profile",
+                content: "Do you want to save changes to your profile?",
+                className: "confirm-update",
+            },
+            updateSuccess: {
+                icon: successIcon,
+                title: "Profile Successfully Updated",
+                content: "Your profile has been updated successfully.",
+                className: "success-update",
+            },
         },
-        handlers: (showAlert, closeAlert) => ({
-            handleShowAlertFormReq: () => showAlert("formReq"),
-            handleCloseAlertFormReq: () => closeAlert("formReq"),
-        }),
+        handlers: (showAlert, closeAlert, alerts) => {
+            // TAMBAHAN: Handler untuk profile update
+            const handleConfirmUpdate = () => {
+                const onConfirm = alerts.confirmUpdate?.onConfirm;
+                closeAlert("confirmUpdate", 0);
+                showAlert("updateSuccess");
+                if (onConfirm) onConfirm();
+            };
+
+            return {
+                handleShowAlertFormReq: () => showAlert("formReq"),
+                handleCloseAlertFormReq: () => closeAlert("formReq"),
+                // TAMBAHAN: Handler untuk profile update
+                showConfirmUpdate: (onConfirm) =>
+                    showAlert("confirmUpdate", { onConfirm }),
+                handleConfirmUpdate,
+                handleCloseUpdateSuccess: () => closeAlert("updateSuccess"),
+            };
+        },
     },
 
     userLead: {
@@ -76,12 +104,33 @@ const LAYOUT_CONFIGS = {
                 ),
                 className: "userlead-successreject",
             },
+            // TAMBAHAN: Alert untuk profile update di userLead
+            confirmUpdate: {
+                icon: changeIcon,
+                title: "Update Profile",
+                content: "Do you want to save changes to your profile?",
+                className: "confirm-update",
+            },
+            updateSuccess: {
+                icon: successIcon,
+                title: "Profile Successfully Updated",
+                content: "Your profile has been updated successfully.",
+                className: "success-update",
+            },
         },
         handlers: (showAlert, closeAlert, alerts) => {
             const handleConfirm = () => {
                 const onConfirm = alerts.confirmReject?.onConfirm;
                 closeAlert("confirmReject", 0);
                 showAlert("rejectSuccess");
+                if (onConfirm) onConfirm();
+            };
+
+            // TAMBAHAN: Handler untuk profile update
+            const handleConfirmUpdate = () => {
+                const onConfirm = alerts.confirmUpdate?.onConfirm;
+                closeAlert("confirmUpdate", 0);
+                showAlert("updateSuccess");
                 if (onConfirm) onConfirm();
             };
 
@@ -92,6 +141,11 @@ const LAYOUT_CONFIGS = {
                 handleConfirm,
                 handleCancel: () => closeAlert("confirmReject"),
                 handleCloseSuccess: () => closeAlert("rejectSuccess"),
+                // TAMBAHAN: Handler untuk profile update
+                showConfirmUpdate: (onConfirm) =>
+                    showAlert("confirmUpdate", { onConfirm }),
+                handleConfirmUpdate,
+                handleCloseUpdateSuccess: () => closeAlert("updateSuccess"),
             };
         },
     },
@@ -199,6 +253,19 @@ const LAYOUT_CONFIGS = {
                 ),
                 className: "pclead-successreject",
             },
+            // TAMBAHAN: Alert untuk profile update di pcLead
+            confirmUpdate: {
+                icon: changeIcon,
+                title: "Update Profile",
+                content: "Do you want to save changes to your profile?",
+                className: "confirm-update",
+            },
+            updateSuccess: {
+                icon: successIcon,
+                title: "Profile Successfully Updated",
+                content: "Your profile has been updated successfully.",
+                className: "success-update",
+            },
         },
         handlers: (showAlert, closeAlert, alerts) => {
             const handleConfirmPCLead = () => {
@@ -208,14 +275,27 @@ const LAYOUT_CONFIGS = {
                 if (onConfirm) onConfirm();
             };
 
+            // TAMBAHAN: Handler untuk profile update
+            const handleConfirmUpdate = () => {
+                const onConfirm = alerts.confirmUpdate?.onConfirm;
+                closeAlert("confirmUpdate", 0);
+                showAlert("updateSuccess");
+                if (onConfirm) onConfirm();
+            };
+
             return {
                 handleShowAlertPCLeadApprove: () => showAlert("approve"),
                 showConfirmRejectPCLead: (onConfirm) =>
                     showAlert("confirmReject", { onConfirm }),
                 handleConfirmPCLead,
+                // TAMBAHAN: Handler untuk profile update
+                showConfirmUpdate: (onConfirm) =>
+                    showAlert("confirmUpdate", { onConfirm }),
+                handleConfirmUpdate,
+                handleCloseUpdateSuccess: () => closeAlert("updateSuccess"),
             };
         },
     },
 };
 
-export default LAYOUT_CONFIGS
+export default LAYOUT_CONFIGS;

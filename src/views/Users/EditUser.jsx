@@ -54,7 +54,7 @@ export default function EditUsers() {
             setLoading(true);
             const userId = localStorage.getItem("id_users");
             await API.put(`/user/${userId}`, filteredData);
-            navigate("/admin/users");
+            // navigate("/admin/users");
         } catch (err) {
             setLoading(false);
             alert("Gagal memperbarui user!");

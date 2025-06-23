@@ -12,6 +12,27 @@ export const alertButton = {
                 action: "handleCloseAlertFormReq",
             },
         ],
+        confirmUpdate: [
+            {
+                label: "Cancel",
+                variant: "cancel-confirm-update",
+                action: "closeAlert",
+                params: ["confirmUpdate"],
+            },
+            {
+                label: "Save updates",
+                variant: "confirm-confirm-update",
+                action: "handleConfirmUpdate",
+            },
+        ],
+        updateSuccess: [
+            {
+                label: "Ok",
+                variant: "cancel-success-update",
+                action: "closeAlert",
+                params: ["updateSuccess"],
+            },
+        ],
     },
 
     userLead: {
@@ -46,6 +67,27 @@ export const alertButton = {
                 label: "Confirm",
                 variant: "cancel-userlead-successreject",
                 action: "handleCloseSuccess",
+            },
+        ],
+        confirmUpdate: [
+            {
+                label: "Cancel",
+                variant: "cancel-confirm-update",
+                action: "closeAlert",
+                params: ["confirmUpdate"],
+            },
+            {
+                label: "Save updates",
+                variant: "confirm-confirm-update",
+                action: "handleConfirmUpdate",
+            },
+        ],
+        updateSuccess: [
+            {
+                label: "Ok",
+                variant: "cancel-success-update",
+                action: "closeAlert",
+                params: ["updateSuccess"],
             },
         ],
     },
@@ -143,6 +185,27 @@ export const alertButton = {
                 variant: "cancel-pclead-successreject",
                 action: "closeAlert",
                 params: ["rejectSuccess"],
+            },
+        ],
+        confirmUpdate: [
+            {
+                label: "Cancel",
+                variant: "cancel-confirm-update",
+                action: "closeAlert",
+                params: ["confirmUpdate"],
+            },
+            {
+                label: "Save updates",
+                variant: "confirm-confirm-update",
+                action: "handleConfirmUpdate",
+            },
+        ],
+        updateSuccess: [
+            {
+                label: "Ok",
+                variant: "cancel-success-update",
+                action: "closeAlert",
+                params: ["updateSuccess"],
             },
         ],
     },
