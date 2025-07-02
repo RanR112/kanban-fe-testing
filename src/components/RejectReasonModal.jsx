@@ -1,5 +1,5 @@
 import React from "react";
-import "../sass/Components/RejectReasonModal/RejectReasonModal.css";
+import "../sass/components/RejectReasonModal/RejectReasonModal.css";
 
 export default function RejectReasonModal({
     isOpen,
