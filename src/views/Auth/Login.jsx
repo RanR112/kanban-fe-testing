@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { LoaderButton } from "../../components/LoaderButton";
 import { useAuth } from "../../contexts/AuthContext";
+import { LoaderTable } from "../../components/LoaderTable";
 
 export default function Login() {
     const { login, user, loading: authLoading } = useAuth();
@@ -151,7 +152,7 @@ export default function Login() {
                 <div className="login-card">
                     <img src={Logo} alt="Logo" className="logo" />
                     <div style={{ textAlign: "center", padding: "20px" }}>
-                        <LoaderButton />
+                        <LoaderTable />
                         <p>Checking authentication...</p>
                     </div>
                 </div>
