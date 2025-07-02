@@ -1,5 +1,5 @@
 import React from "react";
-import "../sass/Components/RegistrationDetailModal/RegistrationDetailModal.css";
+import "../sass/components/RegistrationDetailModal/RegistrationDetailModal.css";
 import { DEPARTMENT_MAP } from "../utils/constants";
 
 const RegistrationDetailModal = ({ isOpen, registration, onClose }) => {
