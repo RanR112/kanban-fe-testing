@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Login from "./views/Auth/Login";
 import ReqKanban from "./views/Kanban/ReqKanban";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute, { AdminRoute } from "./components/ProtectedRoute";
 import ReqForm from "./views/Kanban/ReqForm";
 import Users from "./views/Users/Users";
 import AddUser from "./views/Users/AddUser";
@@ -14,26 +14,34 @@ import Report from "./views/Report";
 import SignUp from "./views/Auth/Signup";
 import ForgotPassword from "./views/Auth/ForgotPassword";
 import Profile from "./views/Users/Profile";
+import VerifyRegistrationEmail from "./views/Auth/VerifyRegistrationEmail";
+import AuditLog from "./views/AuditLog";
+import Registration from "./views/Registration";
+import AuditLogDetail from "./views/AuditLogDetail";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Navigate to="/login" replace />, // Route untuk login
+        element: <Navigate to="/login" replace />,
     },
     {
         path: "/login",
-        element: <Login />, // Route untuk login
+        element: <Login />,
     },
     {
         path: "/signup",
-        element: <SignUp />, // Route untuk login
+        element: <SignUp />,
     },
     {
         path: "/forgot-password",
-        element: <ForgotPassword />, // Route untuk login
+        element: <ForgotPassword />,
     },
     {
-        path: "/user", // Semua route dengan layout
+        path: "/verify-registration-email",
+        element: <VerifyRegistrationEmail />,
+    },
+    {
+        path: "/user",
         element: (
             <ProtectedRoute>
                 <Layout layoutType="user" />
@@ -41,7 +49,7 @@ const router = createBrowserRouter([
         ),
         children: [
             {
-                index: true, // Default route saat buka "/"
+                index: true,
                 element: <Home />,
             },
             {
@@ -53,8 +61,8 @@ const router = createBrowserRouter([
                 element: (
                     <ReqKanban
                         userType="user"
-                        title="REQUEST KANBAN"
-                        apiEndpoint="/kanban/all"
+                        dataSource="mine"
+                        title="MY KANBAN REQUESTS"
                         showCreateButton={true}
                     />
                 ),
@@ -64,17 +72,17 @@ const router = createBrowserRouter([
                 element: <ReqForm />,
             },
             {
-                path: "detail-request",
+                path: "detail-request/:id",
                 element: <DetailReqKanban />,
             },
             {
                 path: "profile",
-                element: <Profile />
-            }
+                element: <Profile />,
+            },
         ],
     },
     {
-        path: "/user-lead", // Semua route dengan layout
+        path: "/user-lead",
         element: (
             <ProtectedRoute>
                 <Layout layoutType="userLead" />
@@ -82,7 +90,7 @@ const router = createBrowserRouter([
         ),
         children: [
             {
-                index: true, // Default route saat buka "/"
+                index: true,
                 element: <Home />,
             },
             {
@@ -94,8 +102,8 @@ const router = createBrowserRouter([
                 element: (
                     <ReqKanban
                         userType="user-lead"
-                        title="REQUEST KANBAN"
-                        apiEndpoint="/kanban/pending"
+                        dataSource="pending"
+                        title="PENDING APPROVAL REQUESTS"
                         showApproveReject={true}
                     />
                 ),
@@ -103,21 +111,25 @@ const router = createBrowserRouter([
             {
                 path: "approve-user-lead",
                 element: (
-                    <ApprovalReqKanban navigationPath="/user-lead/detailreq-user-lead" />
+                    <ApprovalReqKanban
+                        navigationPath="/user-lead/detailreq-user-lead"
+                        dataSource="approved"
+                        title="APPROVED REQUESTS"
+                    />
                 ),
             },
             {
-                path: "detailreq-user-lead",
+                path: "detailreq-user-lead/:id",
                 element: <DetailReqKanban />,
             },
             {
                 path: "profile",
-                element: <Profile />
-            }
+                element: <Profile />,
+            },
         ],
     },
     {
-        path: "/admin", // Semua route dengan layout
+        path: "/admin",
         element: (
             <ProtectedRoute>
                 <Layout layoutType="admin" />
@@ -125,7 +137,7 @@ const router = createBrowserRouter([
         ),
         children: [
             {
-                index: true, // Default route saat buka "/"
+                index: true,
                 element: <Home />,
             },
             {
@@ -137,26 +149,59 @@ const router = createBrowserRouter([
                 element: (
                     <ReqKanban
                         userType="admin"
-                        title="KANBAN REQUEST"
-                        apiEndpoint="/kanban/all"
+                        dataSource="all"
+                        title="ALL KANBAN REQUESTS"
+                        showApproveReject={false}
                     />
                 ),
             },
             {
-                path: "detail-kanbanreq",
+                path: "detail-kanbanreq/:id",
                 element: <DetailReqKanban />,
             },
             {
                 path: "users",
-                element: <Users />,
+                element: (
+                    <AdminRoute>
+                        <Users />
+                    </AdminRoute>
+                ),
             },
             {
                 path: "add-users",
-                element: <AddUser />,
+                element: (
+                    <AdminRoute>
+                        <AddUser />
+                    </AdminRoute>
+                ),
             },
             {
-                path: "edit-users",
-                element: <EditUser />,
+                path: "edit-users/:id", // Added ID parameter for edit
+                element: (
+                    <AdminRoute>
+                        <EditUser />
+                    </AdminRoute>
+                ),
+            },
+            {
+                path: "audit-log",
+                element: (
+                    <AdminRoute>
+                        <AuditLog />
+                    </AdminRoute>
+                ),
+            },
+            {
+                path: "audit-log-detail/:id",
+                element: (
+                    <AdminRoute>
+                        <AuditLogDetail />
+                    </AdminRoute>
+                ),
+            },
+            {
+                path: "registration",
+                element: <Registration />,
             },
             {
                 path: "report-admin",
@@ -164,12 +209,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "profile",
-                element: <Profile />
-            }
+                element: <Profile />,
+            },
         ],
     },
     {
-        path: "/pc-lead", // Semua route dengan layout
+        path: "/pc-lead",
         element: (
             <ProtectedRoute>
                 <Layout layoutType="pcLead" />
@@ -177,7 +222,7 @@ const router = createBrowserRouter([
         ),
         children: [
             {
-                index: true, // Default route saat buka "/"
+                index: true,
                 element: <Home />,
             },
             {
@@ -189,20 +234,24 @@ const router = createBrowserRouter([
                 element: (
                     <ReqKanban
                         userType="pc-lead"
-                        title="REQUEST KANBAN"
-                        apiEndpoint="/kanban/pending"
+                        dataSource="incoming"
+                        title="INCOMING PC REQUESTS"
                         showApproveReject={true}
                     />
                 ),
             },
             {
-                path: "detailreq-pc-lead",
+                path: "detailreq-pc-lead/:id",
                 element: <DetailReqKanban />,
             },
             {
                 path: "approve-pc-lead",
                 element: (
-                    <ApprovalReqKanban navigationPath="/pc-lead/detailreq-pc-lead" />
+                    <ApprovalReqKanban
+                        navigationPath="/pc-lead/detailreq-pc-lead"
+                        dataSource="done"
+                        title="PC APPROVED REQUESTS"
+                    />
                 ),
             },
             {
@@ -211,9 +260,14 @@ const router = createBrowserRouter([
             },
             {
                 path: "profile",
-                element: <Profile />
-            }
+                element: <Profile />,
+            },
         ],
+    },
+    // Catch-all route for 404
+    {
+        path: "*",
+        element: <Navigate to="/login" replace />,
     },
 ]);
 

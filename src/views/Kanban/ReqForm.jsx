@@ -1,12 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import API from "../../service/api";
 import { DEPARTMENT_MAP } from "../../utils/constants";
 import "../../sass/Kanban/ReqForm/ReqForm.css";
 import { LoaderButton } from "../../components/LoaderButton";
+import { useKanban } from "../../contexts/KanbanContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function ReqForm() {
     const navigate = useNavigate();
+    const { user } = useAuth();
+    const { createRequest, loading, validateRequestData } = useKanban();
+
     const [formData, setFormData] = useState({
         tgl_produksi: "",
         parts_number: "",
@@ -17,25 +21,20 @@ export default function ReqForm() {
         lokasi: "",
         keterangan: "",
     });
+
     const [process, setProcess] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    const fetchProcess = async () => {
-        try {
-            const userStorage = JSON.parse(localStorage.getItem("user"));
-            const userId = userStorage.id_users;
-            await API.get(`user/me/${userId}`).then((res) =>
-                setProcess(`${DEPARTMENT_MAP[res.data.data?.department?.name]}`)
-            );
-        } catch (error) {
-            error;
-        }
-    };
-
-    fetchProcess();
 
     const { handleShowAlertFormReq } = useOutletContext();
     const inputRef = useRef(null);
+
+    useEffect(() => {
+        // Set process from user context
+        if (user && user.department) {
+            setProcess(
+                DEPARTMENT_MAP[user.department.name] || user.department.name
+            );
+        }
+    }, [user]);
 
     useEffect(() => {
         if (formData.klasifikasi === "Lainnya" && inputRef.current) {
@@ -53,34 +52,43 @@ export default function ReqForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
 
-        const tanggal = new Date(formData.tgl_produksi).toISOString();
         const dataToSend = {
             ...formData,
             klasifikasi:
                 formData.klasifikasi === "Lainnya"
                     ? formData.customClassification
                     : formData.klasifikasi,
-            tgl_produksi: tanggal,
+            tgl_produksi: new Date(formData.tgl_produksi).toISOString(),
         };
 
-        const formDataSent = {
-            ...formData,
-            tgl_produksi: tanggal,
-        };
-
+        // Remove custom classification field before sending
         delete dataToSend.customClassification;
 
         try {
-            await API.post("/kanban/request", dataToSend);
+            const result = await createRequest(dataToSend);
 
-            // Tampilkan alert sukses
-            handleShowAlertFormReq(true);
+            if (result.success) {
+                // Tampilkan alert sukses
+                handleShowAlertFormReq(true);
+
+                // Reset form
+                setFormData({
+                    tgl_produksi: "",
+                    parts_number: "",
+                    nama_requester: "",
+                    klasifikasi: "",
+                    customClassification: "",
+                    box: "",
+                    lokasi: "",
+                    keterangan: "",
+                });
+            } else {
+                // Handle error from validation or API
+                console.log(result.message || "Gagal membuat request");
+            }
         } catch (error) {
-            error;
-        } finally {
-            setLoading(false);
+            console.error("Error creating request:", error);
         }
     };
 
@@ -94,6 +102,7 @@ export default function ReqForm() {
                         <input
                             type="date"
                             name="tgl_produksi"
+                            value={formData.tgl_produksi}
                             onChange={handleChange}
                             required
                         />
@@ -103,6 +112,7 @@ export default function ReqForm() {
                         <input
                             type="text"
                             name="parts_number"
+                            value={formData.parts_number}
                             onChange={handleChange}
                             required
                         />
@@ -112,6 +122,7 @@ export default function ReqForm() {
                         <input
                             type="text"
                             name="nama_requester"
+                            value={formData.nama_requester}
                             onChange={handleChange}
                             required
                         />
@@ -130,7 +141,6 @@ export default function ReqForm() {
                                     className="classification-input"
                                     required
                                     onBlur={() => {
-                                        // Jika user mengosongkan field "lainnya", kembali ke select
                                         if (!formData.customClassification) {
                                             setFormData((prev) => ({
                                                 ...prev,
@@ -140,20 +150,17 @@ export default function ReqForm() {
                                         }
                                     }}
                                 />
-                                {/* Tombol opsional untuk kembali ke dropdown */}
                                 <button
                                     type="button"
                                     className="btn-cancel-lainnya"
                                     onClick={() => {
                                         if (formData.customClassification) {
-                                            // Update klasifikasi jadi custom yang ditulis
                                             setFormData((prev) => ({
                                                 ...prev,
                                                 klasifikasi:
                                                     prev.customClassification,
                                             }));
                                         } else {
-                                            // Kalau kosong, balik ke default
                                             setFormData((prev) => ({
                                                 ...prev,
                                                 klasifikasi: "",
@@ -202,7 +209,13 @@ export default function ReqForm() {
 
                     <div className="box">
                         <label>Box</label>
-                        <input type="text" name="box" onChange={handleChange} required />
+                        <input
+                            type="text"
+                            name="box"
+                            value={formData.box}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
                     <div className="process">
                         <label>Process</label>
@@ -218,6 +231,7 @@ export default function ReqForm() {
                         <input
                             type="text"
                             name="lokasi"
+                            value={formData.lokasi}
                             onChange={handleChange}
                             required
                         />
@@ -225,8 +239,8 @@ export default function ReqForm() {
                     <div className="information">
                         <label>Information</label>
                         <textarea
-                            typeof="text"
                             name="keterangan"
+                            value={formData.keterangan}
                             onChange={handleChange}
                             required
                         ></textarea>

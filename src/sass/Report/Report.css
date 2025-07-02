@@ -1,27 +1,25 @@
 .report-container {
   background-color: transparent;
   padding: 15px;
-  border-radius: 10px;
   width: 87vw;
   margin: 20px;
   font-family: "Poppins", sans-serif;
 }
-
-.report-title {
+.report-container .report-title {
   font-size: 30px;
   font-weight: 700;
+  font-style: italic;
   margin-bottom: 55px;
 }
-
-.form-group-report {
+.report-container .form-group-report {
   margin-bottom: 30px;
 }
-.form-group-report label {
+.report-container .form-group-report label {
   display: flex;
   font-size: 18px;
   margin-bottom: 3px;
 }
-.form-group-report .input-field {
+.report-container .form-group-report .input-field {
   width: 800px;
   height: 50px;
   border-radius: 8px;
@@ -33,23 +31,23 @@
   padding: 8px 10px;
   border: 1px solid rgba(0, 102, 175, 0.5);
 }
-.form-group-report .input-field:focus {
+.report-container .form-group-report .input-field:focus {
   outline: none;
   border-color: rgba(0, 102, 175, 0.5);
 }
-
-.button-group-report {
+.report-container .button-group-report {
   font-family: "Poppins", sans-serif;
   display: flex;
-  margin-top: 35px;
+  justify-content: flex-end;
+  padding-top: 30px;
+  padding-right: 230px;
 }
-.button-group-report .export-buttons {
+.report-container .button-group-report .export-buttons {
   display: flex;
-  padding-left: 870px;
+  justify-content: space-between;
   gap: 25px;
-  margin-top: 10px;
 }
-.button-group-report .export-buttons .pdf-btn {
+.report-container .button-group-report .export-buttons .pdf-btn {
   width: 200px;
   height: 60px;
   background-color: #ed1010;
@@ -64,10 +62,10 @@
   gap: 13px;
   cursor: pointer;
 }
-.button-group-report .export-buttons .pdf-btn:hover {
+.report-container .button-group-report .export-buttons .pdf-btn:hover {
   background-color: #f44545;
 }
-.button-group-report .export-buttons .excel-btn {
+.report-container .button-group-report .export-buttons .excel-btn {
   width: 200px;
   height: 60px;
   background-color: #0fbe1b;
@@ -82,10 +80,10 @@
   gap: 13px;
   cursor: pointer;
 }
-.button-group-report .export-buttons .excel-btn:hover {
+.report-container .button-group-report .export-buttons .excel-btn:hover {
   background-color: #14d721;
 }
-.button-group-report .export-buttons img {
+.report-container .button-group-report .export-buttons img {
   width: 30px;
   height: 30px;
 }
@@ -95,9 +93,7 @@
     width: 85vw;
   }
   .report-container .report-title {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 55px;
+    font-size: 23px;
   }
   .report-container .form-group-report {
     margin-bottom: 30px;
@@ -124,15 +120,12 @@
     border-color: rgba(0, 102, 175, 0.5);
   }
   .report-container .button-group-report {
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    margin-top: 35px;
+    padding-top: 30px;
+    padding-right: 270px;
   }
   .report-container .button-group-report .export-buttons {
     display: flex;
-    padding-left: 680px;
     gap: 20px;
-    margin-top: 10px;
   }
   .report-container .button-group-report .export-buttons .pdf-btn {
     width: 160px;
@@ -179,20 +172,18 @@
   .report-container {
     width: 82.5vw;
   }
-  .report-title {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 55px;
+  .report-container .report-title {
+    font-size: 23px;
   }
-  .form-group-report {
+  .report-container .form-group-report {
     margin-bottom: 30px;
   }
-  .form-group-report label {
+  .report-container .form-group-report label {
     display: flex;
     font-size: 16px;
     margin-bottom: 3px;
   }
-  .form-group-report .input-field {
+  .report-container .form-group-report .input-field {
     width: 620px;
     height: 40px;
     border-radius: 8px;
@@ -204,22 +195,19 @@
     padding: 8px 10px;
     border: 1px solid rgba(0, 102, 175, 0.5);
   }
-  .form-group-report .input-field:focus {
+  .report-container .form-group-report .input-field:focus {
     outline: none;
     border-color: rgba(0, 102, 175, 0.5);
   }
-  .button-group-report {
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    margin-top: 35px;
+  .report-container .button-group-report {
+    padding-top: 30px;
+    padding-right: 110px;
   }
-  .button-group-report .export-buttons {
+  .report-container .button-group-report .export-buttons {
     display: flex;
-    padding-left: 680px;
     gap: 20px;
-    margin-top: 10px;
   }
-  .button-group-report .export-buttons .pdf-btn {
+  .report-container .button-group-report .export-buttons .pdf-btn {
     width: 160px;
     height: 45px;
     background-color: #ed1010;
@@ -234,10 +222,10 @@
     gap: 12px;
     cursor: pointer;
   }
-  .button-group-report .export-buttons .pdf-btn:hover {
+  .report-container .button-group-report .export-buttons .pdf-btn:hover {
     background-color: #f44545;
   }
-  .button-group-report .export-buttons .excel-btn {
+  .report-container .button-group-report .export-buttons .excel-btn {
     width: 160px;
     height: 45px;
     background-color: #0fbe1b;
@@ -252,10 +240,10 @@
     gap: 12px;
     cursor: pointer;
   }
-  .button-group-report .export-buttons .excel-btn:hover {
+  .report-container .button-group-report .export-buttons .excel-btn:hover {
     background-color: #14d721;
   }
-  .button-group-report .export-buttons img {
+  .report-container .button-group-report .export-buttons img {
     width: 23px;
     height: 23px;
   }
@@ -264,10 +252,191 @@
   .report-container {
     width: 80.5vw;
   }
-  .form-group-report .input-field {
+  .report-container .form-group-report .input-field {
     width: 550px;
   }
-  .button-group-report .export-buttons {
-    padding-left: 600px;
+  .report-container .button-group-report {
+    padding-top: 30px;
+    padding-right: 50px;
+  }
+}
+/* Media Query untuk 1024px */
+@media (max-width: 1024px) {
+  .report-container {
+    width: 90vw;
+    padding: 15px;
+    margin: 15px;
+  }
+  .report-container .report-title {
+    font-size: 23px;
+    margin-bottom: 40px;
+  }
+  .report-container .form-group-report {
+    margin-bottom: 27px;
+  }
+  .report-container .form-group-report label {
+    font-size: 16px;
+  }
+  .report-container .form-group-report .input-field {
+    width: 100%;
+    max-width: 450px;
+    height: 40px;
+    font-size: 14px;
+  }
+  .report-container .button-group-report {
+    padding-top: 25px;
+    padding-right: 0;
+    justify-content: flex-end;
+  }
+  .report-container .button-group-report .export-buttons {
+    gap: 17px;
+  }
+  .report-container .button-group-report .export-buttons .pdf-btn,
+  .report-container .button-group-report .export-buttons .excel-btn {
+    width: 160px;
+    height: 45px;
+    font-size: 15px;
+    gap: 8px;
+  }
+  .report-container .button-group-report .export-buttons img {
+    width: 23px;
+    height: 23px;
+  }
+}
+/* Media Query untuk 800px */
+@media (max-width: 800px) {
+  .report-container {
+    width: 95vw;
+    padding: 15px;
+    margin: 15px;
+  }
+  .report-container .report-title {
+    font-size: 23px;
+    margin-bottom: 35px;
+  }
+  .report-container .form-group-report {
+    margin-bottom: 25px;
+  }
+  .report-container .form-group-report label {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .report-container .form-group-report .input-field {
+    width: 100%;
+    max-width: 370px;
+    height: 40px;
+    font-size: 14px;
+  }
+  .report-container .button-group-report {
+    padding-top: 20px;
+    padding-right: 15px;
+    justify-content: flex-end;
+  }
+  .report-container .button-group-report .export-buttons {
+    gap: 15px;
+  }
+  .report-container .button-group-report .export-buttons .pdf-btn,
+  .report-container .button-group-report .export-buttons .excel-btn {
+    width: 150px;
+    height: 40px;
+    font-size: 14px;
+    gap: 8px;
+  }
+  .report-container .button-group-report .export-buttons img {
+    width: 20px;
+    height: 20px;
+  }
+}
+/* Media Query untuk 480px */
+@media (max-width: 480px) {
+  .report-container {
+    width: 100%;
+    padding: 20px 18px 80px 18px;
+    margin: 5px;
+  }
+  .report-container .report-title {
+    font-size: 23px;
+    margin-bottom: 35px;
+    text-align: center;
+  }
+  .report-container .form-group-report {
+    margin-bottom: 18px;
+  }
+  .report-container .form-group-report label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .report-container .form-group-report .input-field {
+    width: 100%;
+    max-width: 345px;
+    height: 40px;
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  .report-container .button-group-report {
+    font-family: "Poppins", sans-serif;
+    padding-top: 18px;
+    justify-content: center;
+  }
+  .report-container .button-group-report .export-buttons {
+    gap: 20px;
+  }
+  .report-container .button-group-report .export-buttons .pdf-btn,
+  .report-container .button-group-report .export-buttons .excel-btn {
+    width: 150px;
+    height: 42px;
+    font-size: 14px;
+    gap: 10px;
+    padding: 10px 15px;
+  }
+  .report-container .button-group-report .export-buttons img {
+    width: 23px;
+    height: 23px;
+  }
+}
+@media (max-width: 380px) {
+  .report-container {
+    width: 100%;
+    padding: 20px 18px 80px 18px;
+    margin: 5px;
+  }
+  .report-container .report-title {
+    font-size: 23px;
+    margin-bottom: 35px;
+    text-align: center;
+  }
+  .report-container .form-group-report {
+    margin-bottom: 18px;
+  }
+  .report-container .form-group-report label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .report-container .form-group-report .input-field {
+    width: 100%;
+    max-width: 315px;
+    height: 40px;
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+  .report-container .button-group-report {
+    font-family: "Poppins", sans-serif;
+    padding-top: 18px;
+    justify-content: center;
+  }
+  .report-container .button-group-report .export-buttons {
+    gap: 15px;
+  }
+  .report-container .button-group-report .export-buttons .pdf-btn,
+  .report-container .button-group-report .export-buttons .excel-btn {
+    width: 150px;
+    height: 42px;
+    font-size: 14px;
+    gap: 10px;
+    padding: 10px 15px;
+  }
+  .report-container .button-group-report .export-buttons img {
+    width: 23px;
+    height: 23px;
   }
 }/*# sourceMappingURL=Report.css.map */

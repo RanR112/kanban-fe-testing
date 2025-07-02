@@ -26,8 +26,41 @@
   display: none;
 }
 
+@media (max-width: 1280px) {
+  .barup-container {
+    margin-left: 252px;
+    width: calc(100% - 254px);
+  }
+  .barup-container .barup-content {
+    font-size: 15px;
+  }
+}
+@media (max-width: 1024px) {
+  .barup-container {
+    padding: 10px 16px;
+    border-radius: 0;
+    width: 100%;
+    margin-left: 0;
+  }
+  .barup-container .barup-content {
+    font-size: 16px;
+    text-align: center;
+    padding: 15px;
+  }
+  .barup-container .toggle-sidebar-btn {
+    display: block;
+    cursor: pointer;
+    margin-right: 16px;
+  }
+  .barup-container .toggle-sidebar-btn img.sidebar-toggle-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    margin-left: 3px;
+  }
+}
 /* ✅ RESPONSIVE - LAYAR KECIL (≤768px) */
-@media (max-width: 896px) {
+@media (max-width: 768px) {
   .barup-container {
     padding: 10px 16px;
     border-radius: 0;
@@ -49,15 +82,5 @@
     height: 20px;
     transition: transform 0.3s ease;
     margin-left: 3px;
-  }
-}
-/* ✅ RESPONSIVE - LAYAR SEDANG (769px - 1279px) */
-@media (min-width: 769px) and (max-width: 1280px) {
-  .barup-container {
-    margin-left: 252px;
-    width: calc(100% - 254px);
-  }
-  .barup-container .barup-content {
-    font-size: 15px;
   }
 }/*# sourceMappingURL=BarUp.css.map */

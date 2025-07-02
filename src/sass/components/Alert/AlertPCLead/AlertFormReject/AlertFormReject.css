@@ -178,4 +178,61 @@
     opacity: 0;
     transform: scale(0.9);
   }
+}
+/* Responsif Mobile Confirm Reject */
+@media (max-width: 480px) {
+  .alert-box-pclead-confirmreject {
+    width: 365px;
+    height: 280px;
+  }
+  .alert-buttons-pclead-confirmreject {
+    margin-top: 30px;
+    gap: 15px;
+  }
+  .alert-buttons-pclead-confirmreject .btn-formreq {
+    font-size: 14px;
+    width: 155px;
+  }
+}
+@media (max-width: 380px) {
+  .alert-box-pclead-confirmreject {
+    width: 330px;
+    height: 280px;
+  }
+  .alert-buttons-pclead-confirmreject {
+    margin-top: 30px;
+    gap: 15px;
+  }
+  .alert-buttons-pclead-confirmreject .btn-formreq {
+    font-size: 14px;
+    width: 155px;
+  }
+}
+/* Responsif Mobile Success Reject */
+@media (max-width: 480px) {
+  .alert-box-pclead-successreject {
+    width: 365px;
+    height: 347px;
+  }
+  .alert-buttons-pclead-successreject {
+    margin-top: 30px;
+  }
+  .alert-buttons-pclead-successreject .btn-formreq {
+    font-size: 14px;
+    width: 155px;
+  }
+}
+@media (max-width: 380px) {
+  .alert-box-pclead-successreject {
+    width: 330px;
+    height: 347px;
+  }
+  .alert-buttons-pclead-successreject {
+    margin-top: 30px;
+    gap: 15px;
+  }
+  .alert-buttons-pclead-successreject .btn-formreq {
+    font-size: 14px;
+    width: 155px;
+  }
 }/*# sourceMappingURL=AlertFormReject.css.map */

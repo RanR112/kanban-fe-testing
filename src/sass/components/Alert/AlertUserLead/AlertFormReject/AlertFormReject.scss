@@ -183,3 +183,72 @@
         transform: scale(0.9);
     }
 }
+
+/* Responsif Mobile Confirm Reject */
+@media (max-width: 480px) {
+    .alert-box-userlead-confirmreject {
+        width: 365px;
+        height: 280px;
+    }
+
+    .alert-buttons-userlead-confirmreject {
+        margin-top: 30px;
+        gap: 15px;
+
+        .btn-formreq {
+            font-size: 14px;
+            width: 155px;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .alert-box-userlead-confirmreject {
+        width: 330px;
+        height: 280px;
+    }
+
+    .alert-buttons-userlead-confirmreject {
+        margin-top: 30px;
+        gap: 15px;
+
+        .btn-formreq {
+            font-size: 14px;
+            width: 155px;
+        }
+    }
+}
+
+/* Responsif Mobile Success Reject */
+@media (max-width: 480px) {
+    .alert-box-userlead-successreject {
+        width: 365px;
+        height: 347px;
+    }
+
+    .alert-buttons-userlead-successreject {
+        margin-top: 30px;
+
+        .btn-formreq {
+            font-size: 14px;
+            width: 155px;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .alert-box-userlead-successreject {
+        width: 330px;
+        height: 347px;
+    }
+
+    .alert-buttons-userlead-successreject {
+        margin-top: 30px;
+        gap: 15px;
+
+        .btn-formreq {
+            font-size: 14px;
+            width: 155px;
+        }
+    }
+}

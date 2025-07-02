@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import checkIcon from "../../assets/icons/check-approve.svg";
 import crossIcon from "../../assets/icons/cross-reject.svg";
-import API from "../../service/api";
 import { DEPARTMENT_MAP } from "../../utils/constants";
 import "../../sass/Kanban/DetailReqKanban/DetailReqKanban.css";
 import LoaderPrimary from "../../components/LoaderPrimary";
+import { useKanban } from "../../contexts/KanbanContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function DetailReqKanban() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { user } = useAuth();
+    const { fetchRequestById, loading, error, formatDisplayDate } = useKanban();
+
     const [kanban, setKanban] = useState({
         tgl_produksi: "",
         parts_number: "",
@@ -22,65 +26,77 @@ export default function DetailReqKanban() {
         status: "",
         persetujuan: [],
     });
-    const [loading, setLoading] = useState(true);
+
     const [process, setProcess] = useState("");
 
-    const fetchProcess = async () => {
-        try {
-            const userStorage = JSON.parse(localStorage.getItem("user"));
-            const userId = userStorage.id_users;
-            await API.get(`user/me/${userId}`).then((res) =>
-                setProcess(`${DEPARTMENT_MAP[res.data.data?.department?.name]}`)
+    useEffect(() => {
+        // Set process from user context
+        if (user && user.department) {
+            setProcess(
+                DEPARTMENT_MAP[user.department.name] || user.department.name
             );
-        } catch (error) {
-            console.error("Error fetching process:", error);
         }
-    };
+    }, [user]);
 
     useEffect(() => {
-        fetchProcess();
-        const fetchKanban = async () => {
+        const loadKanbanDetail = async () => {
             try {
-                const kanbanId = localStorage.getItem("id_kanban");
-                await API.get(`/kanban/get/${kanbanId}`).then((res) =>
+                // Use id from URL params instead of localStorage
+                const result = await fetchRequestById(id);
+
+                if (result.success) {
+                    const data = result.data.data;
                     setKanban({
-                        tgl_produksi: res.data.data.tgl_produksi.split("T")[0],
-                        parts_number: res.data.data.parts_number,
-                        nama_requester: res.data.data.nama_requester,
-                        klasifikasi: res.data.data.klasifikasi,
-                        box: res.data.data.box,
-                        lokasi: res.data.data.lokasi,
-                        keterangan: res.data.data.keterangan,
-                        persetujuan: res.data.data.persetujuan,
-                        status: res.data.data.status,
-                    })
-                );
+                        tgl_produksi: data.tgl_produksi.split("T")[0],
+                        parts_number: data.parts_number,
+                        nama_requester: data.nama_requester,
+                        klasifikasi: data.klasifikasi,
+                        box: data.box,
+                        lokasi: data.lokasi,
+                        keterangan: data.keterangan,
+                        persetujuan: data.persetujuan,
+                        status: data.status,
+                    });
+                }
             } catch (error) {
                 console.error("Error fetching kanban:", error);
-            } finally {
-                setLoading(false);
             }
         };
-        fetchKanban();
-    }, [id]);
 
-    if (!kanban) {
-        return (
-            <div className="container-detail">
-                <div className="loader">
-                    <p>
-                        <b>Kanban Tidak Ditemukan</b>
-                    </p>
-                </div>
-            </div>
-        );
-    }
+        if (id) {
+            loadKanbanDetail();
+        }
+    }, [id, fetchRequestById]);
 
     if (loading) {
         return (
             <div className="container-detail">
                 <div className="loader">
                     <LoaderPrimary />
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="container-detail">
+                <div className="loader">
+                    <p>
+                        <b>Error: {error}</b>
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
+    if (!kanban.parts_number) {
+        return (
+            <div className="container-detail">
+                <div className="loader">
+                    <p>
+                        <b>Kanban Tidak Ditemukan</b>
+                    </p>
                 </div>
             </div>
         );

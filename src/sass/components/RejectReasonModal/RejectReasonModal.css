@@ -1,0 +1,219 @@
+.reject-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  font-family: "Poppins", sans-serif;
+}
+.reject-modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+.reject-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 1.5rem;
+}
+.reject-modal__header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.reject-modal__close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+.reject-modal__close:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  color: #333;
+}
+.reject-modal__close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.reject-modal__body {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+.reject-modal__info {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #0066af;
+}
+.reject-modal__info p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+.reject-modal__info p strong {
+  color: #333;
+  font-weight: 600;
+}
+.reject-modal__form-group {
+  margin-bottom: 1rem;
+}
+.reject-modal__form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+.reject-modal__required {
+  color: #dc3545;
+  font-weight: bold;
+}
+.reject-modal__textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+  line-height: 1.5;
+}
+.reject-modal__textarea:focus {
+  outline: none;
+  border-color: #0066af;
+  box-shadow: 0 0 0 3px rgba(0, 102, 175, 0.1);
+}
+.reject-modal__textarea::-moz-placeholder {
+  color: #999;
+}
+.reject-modal__textarea::placeholder {
+  color: #999;
+}
+.reject-modal__textarea:disabled {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.reject-modal__char-count {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+.reject-modal__footer {
+  padding: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+.reject-modal__button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  font-family: inherit;
+}
+.reject-modal__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.reject-modal__button.cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+.reject-modal__button.cancel-button:hover:not(:disabled) {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.reject-modal__button.reject-button {
+  background-color: #dc3545;
+  color: white;
+}
+.reject-modal__button.reject-button:hover:not(:disabled) {
+  background-color: #c82333;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.reject-modal__button.reject-button:disabled {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #ddd;
+}
+
+.reject-modal {
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@media (max-width: 768px) {
+  .reject-modal {
+    margin: 1rem;
+    max-width: calc(100vw - 2rem);
+  }
+  .reject-modal__header, .reject-modal__body, .reject-modal__footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .reject-modal__footer {
+    flex-direction: column;
+  }
+  .reject-modal__footer .reject-modal__button {
+    width: 100%;
+    margin: 0;
+  }
+}
+@media (max-width: 480px) {
+  .reject-modal__info {
+    padding: 0.75rem;
+  }
+  .reject-modal__info p {
+    font-size: 0.8rem;
+  }
+  .reject-modal__textarea {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+  .reject-modal__button {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
+}/*# sourceMappingURL=RejectReasonModal.css.map */

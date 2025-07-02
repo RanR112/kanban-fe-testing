@@ -149,6 +149,70 @@ export const alertButton = {
                 params: ["deleteSuccess"],
             },
         ],
+        // TAMBAHAN: Registration alerts
+        confirmRegistrationApprove: [
+            {
+                label: "Cancel",
+                variant: "cancel-confirm-registration-approve",
+                action: "closeAlert",
+                params: ["confirmRegistrationApprove"],
+            },
+            {
+                label: "Approve",
+                variant: "confirm-confirm-registration-approve",
+                action: "handleConfirmRegistrationApprove",
+            },
+        ],
+        registrationApprove: [
+            {
+                label: "Ok",
+                variant: "cancel-registration-approve",
+                action: "closeAlert",
+                params: ["registrationApprove"],
+            },
+        ],
+        confirmRegistrationReject: [
+            {
+                label: "Cancel",
+                variant: "cancel-confirm-registration-reject",
+                action: "closeAlert",
+                params: ["confirmRegistrationReject"],
+            },
+            {
+                label: "Reject",
+                variant: "confirm-confirm-registration-reject",
+                action: "handleConfirmRegistrationReject",
+            },
+        ],
+        registrationReject: [
+            {
+                label: "Ok",
+                variant: "cancel-registration-reject",
+                action: "closeAlert",
+                params: ["registrationReject"],
+            },
+        ],
+        confirmRegistrationDelete: [
+            {
+                label: "Cancel",
+                variant: "cancel-confirm-registration-delete",
+                action: "closeAlert",
+                params: ["confirmRegistrationDelete"],
+            },
+            {
+                label: "Delete",
+                variant: "confirm-confirm-registration-delete",
+                action: "handleConfirmRegistrationDelete",
+            },
+        ],
+        registrationDelete: [
+            {
+                label: "Ok",
+                variant: "cancel-registration-delete",
+                action: "closeAlert",
+                params: ["registrationDelete"],
+            },
+        ],
     },
 
     pcLead: {
@@ -230,6 +294,13 @@ const createOnClickHandler = (action, params, handlers, closeAlert) => {
             return handlers.handleConfirmDelete;
         case "handleConfirmPCLead":
             return handlers.handleConfirmPCLead;
+        // TAMBAHAN: Registration handlers
+        case "handleConfirmRegistrationApprove":
+            return handlers.handleConfirmRegistrationApprove;
+        case "handleConfirmRegistrationReject":
+            return handlers.handleConfirmRegistrationReject;
+        case "handleConfirmRegistrationDelete":
+            return handlers.handleConfirmRegistrationDelete;
         default:
             return () => {};
     }

@@ -115,3 +115,38 @@
         transform: scale(0.9);
     }
 }
+
+@media (max-width: 480px) {
+    .alert-box-add {
+        width: 365px;
+        height: 220px;
+    }
+
+    .alert-buttons-add {
+        margin-top: 30px;
+
+        .cancel-btn-add,
+        .confirm-btn-add {
+            font-size: 15px;
+            width: 155px;
+        }
+    }
+}
+
+@media (max-width: 380px) {
+    .alert-box-add {
+        width: 330px;
+        height: 220px;
+    }
+
+    .alert-buttons-add {
+        margin-top: 30px;
+        gap: 15px;
+
+        .cancel-btn-add,
+        .confirm-btn-add {
+            font-size: 15px;
+            width: 155px;
+        }
+    }
+}

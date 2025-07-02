@@ -179,6 +179,42 @@ const LAYOUT_CONFIGS = {
                 title: "Successfully Delete User",
                 className: "success-delete",
             },
+            // TAMBAHAN: Registration alerts
+            confirmRegistrationApprove: {
+                icon: confirmIcon,
+                title: "Approve Registration",
+                className: "confirm-registration-approve",
+            },
+            registrationApprove: {
+                icon: successIcon,
+                title: "Registration Approved Successfully",
+                content:
+                    "The registration has been approved and user account has been created.",
+                className: "registration-approve",
+            },
+            confirmRegistrationReject: {
+                icon: confirmIcon,
+                title: "Reject Registration",
+                className: "confirm-registration-reject",
+            },
+            registrationReject: {
+                icon: successIcon,
+                title: "Registration Rejected Successfully",
+                content:
+                    "The registration has been rejected and the applicant has been notified.",
+                className: "registration-reject",
+            },
+            confirmRegistrationDelete: {
+                icon: confirmIcon,
+                title: "Delete Registration",
+                className: "confirm-registration-delete",
+            },
+            registrationDelete: {
+                icon: successIcon,
+                title: "Registration Deleted Successfully",
+                content: "The registration has been permanently deleted.",
+                className: "registration-delete",
+            },
         },
         handlers: (showAlert, closeAlert, alerts) => {
             const handleConfirmUpdate = () => {
@@ -195,6 +231,28 @@ const LAYOUT_CONFIGS = {
                 if (onConfirm) onConfirm();
             };
 
+            // TAMBAHAN: Registration handlers
+            const handleConfirmRegistrationApprove = () => {
+                const onConfirm = alerts.confirmRegistrationApprove?.onConfirm;
+                closeAlert("confirmRegistrationApprove", 0);
+                showAlert("registrationApprove");
+                if (onConfirm) onConfirm();
+            };
+
+            const handleConfirmRegistrationReject = () => {
+                const onConfirm = alerts.confirmRegistrationReject?.onConfirm;
+                closeAlert("confirmRegistrationReject", 0);
+                showAlert("registrationReject");
+                if (onConfirm) onConfirm();
+            };
+
+            const handleConfirmRegistrationDelete = () => {
+                const onConfirm = alerts.confirmRegistrationDelete?.onConfirm;
+                closeAlert("confirmRegistrationDelete", 0);
+                showAlert("registrationDelete");
+                if (onConfirm) onConfirm();
+            };
+
             return {
                 handleShowAlertAdd: () => showAlert("add"),
                 showConfirmUpdate: (onConfirm) =>
@@ -203,6 +261,31 @@ const LAYOUT_CONFIGS = {
                     showAlert("confirmDelete", { user, onConfirm }),
                 handleConfirmUpdate,
                 handleConfirmDelete,
+                // TAMBAHAN: Registration methods
+                showConfirmRegistrationApprove: (registration, onConfirm) =>
+                    showAlert("confirmRegistrationApprove", {
+                        registration,
+                        onConfirm,
+                    }),
+                showConfirmRegistrationReject: (registration, onConfirm) =>
+                    showAlert("confirmRegistrationReject", {
+                        registration,
+                        onConfirm,
+                    }),
+                showConfirmRegistrationDelete: (registration, onConfirm) =>
+                    showAlert("confirmRegistrationDelete", {
+                        registration,
+                        onConfirm,
+                    }),
+                handleConfirmRegistrationApprove,
+                handleConfirmRegistrationReject,
+                handleConfirmRegistrationDelete,
+                handleShowRegistrationApprove: () =>
+                    showAlert("registrationApprove"),
+                handleShowRegistrationReject: () =>
+                    showAlert("registrationReject"),
+                handleShowRegistrationDelete: () =>
+                    showAlert("registrationDelete"),
             };
         },
     },

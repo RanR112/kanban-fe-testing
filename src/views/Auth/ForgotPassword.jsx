@@ -3,7 +3,7 @@ import "../../sass/Login/Login.css";
 import Logo from "../../assets/images/logo.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import API from "../../service/api";
+import API from "../../services/api";
 import { LoaderButton } from "../../components/LoaderButton";
 
 export default function ForgotPassword() {

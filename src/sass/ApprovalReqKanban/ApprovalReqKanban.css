@@ -30,7 +30,7 @@
 }
 .approval-request .approval-request__search .approval-request__search-input {
   width: 350px;
-  height: 45px;
+  height: 40px;
   padding: 0.5rem 0.75rem 0.5rem 2.5rem;
   border: 1px solid rgba(0, 0, 0, 0.35);
   border-radius: 12px;
@@ -40,6 +40,7 @@
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .approval-request .approval-request__table-container .approval-request__table {
   width: 100%;
@@ -52,14 +53,15 @@
   color: white;
   font-size: 18px;
   font-weight: 600;
+  border: none;
 }
 .approval-request .approval-request__table-container .approval-request__table tbody tr {
-  height: 60px;
+  height: 65px;
 }
 .approval-request .approval-request__table-container .approval-request__table tbody tr td {
   padding: 0.65rem;
   border-bottom: 1px solid #ddd;
-  font-size: 22px;
+  font-size: 20px;
   text-align: center;
   vertical-align: middle;
 }
@@ -71,6 +73,7 @@
   border-radius: 5px;
   font-size: 14px;
   font-weight: 600;
+  min-width: 100px;
   height: 35px;
 }
 .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__status.approval-request__status--approved {
@@ -82,7 +85,7 @@
   color: white;
 }
 .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions {
-  text-align: left;
+  height: 65px;
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -99,6 +102,7 @@
   height: 40px;
   background-color: #219cdf;
   color: white;
+  transition: background-color 0.2s ease;
 }
 .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn:hover {
   background-color: #4ebefa;
@@ -111,17 +115,19 @@
   text-align: center;
   color: #999;
   font-size: 15px;
+  padding: 2rem;
+  font-style: italic;
 }
 .approval-request .approval-request__pagination {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   margin-top: 1.5rem;
   gap: 0.7rem;
   flex-wrap: wrap;
 }
 .approval-request .approval-request__pagination .approval-request__pagination-btn {
-  padding: 0.5rem 0.8rem;
+  padding: 0.3rem 0.8rem;
   color: #0066af;
   cursor: pointer;
   border-radius: 8px;
@@ -129,16 +135,31 @@
   transition: all 0.2s ease;
   border: 1px solid #0066af;
   background-color: white;
+  min-width: 40px;
+}
+.approval-request .approval-request__pagination .approval-request__pagination-btn:hover:not(:disabled) {
+  background-color: #0066af;
+  color: white;
 }
 .approval-request .approval-request__pagination .approval-request__pagination-btn:disabled {
-  opacity: 0.4;
+  opacity: 1.5;
   cursor: not-allowed;
+  border-color: #ccc;
+  color: #ccc;
 }
-.approval-request .approval-request__pagination .approval-request__pagination-btn.approval-request__pagination-btn--active {
+.approval-request .approval-request__pagination .approval-request__pagination-btn.active-btn {
   background-color: #0066af;
   color: white;
   font-weight: bold;
-  border-color: #007bff;
+}
+.approval-request .approval-request__pagination .approval-request__pagination-btn.previous-btn, .approval-request .approval-request__pagination .approval-request__pagination-btn.next-btn, .approval-request .approval-request__pagination .approval-request__pagination-btn.previos-icon, .approval-request .approval-request__pagination .approval-request__pagination-btn.next-icon {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  gap: 8px;
+  font-weight: 500;
 }
 
 @media (max-width: 1700px) {
@@ -153,10 +174,7 @@
     display: none; /* Chrome, Safari, Opera */
   }
   .approval-request .approval-request__header h2 {
-    font-size: 20px;
-  }
-  .approval-request .approval-request__search .approval-request__search-input {
-    height: 40px;
+    font-size: 23px;
   }
   .approval-request .approval-request__table-container .approval-request__table thead th {
     font-size: 15px;
@@ -170,6 +188,10 @@
   .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__status {
     font-size: 11px;
     height: 30px;
+    min-width: 100px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions {
+    height: 53px;
   }
   .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn {
     width: 30px;
@@ -195,7 +217,7 @@
     display: none; /* Chrome, Safari, Opera */
   }
   .approval-request .approval-request__header h2 {
-    font-size: 25px;
+    font-size: 23px;
   }
   .approval-request .approval-request__search .approval-request__search-input {
     height: 40px;
@@ -212,6 +234,10 @@
   .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__status {
     font-size: 11px;
     height: 30px;
+    min-width: 100px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions {
+    height: 53px;
   }
   .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn {
     width: 30px;
@@ -227,7 +253,7 @@
 }
 @media (max-width: 1280px) {
   .approval-request {
-    width: 80.5vw;
+    width: 82vw;
     max-height: 82vh;
     overflow-y: auto;
     scrollbar-width: none; /* Firefox */
@@ -237,10 +263,7 @@
     display: none; /* Chrome, Safari, Opera */
   }
   .approval-request .approval-request__header h2 {
-    font-size: 25px;
-  }
-  .approval-request .approval-request__search .approval-request__search-input {
-    height: 35px;
+    font-size: 23px;
   }
   .approval-request .approval-request__table-container .approval-request__table thead th {
     font-size: 13px;
@@ -254,5 +277,167 @@
   .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__status {
     font-size: 11px;
     height: 30px;
+  }
+}
+/* Media Query untuk layar 1024px */
+@media (max-width: 1024px) {
+  .approval-request {
+    width: 100vw;
+    padding: 30px 30px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table thead th {
+    font-size: 13px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr {
+    height: 50px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr td {
+    font-size: 13px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__status {
+    font-size: 11px;
+    height: 30px;
+    min-width: 80px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions {
+    height: 60px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn {
+    margin-top: 4px;
+    width: 30px;
+    height: 30px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn .approval-request__action-icon {
+    width: 15px;
+    height: 15px;
+  }
+}
+/* Media Query untuk layar 800px */
+@media (max-width: 800px) {
+  .approval-request {
+    width: 100vw;
+    padding: 30px 30px;
+  }
+  .approval-request .approval-request__search .approval-request__search-input {
+    width: 350px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table thead th {
+    font-size: 13px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr {
+    height: 60px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr td {
+    font-size: 13px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__status {
+    font-size: 11px;
+    height: 35px;
+    min-width: 90px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions {
+    height: 60px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn {
+    margin-top: 4px;
+    width: 30px;
+    height: 30px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn .approval-request__action-icon {
+    width: 15px;
+    height: 15px;
+  }
+}
+/* Media Query untuk layar 480px */
+@media (max-width: 480px) {
+  .approval-request {
+    width: 100vw;
+    padding: 30px 20px;
+    max-height: 85vh;
+  }
+  .approval-request .approval-request__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    width: 75%;
+  }
+  .approval-request .approval-request__header h2 {
+    font-size: 23px;
+    margin: 0;
+    text-align: left;
+  }
+  .approval-request .approval-request__search .approval-request__search-input {
+    width: 350px;
+  }
+  .approval-request .approval-request__table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -6px;
+    width: calc(100% + 12px);
+  }
+  .approval-request .approval-request__table-container .approval-request__table {
+    min-width: 550px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table thead th {
+    font-size: 12px;
+    padding: 10px 10px;
+    white-space: nowrap;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr {
+    height: 40px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr td {
+    font-size: 12px;
+    padding: 8px 6px;
+    white-space: nowrap;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__status {
+    font-size: 10px;
+    height: 30px;
+    min-width: 100px;
+    padding: 4px 8px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions {
+    height: 50px;
+    min-width: 80px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn {
+    margin-top: 2px;
+    width: 28px;
+    height: 28px;
+  }
+  .approval-request .approval-request__table-container .approval-request__table tbody tr .approval-request__actions .approval-request__view-btn .approval-request__action-icon {
+    width: 14px;
+    height: 14px;
+  }
+  .approval-request .approval-request__pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.53rem;
+    align-items: center;
+  }
+  .approval-request .approval-request__pagination .approval-request__pagination-btn {
+    font-size: 12px;
+    padding: 0.3rem 0.5rem;
+    min-width: 30px;
+  }
+}
+/* Media Query untuk layar 380px */
+@media (max-width: 380px) {
+  .approval-request {
+    padding: 30px 15px;
+  }
+  .approval-request .approval-request__search .approval-request__search-input {
+    width: 320px;
+  }
+  .approval-request .approval-request__pagination {
+    justify-content: center;
+    gap: 0.51rem;
+  }
+  .approval-request .approval-request__pagination .approval-request__pagination-btn {
+    font-size: 12px;
+    min-width: 27px;
   }
 }/*# sourceMappingURL=ApprovalReqKanban.css.map */

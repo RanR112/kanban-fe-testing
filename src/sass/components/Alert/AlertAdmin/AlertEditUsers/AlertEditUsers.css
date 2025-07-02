@@ -20,11 +20,11 @@
   background: #fff;
   padding: 10px 25px;
   width: 400px;
+  height: 268px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-align: left;
-  -webkit-animation: fadeIn 0.3s ease-in-out;
-          animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .alert-icon-confirm-update {
@@ -108,8 +108,7 @@
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
   font-family: "Poppins", sans-serif;
-  -webkit-animation: fadeIn 0.3s ease-in-out;
-          animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .alert-icon-success-update {
@@ -157,17 +156,6 @@
   color: white;
 }
 
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -176,16 +164,6 @@
   100% {
     opacity: 1;
     transform: scale(1);
-  }
-}
-@-webkit-keyframes fadeOut {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.9);
   }
 }
 @keyframes fadeOut {
@@ -198,4 +176,60 @@
     transform: scale(0.9);
   }
 }
-/*# sourceMappingURL=AlertEditUsers.css.map */
+/* Responsif Mobile Confirm Reject */
+@media (max-width: 480px) {
+  .alert-box-confirm-update {
+    width: 365px;
+    height: 260px;
+  }
+  .alert-buttons-confirm-update {
+    margin-top: 30px;
+    gap: 15px;
+  }
+  .alert-buttons-confirm-update .btn-confirm-update {
+    font-size: 14px;
+    width: 155px;
+  }
+}
+@media (max-width: 380px) {
+  .alert-box-confirm-update {
+    width: 330px;
+    height: 260px;
+  }
+  .alert-buttons-confirm-update {
+    margin-top: 30px;
+    gap: 15px;
+  }
+  .alert-buttons-confirm-update .btn-confirm-update {
+    font-size: 13px;
+    width: 155px;
+  }
+}
+/* Responsif Mobile Success Reject */
+@media (max-width: 480px) {
+  .alert-box-success-update {
+    width: 365px;
+    height: 220px;
+  }
+  .alert-buttons-success-update {
+    margin-top: 30px;
+  }
+  .alert-buttons-success-update .btn-success-update {
+    font-size: 15px;
+    width: 155px;
+  }
+}
+@media (max-width: 380px) {
+  .alert-box-success-update {
+    width: 330px;
+    height: 220px;
+  }
+  .alert-buttons-success-update {
+    margin-top: 30px;
+    gap: 15px;
+  }
+  .alert-buttons-success-update .btn-success-update {
+    font-size: 15px;
+    width: 155px;
+  }
+}/*# sourceMappingURL=AlertEditUsers.css.map */

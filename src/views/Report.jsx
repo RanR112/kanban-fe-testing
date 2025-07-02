@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../sass/Report/Report.css";
 import Pdf from "../assets/icons/pdf.svg";
 import Excel from "../assets/icons/excel.svg";
-import API from "../service/api";
+import API from "../services/api";
 
 export default function Report() {
     const [form, setForm] = useState({
@@ -33,7 +33,7 @@ export default function Report() {
         };
 
         const file = endpoints[type];
-        if (!file) return alert("Tipe file tidak dikenali.");
+        if (!file) return console.log("Tipe file tidak dikenali.");
 
         try {
             const response = await API.get(file.url, { responseType: "blob" });
@@ -50,7 +50,7 @@ export default function Report() {
             link.click();
             link.remove();
         } catch (err) {
-            alert(`Gagal mendownload laporan`, err);
+            console.log(`Gagal mendownload laporan`, err);
         }
     };
 

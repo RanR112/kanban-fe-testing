@@ -1,8 +1,7 @@
 .login-container {
-  background-image: url("/src/assets/images/background1.png");
-  background-repeat: repeat;
-  background-size: contain;
-  background-position: center top;
+  background: linear-gradient(to right, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 40%, rgba(183, 210, 246, 0.5) 70%, rgba(183, 210, 246, 0.5) 100%), linear-gradient(to bottom, #ffffff 25%, #c2d8f9 95%);
+  background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%;
+  background-blend-mode: multiply, multiply, normal, normal;
   width: 100%;
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
@@ -10,11 +9,17 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-}
-@media (max-width: 800px) {
-  .login-container {
-    background-size: cover;
+  /* // Hide scrollbar */
+  /* scrollbar-width: none; 
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+      display: none;
   }
+
+  @media (max-width: 800px) {
+      background-size: cover;
+  } */
 }
 
 .login-card {
@@ -27,6 +32,10 @@
   height: auto;
   display: flex;
   flex-direction: column;
+}
+.login-card input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: #000 !important;
 }
 .login-card .logo {
   width: 80px;
@@ -57,6 +66,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  /* // gap: 0px; */
 }
 .login-card .section-input .label-input {
   font-size: 13px;
@@ -70,7 +80,34 @@
   padding: 0 10px;
   border: 1px solid #2ea1d8;
   border-radius: 6px;
+  font-family: "Inter", sans-serif;
   font-size: 13px;
+}
+.login-card .section-input select,
+.login-card .section-input option {
+  width: 100%;
+  height: 37px;
+  margin-top: 3px;
+  padding: 0 10px;
+  border: 1px solid #2ea1d8;
+  border-radius: 6px;
+  font-size: 13px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%208L10%2013L15%208%22%20stroke%3D%22%23000%22%20stroke-width%3D%222%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px;
+  font-family: "Inter", sans-serif;
+  border: 1px solid rgba(0, 102, 175, 0.5);
+  border-radius: 8px;
+  background-color: white;
+}
+.login-card .section-input select:focus,
+.login-card .section-input option:focus {
+  outline: none;
+  border-color: rgba(0, 102, 175, 0.8);
 }
 .login-card .section-input .section-input-password {
   display: flex;
@@ -232,7 +269,9 @@
 
 @media (max-width: 1440px) {
   .login-container {
-    background-image: url("/src/assets/images/background2.png");
+    background: linear-gradient(to right, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 35%, rgba(183, 210, 246, 0.5) 65%, rgba(183, 210, 246, 0.5) 100%), linear-gradient(to bottom, #ffffff 20%, #c2d8f9 90%);
+    background-size: 22px 22px, 22px 22px, 100% 100%, 100% 100%;
+    background-blend-mode: multiply, multiply, normal, normal;
   }
   .login-card {
     background: white;
@@ -308,46 +347,43 @@
     background: #1976d2;
   }
 }
-/* Media Queries */
-/* @media (max-width: 768px) {
-    .login-card {
-        padding: 25px 20px;
-    }
-
-    .section-input input {
-        font-size: 14px;
-        height: 40px;
-    }
-
-    .login-card button {
-        width: 100%;
-    }
+@media (max-width: 1280px) {
+  .login-container {
+    /* // Grid pattern dengan gradasi untuk tablet */
+    background: linear-gradient(to right, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 25%, rgba(183, 210, 246, 0.5) 65%, rgba(183, 210, 246, 0.5) 100%), linear-gradient(to bottom, #ffffff 20%, #c2d8f9 90%);
+    background-size: 22px 22px, 22px 22px, 100% 100%, 100% 100%;
+    background-blend-mode: multiply, multiply, normal, normal;
+  }
 }
-
+@media (max-width: 1024px) {
+  .login-container {
+    /* // Grid pattern dengan gradasi untuk tablet */
+    background: linear-gradient(to right, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 25%, rgba(183, 210, 246, 0.5) 65%, rgba(183, 210, 246, 0.5) 100%), linear-gradient(to bottom, #ffffff 18%, #c2d8f9 88%);
+    background-size: 30px 30px, 30px 30px, 100% 100%, 100% 100%;
+    background-blend-mode: multiply, multiply, normal, normal;
+  }
+}
+@media (max-width: 800px) {
+  .login-container {
+    /* // Grid pattern dengan gradasi untuk tablet kecil */
+    background: linear-gradient(to right, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 25%, rgba(183, 210, 246, 0.5) 65%, rgba(183, 210, 246, 0.5) 100%), linear-gradient(to bottom, #ffffff 15%, #c2d8f9 85%);
+    background-size: 30px 30px, 30px 30px, 100% 100%, 100% 100%;
+    background-blend-mode: multiply, multiply, normal, normal;
+  }
+}
 @media (max-width: 480px) {
-    .login-card {
-        padding: 20px 15px;
-    }
-
-    .logo {
-        width: 60px;
-        margin-bottom: 20px;
-    }
-
-    h2 {
-        font-size: 15px;
-    }
-
-    h3,
-    .sub-text {
-        font-size: 12px;
-    }
-
-    .section-input input {
-        font-size: 12px;
-    }
-
-    .alert {
-        width: 90%;
-    }
-} *//*# sourceMappingURL=Login.css.map */
+  .login-container {
+    /* // Grid pattern dengan gradasi untuk mobile */
+    background: linear-gradient(to right, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 25%, rgba(183, 210, 246, 0.5) 65%, rgba(183, 210, 246, 0.5) 100%), linear-gradient(to bottom, #ffffff 12%, #c2d8f9 82%);
+    background-size: 27px 27px, 27px 27px, 100% 100%, 100% 100%;
+    background-blend-mode: multiply, multiply, normal, normal;
+  }
+}
+@media (max-width: 380px) {
+  .login-container {
+    /* // Grid pattern dengan gradasi untuk mobile */
+    background: linear-gradient(to right, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, transparent 0%, transparent calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% - 0.5px), rgba(183, 210, 246, 0.5) calc(50% + 0.5px), transparent calc(50% + 0.5px), transparent 100%), linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 25%, rgba(183, 210, 246, 0.5) 65%, rgba(183, 210, 246, 0.5) 100%), linear-gradient(to bottom, #ffffff 12%, #c2d8f9 82%);
+    background-size: 23px 23px, 23px 23px, 100% 100%, 100% 100%;
+    background-blend-mode: multiply, multiply, normal, normal;
+  }
+}/*# sourceMappingURL=Login.css.map */

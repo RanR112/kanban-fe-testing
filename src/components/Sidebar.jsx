@@ -1,4 +1,3 @@
-// Sidebar.jsx - Komponen universal tunggal
 import React, { useEffect, useState } from "react";
 import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import "../sass/components/SideBar/SideBar.css";
@@ -6,11 +5,12 @@ import logo from "../assets/images/logo.svg";
 import Builder from "../assets/images/builder1.svg";
 import Logout from "../assets/icons/logout-icon.svg";
 import closeIcon from "../assets/icons/xmark-solid.svg";
-import API from "../service/api";
 import { DEPARTMENT_MAP } from "../utils/constants";
 import SIDEBAR_CONFIGS from "../config/sidebar";
+import { useAuth } from "../contexts/AuthContext";
 
 const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
+    const { user, logout } = useAuth();
     const [time, setTime] = useState(new Date());
     const [id_department, setIdDepartment] = useState("");
     const [departmentName, setDepartmentName] = useState("");
@@ -35,29 +35,16 @@ const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
         return () => clearInterval(interval);
     }, []);
 
-    // Fetch department
+    // Fetch department from user context
     useEffect(() => {
-        const fetchDepartment = async () => {
-            try {
-                const userStorage = JSON.parse(localStorage.getItem("user"));
-                const userId = userStorage.id_users;
-                await API.get(`user/me/${userId}`).then((res) => {
-                    const deptCode = res.data.data.department.name;
-                    const fullDeptName =
-                        DEPARTMENT_MAP[deptCode] ||
-                        "Departemen Tidak Diketahui";
-                    setIdDepartment(deptCode);
-                    setDepartmentName(fullDeptName);
-                });
-            } catch (err) {
-                setDepartmentName("Departemen Tidak Diketahui", err);
-            }
-        };
-
-        if (!id_department) {
-            fetchDepartment();
+        if (user && user.department) {
+            const fullDeptName =
+                DEPARTMENT_MAP[user.department.name] ||
+                "Departemen Tidak Diketahui";
+            setIdDepartment(user.department.id_department);
+            setDepartmentName(fullDeptName);
         }
-    }, [id_department]);
+    }, [user]);
 
     const formattedTime = time.toLocaleTimeString("en-GB");
     const formattedDate = time.toLocaleDateString("en-GB", {
@@ -66,9 +53,18 @@ const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
         year: "numeric",
     });
 
-    const handleLogout = () => {
-        localStorage.clear();
-        navigate("/login");
+    const handleLogout = async () => {
+        console.log("User initiated logout");
+
+        try {
+            await logout(user.id_users);
+            console.log("Logout successful, navigating to login");
+        } catch (error) {
+            console.warn("Logout had issues but proceeding:", error);
+        }
+
+        // Always navigate to login page
+        navigate("/login", { replace: true });
     };
 
     const handleToggleSidebar = () => {
@@ -87,6 +83,25 @@ const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
         }
         return false;
     };
+
+    // Show loading atau placeholder jika user belum ada
+    if (!user) {
+        return (
+            <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
+                <img src={logo} alt="Logo" className="logo" />
+                <div className="profile-card">
+                    <div className="avatar">
+                        <img src={Builder} alt="" className="icon" />
+                    </div>
+                    <div className="info">
+                        <div className="department">Loading ges...</div>
+                        <div className="time">{formattedTime}</div>
+                        <div className="date">{formattedDate}</div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div

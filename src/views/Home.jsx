@@ -1,42 +1,69 @@
-// Home.jsx
 import React, { useEffect, useState } from "react";
 import "../sass/Home/Home.css";
-import API from "../service/api";
 import { DEPARTMENT_MAP } from "../utils/constants";
 import LoaderPrimary from "../components/LoaderPrimary";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
-    const [user, setUser] = useState({ name: "", role: "", department: "" });
-    const [loading, setLoading] = useState(true);
+    const { user, getCurrentUser, loading } = useAuth();
+    const [displayUser, setDisplayUser] = useState({
+        name: "",
+        role: "",
+        department: "",
+    });
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const setupUserData = async () => {
             try {
-                const userStorage = JSON.parse(localStorage.getItem("user"));
-                const response = await API.get(
-                    `user/me/${userStorage.id_users}`
-                );
-                const userData = response.data.data;
+                // Jika user belum ada di context, coba ambil dari server
+                if (!user) {
+                    const result = await getCurrentUser();
+                    if (!result.success) {
+                        throw new Error(
+                            result.message || "Failed to get user data"
+                        );
+                    }
+                }
 
-                setUser({
-                    name: userData.name || "User",
-                    role: userData.role || "User",
-                    department: `${
-                        DEPARTMENT_MAP[userData.department.name] ||
-                        userData.department.name ||
-                        ""
-                    } Department`,
-                });
+                // Set display user data
+                if (user) {
+                    setDisplayUser({
+                        name: user.name || "User",
+                        role: user.role || "User",
+                        department: `${
+                            DEPARTMENT_MAP[user.department?.name] ||
+                            user.department?.name ||
+                            ""
+                        } Department`,
+                    });
+                }
             } catch (err) {
-                setError("Gagal mengambil data user. Silakan login ulang.", err);
-            } finally {
-                setLoading(false);
+                console.error("Error fetching user data:", err);
+                setError("Gagal mengambil data user. Silakan login ulang.");
             }
         };
 
-        fetchUser();
-    }, []);
+        // Hanya jalankan jika tidak sedang loading
+        if (!loading) {
+            setupUserData();
+        }
+    }, [user, loading, getCurrentUser]);
+
+    // Update display user ketika user context berubah
+    useEffect(() => {
+        if (user) {
+            setDisplayUser({
+                name: user.name || "User",
+                role: user.role || "User",
+                department: `${
+                    DEPARTMENT_MAP[user.department?.name] ||
+                    user.department?.name ||
+                    ""
+                } Department`,
+            });
+        }
+    }, [user]);
 
     if (loading) {
         return (
@@ -67,15 +94,15 @@ export default function Home() {
                 <h2 className="welcome-text">
                     WELCOME BACK{" "}
                     <span className="highlight-name">
-                        {user.name.toUpperCase()}
+                        {displayUser.name.toUpperCase()}
                     </span>
                     ,{" "}
                     <span className="highlight-role">
-                        {user.role.toUpperCase()}
+                        {displayUser.role.toUpperCase()}
                     </span>{" "}
                     OF{" "}
                     <span className="highlight-dept">
-                        {user.department.toUpperCase()}
+                        {displayUser.department.toUpperCase()}
                     </span>
                 </h2>
                 <h3 className="request-text">TO REQUEST KANBAN</h3>

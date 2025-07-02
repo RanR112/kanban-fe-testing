@@ -100,4 +100,32 @@
     opacity: 0;
     transform: scale(0.9);
   }
+}
+@media (max-width: 480px) {
+  .alert-box-userlead-approve {
+    width: 365px;
+    height: 347px;
+  }
+  .alert-buttons-userlead-approve {
+    margin-top: 30px;
+    gap: 15px;
+  }
+  .alert-buttons-userlead-approve .btn-formreq {
+    font-size: 14px;
+    width: 155px;
+  }
+}
+@media (max-width: 380px) {
+  .alert-box-userlead-approve {
+    width: 330px;
+    height: 347px;
+  }
+  .alert-buttons-userlead-approve {
+    margin-top: 30px;
+    gap: 15px;
+  }
+  .alert-buttons-userlead-approve .btn-formreq {
+    font-size: 14px;
+    width: 155px;
+  }
 }/*# sourceMappingURL=AlertFormApprove.css.map */

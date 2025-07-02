@@ -1,111 +1,160 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "../sass/ApprovalReqKanban/ApprovalReqKanban.css";
 import Detail from "../assets/icons/list.svg";
 import Search from "../assets/icons/search.svg";
-import API from "../service/api";
 import { LoaderTable } from "../components/LoaderTable";
+import { useKanban } from "../contexts/KanbanContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function ApprovalReqKanban({
     navigationPath = "/user-lead/detailreq-user-lead",
+    dataSource = "approved", // 'approved', 'done' (for PC approved)
+    title = "APPROVAL REQUEST",
 }) {
-    const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [totalItems, setTotalItems] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const itemsPerPage = 10;
     const navigate = useNavigate();
 
-    const formatDate = (isoString) => {
-        if (!isoString || isoString === "-") return "-";
+    const { user } = useAuth();
+    const {
+        approvedRequests,
+        pcApproved,
+        pagination,
+        loading,
+        error,
+        fetchApprovedRequests,
+        fetchPCApprovedRequests,
+        formatDateTime,
+        getStatusText,
+    } = useKanban();
 
-        const date = new Date(isoString);
-        if (isNaN(date.getTime())) return "-";
-
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        const hours = String(date.getHours()).padStart(2, "0");
-        const minutes = String(date.getMinutes()).padStart(2, "0");
-        const seconds = String(date.getSeconds()).padStart(2, "0");
-        return `${year}/${month}/${day} - ${hours}:${minutes}:${seconds}`;
-    };
-
-    const userStorage = JSON.parse(localStorage.getItem("user"));
-    const userRole = userStorage.role;
-    const userId = userStorage.id_users;
-    const userDepartment = userStorage.id_department;
-
-    const fetchData = async (page = 1, role = "", search = "") => {
-        setLoading(true)
-        try {
-            const params = {
-                page,
-                limit: itemsPerPage,
-                role,
-                userId,
-                departmentId: userDepartment,
-            };
-
-            if (search.trim()) {
-                params.search = search.trim();
-            }
-
-            const res = await API.get("/kanban/approved", { params });
-            const result = res.data.approved;
-
-            const formattedData = result.data.map((item) => ({
-                ...item,
-                approvedAt: item.approvedAt ? formatDate(item.approvedAt) : "-",
-            }));
-
-            setData(formattedData);
-            setTotalPages(result.totalPages);
-            setCurrentPage(result.page);
-            setTotalItems(result.total);
-        } catch (err) {
-            console.error("Error fetching data:", err);
-            alert("Gagal memuat data approved!");
-        } finally {
-            setLoading(false)
+    // Get appropriate data and pagination based on dataSource
+    const getData = () => {
+        switch (dataSource) {
+            case "done":
+                return {
+                    data: pcApproved,
+                    paginationData: pagination.done,
+                    fetchFunction: fetchPCApprovedRequests,
+                };
+            case "approved":
+            default:
+                return {
+                    data: approvedRequests,
+                    paginationData: pagination.approved,
+                    fetchFunction: fetchApprovedRequests,
+                };
         }
     };
 
+    const extractItemData = (item) => {
+        console.log("Extracting data from item:", item);
+
+        // Handle nested structure
+        const requestData = item.request_data || item;
+        const approvalData = item.approval_data;
+        const requesterData = item.requester;
+
+        return {
+            id_kanban: item.id_kanban,
+            parts_number: requestData.parts_number || item.parts_number || "-",
+            nama_requester:
+                requestData.nama_requester ||
+                item.nama_requester ||
+                item.requester_name ||
+                requesterData?.name ||
+                "-",
+            status: approvalData.note || item.status || "-",
+            approvedAt: approvalData?.approvedAt || item.approvedAt || null,
+        };
+    };
+
+    const { data, paginationData, fetchFunction } = getData();
+
+    // Fetch data function with proper parameters
+    const fetchData = useCallback(
+        async (page = 1, searchKeyword = "") => {
+            console.log("ApprovalReqKanban: Fetching data", {
+                page,
+                searchKeyword,
+                dataSource,
+            });
+
+            const params = {
+                page,
+                limit: 10,
+                search: searchKeyword.trim(),
+            };
+
+            // Add user-specific parameters if needed
+            if (user) {
+                params.userId = user.id_users;
+                params.departmentId = user.department?.id_department;
+                params.role = user.role;
+            }
+
+            console.log("ApprovalReqKanban: Fetch params", params);
+
+            const result = await fetchFunction(params);
+            console.log("ApprovalReqKanban: Fetch result", result);
+
+            return result;
+        },
+        [fetchFunction, user, dataSource]
+    );
+
+    useEffect(() => {
+        console.log("ApprovalReqKanban: Data update", {
+            dataSource,
+            dataLength: data.length,
+            sampleData: data[0],
+            pagination: paginationData,
+            loading,
+            error,
+        });
+    }, [data, dataSource, paginationData, loading, error]);
+
+    // Search effect
     useEffect(() => {
         if (search) {
             setCurrentPage(1);
         }
     }, [search]);
 
+    // Data fetching effect
     useEffect(() => {
-        fetchData(currentPage, userRole, search);
-    }, [currentPage, userRole, search]);
+        fetchData(currentPage, search);
+    }, [currentPage, search, fetchData]);
 
     const handleSearch = (e) => {
         const keyword = e.target.value;
         setSearch(keyword);
     };
 
-    const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
+    const indexOfFirstItem = (currentPage - 1) * 10;
 
     const handleView = (id_kanban) => {
-        localStorage.setItem("id_kanban", id_kanban);
-        navigate(`${navigationPath}?id=${id_kanban}`);
+        navigate(`${navigationPath}/${id_kanban}`);
     };
 
     const handlePageChange = (newPage) => {
-        if (newPage >= 1 && newPage <= totalPages) {
+        if (newPage >= 1 && newPage <= paginationData.totalPages) {
             setCurrentPage(newPage);
         }
+    };
+
+    // Format date for display
+    const formatApprovedDate = (isoString) => {
+        if (!isoString || isoString === "-") return "-";
+        return formatDateTime(isoString);
     };
 
     return (
         <div className="approval-request">
             <div className="approval-request__header">
                 <h2>
-                    <strong>APPROVAL REQUEST</strong>
+                    <strong>{title}</strong>
                 </h2>
             </div>
 
@@ -139,8 +188,21 @@ export default function ApprovalReqKanban({
                     <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan="6" className="approval-request__empty-row" style={{ height: '100px' }}>
+                                <td
+                                    colSpan="6"
+                                    className="approval-request__empty-row"
+                                    style={{ height: "100px" }}
+                                >
                                     <LoaderTable />
+                                </td>
+                            </tr>
+                        ) : error ? (
+                            <tr>
+                                <td
+                                    colSpan="6"
+                                    className="approval-request__empty-row"
+                                >
+                                    Error: {error}
                                 </td>
                             </tr>
                         ) : data.length === 0 ? (
@@ -153,38 +215,46 @@ export default function ApprovalReqKanban({
                                 </td>
                             </tr>
                         ) : (
-                            data.map((item, index) => (
-                                <tr
-                                    key={`${item.id_kanban}-${item.approvedAt}-${index}`}
-                                >
-                                    <td>{indexOfFirstItem + index + 1}</td>
-                                    <td>{item.approvedAt}</td>
-                                    <td>{item.parts_number}</td>
-                                    <td>{item.requester_name}</td>
-                                    <td>
-                                        <span
-                                            className={`approval-request__status approval-request__status--${item.status.toLowerCase()}`}
-                                        >
-                                            {item.status}
-                                        </span>
-                                    </td>
-                                    <td className="approval-request__actions">
-                                        <button
-                                            className="approval-request__view-btn"
-                                            onClick={() =>
-                                                handleView(item.id_kanban)
-                                            }
-                                            title="View Detail Request"
-                                        >
-                                            <img
-                                                src={Detail}
-                                                alt=""
-                                                className="approval-request__action-icon"
-                                            />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
+                            data.map((item, index) => {
+                                const itemData = extractItemData(item);
+
+                                return (
+                                    <tr key={`${itemData.id_kanban}-${index}`}>
+                                        <td>{indexOfFirstItem + index + 1}</td>
+                                        <td>
+                                            {formatApprovedDate(
+                                                itemData.approvedAt
+                                            )}
+                                        </td>
+                                        <td>{itemData.parts_number}</td>
+                                        <td>{itemData.nama_requester}</td>
+                                        <td>
+                                            <span
+                                                className={`approval-request__status approval-request__status--${itemData.status?.toLowerCase()}`}
+                                            >
+                                                {getStatusText(itemData.status)}
+                                            </span>
+                                        </td>
+                                        <td className="approval-request__actions">
+                                            <button
+                                                className="approval-request__view-btn"
+                                                onClick={() =>
+                                                    handleView(
+                                                        itemData.id_kanban
+                                                    )
+                                                }
+                                                title="View Detail Request"
+                                            >
+                                                <img
+                                                    src={Detail}
+                                                    alt=""
+                                                    className="approval-request__action-icon"
+                                                />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                );
+                            })
                         )}
                     </tbody>
                 </table>
@@ -198,7 +268,7 @@ export default function ApprovalReqKanban({
                 >
                     ← Previous
                 </button>
-                {[...Array(totalPages)].map((_, idx) => {
+                {[...Array(paginationData.totalPages)].map((_, idx) => {
                     const page = idx + 1;
                     return (
                         <button
@@ -215,7 +285,7 @@ export default function ApprovalReqKanban({
                     );
                 })}
                 <button
-                    disabled={currentPage === totalPages}
+                    disabled={currentPage === paginationData.totalPages}
                     onClick={() => handlePageChange(currentPage + 1)}
                     className="approval-request__pagination-btn approval-request__pagination-btn--next"
                 >

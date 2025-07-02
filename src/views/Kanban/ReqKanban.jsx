@@ -1,36 +1,34 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useOutletContext, Link } from "react-router-dom";
 import Detail from "../../assets/icons/list.svg";
 import Search from "../../assets/icons/search.svg";
 import Check from "../../assets/icons/check.svg";
 import Cross from "../../assets/icons/xmark-white.svg";
 import Plus from "../../assets/icons/plus.svg";
-import API from "../../service/api";
 import { DEPARTMENT_MAP } from "../../utils/constants";
 import { LoaderTable } from "../../components/LoaderTable";
 import "../../sass/Kanban/ReqKanban/ReqKanban.css";
+import { useKanban } from "../../contexts/KanbanContext";
 
 export default function ReqKanban({
     userType = "",
     showCreateButton = false,
-    apiEndpoint = "",
+    dataSource = "all", // 'all', 'mine', 'pending', 'approved', 'incoming', 'done'
     title = "",
     showApproveReject = false,
 }) {
     // State
-    const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
+    const [debouncedSearch, setDebouncedSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(true);
 
-    // Ref
+    // Refs
     const typingTimeout = useRef(null);
 
     // Navigation
     const navigate = useNavigate();
 
-    // Context (safe access)
+    // Contexts
     const context = useOutletContext() || {};
     const {
         handleShowAlertPCLeadApprove,
@@ -39,118 +37,247 @@ export default function ReqKanban({
         showConfirmReject,
     } = context;
 
-    // Load data on page change or search
+    const {
+        requests,
+        myRequests,
+        pendingApprovals,
+        approvedRequests,
+        incomingPC,
+        pcApproved,
+        pagination,
+        loading,
+        error,
+        fetchAllRequests,
+        fetchMyRequests,
+        fetchPendingApprovals,
+        fetchApprovedRequests,
+        fetchIncomingForPC,
+        fetchPCApprovedRequests,
+        approveRequest,
+        rejectRequest,
+        formatDisplayDate,
+        getStatusText,
+    } = useKanban();
+
+    // Fallback function jika getStatusText tidak tersedia
+    const safeGetStatusText = (status) => {
+        if (getStatusText && typeof getStatusText === "function") {
+            return getStatusText(status);
+        }
+        // Fallback implementation
+        const texts = {
+            PENDING_APPROVAL: "Menunggu Persetujuan",
+            APPROVED_BY_DEPARTMENT: "Disetujui Department",
+            PENDING_PC: "Menunggu PC",
+            APPROVED_BY_PC: "Disetujui PC",
+            REJECTED_BY_DEPARTMENT: "Ditolak Department",
+            REJECTED_BY_PC: "Ditolak PC",
+        };
+        return texts[status] || status.replace(/_/g, " ");
+    };
+
+    // Get data and pagination based on dataSource
+    const getData = () => {
+        switch (dataSource) {
+            case "mine":
+                return { data: myRequests, paginationData: pagination.mine };
+            case "pending":
+                return {
+                    data: pendingApprovals,
+                    paginationData: pagination.pending,
+                };
+            case "approved":
+                return {
+                    data: approvedRequests,
+                    paginationData: pagination.approved,
+                };
+            case "incoming":
+                return {
+                    data: incomingPC,
+                    paginationData: pagination.incoming,
+                };
+            case "done":
+                return { data: pcApproved, paginationData: pagination.done };
+            case "all":
+            default:
+                return { data: requests, paginationData: pagination.all };
+        }
+    };
+
+    const { data, paginationData } = getData();
+
+    // Debouncing effect for search
     useEffect(() => {
-        loadData(currentPage, search);
-    }, [currentPage, search]);
-
-    // Debounce for search input - FIXED VERSION
-    const handleSearch = (e) => {
-        const keyword = e.target.value;
-
-        // Clear existing timeout
         if (typingTimeout.current) {
             clearTimeout(typingTimeout.current);
         }
 
-        // Update search immediately for UI responsiveness
-        setSearch(keyword);
-
-        // Debounce the actual search execution
         typingTimeout.current = setTimeout(() => {
-            setCurrentPage(1); // This will trigger useEffect to load data
-        }, 500);
+            console.log("Search debounced:", search);
+            setDebouncedSearch(search);
+            setCurrentPage(1); // Reset to first page when searching
+        }, 500); // 500ms debounce
+
+        return () => {
+            if (typingTimeout.current) {
+                clearTimeout(typingTimeout.current);
+            }
+        };
+    }, [search]);
+
+    // Get appropriate fetch function with memoization
+    const fetchFunction = useCallback(() => {
+        const params = {
+            page: currentPage,
+            limit: 10,
+            search: debouncedSearch.trim(),
+            sortBy: "id_kanban",
+            sortOrder: "desc",
+        };
+
+        console.log(`Fetching ${dataSource} data with params:`, params);
+
+        switch (dataSource) {
+            case "mine":
+                return fetchMyRequests(params);
+            case "pending":
+                return fetchPendingApprovals(params);
+            case "approved":
+                return fetchApprovedRequests(params);
+            case "incoming":
+                return fetchIncomingForPC(params);
+            case "done":
+                return fetchPCApprovedRequests(params);
+            case "all":
+            default:
+                return fetchAllRequests(params);
+        }
+    }, [
+        dataSource,
+        currentPage,
+        debouncedSearch, // Use debounced search instead of search
+        fetchAllRequests,
+        fetchMyRequests,
+        fetchPendingApprovals,
+        fetchApprovedRequests,
+        fetchIncomingForPC,
+        fetchPCApprovedRequests,
+    ]);
+
+    // Load data when dependencies change
+    useEffect(() => {
+        fetchFunction();
+    }, [fetchFunction]);
+
+    // Search input handler (immediate UI update)
+    const handleSearch = (e) => {
+        const keyword = e.target.value;
+        console.log("Search input changed:", keyword);
+        setSearch(keyword); // Update UI immediately
+        // debouncedSearch will be updated by the useEffect above
     };
 
-    // Load data with API
-    const loadData = async (page, keyword = "") => {
-        try {
-            setLoading(true);
-            const res = await API.get(apiEndpoint, {
-                params: {
-                    page,
-                    limit: 10,
-                    search: keyword,
-                },
-            });
+    // Extract data safely for rendering
+    const extractItemData = (item) => {
+        // Handle nested structure like ApprovalReqKanban
+        const requestData = item.request_data || item;
+        const approvalData = item.approval_data;
+        const requesterData = item.requester;
 
-            let processedData;
-            if (apiEndpoint === "/kanban/pending") {
-                processedData = res.data.data.map((item) => ({
-                    id_kanban: item.id_kanban,
-                    tgl_produksi: item.requestKanban.tgl_produksi,
-                    parts_number: item.requestKanban.parts_number,
-                    process: item.requestKanban.klasifikasi,
-                    nama_requester: item.requestKanban.nama_requester,
-                    status: item.requestKanban.status,
-                }));
-            } else {
-                processedData = res.data.requests;
-            }
-
-            setData(processedData);
-            setTotalPages(res.data.pagination?.totalPages || 1);
-        } catch (error) {
-            console.error("Error loading data:", error);
-        } finally {
-            setLoading(false);
-        }
+        return {
+            id_kanban: item.id_kanban,
+            tgl_produksi: requestData.tgl_produksi || item.tgl_produksi,
+            parts_number: requestData.parts_number || item.parts_number || "-",
+            nama_requester:
+                requestData.nama_requester ||
+                item.nama_requester ||
+                item.requester_name ||
+                requesterData?.name ||
+                "-",
+            status: requestData.status || item.status || "PENDING",
+            process:
+                item.process ||
+                requestData.process ||
+                item.klasifikasi ||
+                requestData.klasifikasi,
+            department: item.department,
+        };
     };
 
     // Event Handlers
     const handleView = (id_kanban) => {
-        localStorage.setItem("id_kanban", id_kanban);
         const routes = {
-            admin: "/admin/detail-kanbanreq",
-            "pc-lead": "/pc-lead/detailreq-pc-lead",
-            user: "/user/detail-request",
-            "user-lead": "/user-lead/detailreq-user-lead",
+            admin: `/admin/detail-kanbanreq/${id_kanban}`,
+            "pc-lead": `/pc-lead/detailreq-pc-lead/${id_kanban}`,
+            user: `/user/detail-request/${id_kanban}`,
+            "user-lead": `/user-lead/detailreq-user-lead/${id_kanban}`,
         };
         navigate(routes[userType]);
     };
 
     const handleApprove = async (id_kanban) => {
         try {
-            await API.post("/kanban/approve", { id_kanban });
-            if (userType === "pc-lead" && handleShowAlertPCLeadApprove) {
-                handleShowAlertPCLeadApprove(true);
-            } else if (
-                userType === "user-lead" &&
-                handleShowAlertUserLeadApprove
-            ) {
-                handleShowAlertUserLeadApprove(true);
+            const result = await approveRequest(id_kanban);
+
+            if (result.success) {
+                // Refresh data after approval
+                fetchFunction();
+
+                if (userType === "pc-lead" && handleShowAlertPCLeadApprove) {
+                    handleShowAlertPCLeadApprove(true);
+                } else if (
+                    userType === "user-lead" &&
+                    handleShowAlertUserLeadApprove
+                ) {
+                    handleShowAlertUserLeadApprove(true);
+                }
+            } else {
+                console.log("Gagal approve: " + result.message);
             }
-            loadData(currentPage, search);
         } catch (err) {
-            alert("Gagal approve: " + err.message);
+            console.log("Gagal approve: " + err.message);
         }
     };
 
     const handleReject = async (id_kanban) => {
         try {
-            await API.post("/kanban/reject", { id_kanban });
-            if (userType === "pc-lead" && showConfirmRejectPCLead) {
-                showConfirmRejectPCLead(true);
-            } else if (userType === "user-lead" && showConfirmReject) {
-                showConfirmReject(true);
+            const result = await rejectRequest(id_kanban, "Rejected");
+
+            if (result.success) {
+                // Refresh data after rejection
+                fetchFunction();
+
+                if (userType === "pc-lead" && showConfirmRejectPCLead) {
+                    showConfirmRejectPCLead(true);
+                } else if (userType === "user-lead" && showConfirmReject) {
+                    showConfirmReject(true);
+                }
+            } else {
+                console.log("Gagal reject: " + result.message);
             }
-            loadData(currentPage, search);
         } catch (err) {
-            alert("Gagal reject: " + err.message);
+            console.log("Gagal reject: " + err.message);
         }
     };
 
     // Helper functions
     const formatDate = (dateString) => {
-        return apiEndpoint === "/kanban/pending"
+        if (!dateString) return "-";
+        return dataSource === "pending"
             ? new Date(dateString).toLocaleDateString("id-ID")
             : new Date(dateString).toLocaleDateString("en-CA");
     };
 
-    const getProcessName = (item) => {
-        return apiEndpoint === "/kanban/pending"
-            ? item.process
-            : DEPARTMENT_MAP[item.department?.name] || item.process;
+    const getProcessName = (itemData) => {
+        if (dataSource === "pending") {
+            return itemData.process || itemData.klasifikasi || "-";
+        }
+        return (
+            DEPARTMENT_MAP[itemData.department?.name] ||
+            itemData.process ||
+            itemData.klasifikasi ||
+            "-"
+        );
     };
 
     // Cleanup timeout on unmount
@@ -161,6 +288,29 @@ export default function ReqKanban({
             }
         };
     }, []);
+
+    // Debug logging
+    useEffect(() => {
+        console.log("ReqKanban data update:", {
+            dataSource,
+            dataLength: data.length,
+            currentPage,
+            search,
+            debouncedSearch,
+            loading,
+            error,
+            pagination: paginationData,
+        });
+    }, [
+        data,
+        dataSource,
+        currentPage,
+        search,
+        debouncedSearch,
+        loading,
+        error,
+        paginationData,
+    ]);
 
     return (
         <div className="kanban-request-table">
@@ -185,6 +335,9 @@ export default function ReqKanban({
                     onChange={handleSearch}
                     className="search-input"
                 />
+                {search !== debouncedSearch && (
+                    <span className="search-indicator">Searching...</span>
+                )}
             </div>
 
             <div className="table-container">
@@ -195,7 +348,7 @@ export default function ReqKanban({
                             <th>Production Date</th>
                             <th>Parts Number</th>
                             <th>
-                                {apiEndpoint === "/kanban/pending"
+                                {dataSource === "pending"
                                     ? "Classification"
                                     : "Process"}
                             </th>
@@ -211,84 +364,106 @@ export default function ReqKanban({
                     <tbody>
                         {loading ? (
                             <tr>
-                                <td colSpan="7" className="empty-row" style={{ height: '100px' }}>
+                                <td
+                                    colSpan="7"
+                                    className="empty-row"
+                                    style={{ height: "100px" }}
+                                >
                                     <LoaderTable />
+                                </td>
+                            </tr>
+                        ) : error ? (
+                            <tr>
+                                <td colSpan="7" className="empty-row">
+                                    Error: {error}
                                 </td>
                             </tr>
                         ) : data.length === 0 ? (
                             <tr>
                                 <td colSpan="7" className="empty-row">
-                                    No data available.
+                                    {debouncedSearch
+                                        ? `No results found for "${debouncedSearch}"`
+                                        : "No data available."}
                                 </td>
                             </tr>
                         ) : (
-                            data.map((item, index) => (
-                                <tr key={item.id_kanban}>
-                                    <td>
-                                        {(currentPage - 1) * 10 + index + 1}
-                                    </td>
-                                    <td>{formatDate(item.tgl_produksi)}</td>
-                                    <td>{item.parts_number}</td>
-                                    <td>{getProcessName(item)}</td>
-                                    <td>{item.nama_requester}</td>
-                                    <td>
-                                        <span
-                                            className={`status ${item.status.toLowerCase()}`}
-                                        >
-                                            {item.status.replace(/_/g, " ")}
-                                        </span>
-                                    </td>
-                                    <td className="actions">
-                                        <button
-                                            className="action-button view-button"
-                                            onClick={() =>
-                                                handleView(item.id_kanban)
-                                            }
-                                            title="View Detail Request"
-                                        >
-                                            <img
-                                                src={Detail}
-                                                alt="View"
-                                                className="action-icon"
-                                            />
-                                        </button>
-                                        {showApproveReject && (
-                                            <>
-                                                <button
-                                                    className="action-button approve-button"
-                                                    onClick={() =>
-                                                        handleApprove(
-                                                            item.id_kanban
-                                                        )
-                                                    }
-                                                    title="Approve Request"
-                                                >
-                                                    <img
-                                                        src={Check}
-                                                        alt="Approve"
-                                                        className="action-icon"
-                                                    />
-                                                </button>
-                                                <button
-                                                    className="action-button reject-button"
-                                                    onClick={() =>
-                                                        handleReject(
-                                                            item.id_kanban
-                                                        )
-                                                    }
-                                                    title="Reject Request"
-                                                >
-                                                    <img
-                                                        src={Cross}
-                                                        alt="Reject"
-                                                        className="action-icon"
-                                                    />
-                                                </button>
-                                            </>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))
+                            data.map((item, index) => {
+                                const itemData = extractItemData(item);
+
+                                return (
+                                    <tr key={`${itemData.id_kanban}-${index}`}>
+                                        <td>
+                                            {(currentPage - 1) * 10 + index + 1}
+                                        </td>
+                                        <td>
+                                            {formatDate(itemData.tgl_produksi)}
+                                        </td>
+                                        <td>{itemData.parts_number}</td>
+                                        <td>{getProcessName(itemData)}</td>
+                                        <td>{itemData.nama_requester}</td>
+                                        <td>
+                                            <span
+                                                className={`status ${itemData.status?.toLowerCase()}`}
+                                            >
+                                                {safeGetStatusText(
+                                                    itemData.status
+                                                )}
+                                            </span>
+                                        </td>
+                                        <td className="actions">
+                                            <button
+                                                className="action-button view-button"
+                                                onClick={() =>
+                                                    handleView(
+                                                        itemData.id_kanban
+                                                    )
+                                                }
+                                                title="View Detail Request"
+                                            >
+                                                <img
+                                                    src={Detail}
+                                                    alt="View"
+                                                    className="action-icon"
+                                                />
+                                            </button>
+                                            {showApproveReject && (
+                                                <>
+                                                    <button
+                                                        className="action-button approve-button"
+                                                        onClick={() =>
+                                                            handleApprove(
+                                                                itemData.id_kanban
+                                                            )
+                                                        }
+                                                        title="Approve Request"
+                                                    >
+                                                        <img
+                                                            src={Check}
+                                                            alt="Approve"
+                                                            className="action-icon"
+                                                        />
+                                                    </button>
+                                                    <button
+                                                        className="action-button reject-button"
+                                                        onClick={() =>
+                                                            handleReject(
+                                                                itemData.id_kanban
+                                                            )
+                                                        }
+                                                        title="Reject Request"
+                                                    >
+                                                        <img
+                                                            src={Cross}
+                                                            alt="Reject"
+                                                            className="action-icon"
+                                                        />
+                                                    </button>
+                                                </>
+                                            )}
+                                        </td>
+                                    </tr>
+                                );
+                            })
                         )}
                     </tbody>
                 </table>
@@ -296,25 +471,29 @@ export default function ReqKanban({
 
             <div className="pagination">
                 <button
-                    disabled={currentPage === 1}
+                    disabled={currentPage === 1 || loading}
                     onClick={() => setCurrentPage((prev) => prev - 1)}
                     className="pagination-button previous"
                 >
                     ← Previous
                 </button>
-                {[...Array(totalPages)].map((_, idx) => (
+                {[...Array(paginationData.totalPages || 1)].map((_, idx) => (
                     <button
                         key={idx + 1}
                         className={`pagination-button ${
                             currentPage === idx + 1 ? "active" : ""
                         }`}
                         onClick={() => setCurrentPage(idx + 1)}
+                        disabled={loading}
                     >
                         {idx + 1}
                     </button>
                 ))}
                 <button
-                    disabled={currentPage === totalPages}
+                    disabled={
+                        currentPage >= (paginationData.totalPages || 1) ||
+                        loading
+                    }
                     onClick={() => setCurrentPage((prev) => prev + 1)}
                     className="pagination-button next"
                 >

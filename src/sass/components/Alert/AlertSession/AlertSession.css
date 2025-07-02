@@ -74,6 +74,9 @@
   background-color: #0071ff;
   color: white;
 }
+.alert-buttons-session-confirm .cancel-session-confirm:hover {
+  background-color: #0058d6;
+}
 
 @keyframes fadeIn {
   0% {
@@ -93,5 +96,27 @@
   100% {
     opacity: 0;
     transform: scale(0.9);
+  }
+}
+@media (max-width: 480px) {
+  .alert-box-session-confirm {
+    width: 360px;
+  }
+  .alert-content-session-confirm h2 {
+    font-size: 16px;
+  }
+  .alert-content-session-confirm p {
+    font-size: 12.7px;
+  }
+  .alert-buttons-session-confirm {
+    margin-top: 40px;
+  }
+}
+@media (max-width: 380px) {
+  .alert-box-session-confirm {
+    width: 300px;
+  }
+  .alert-buttons-session-confirm {
+    margin-top: 25px;
   }
 }/*# sourceMappingURL=AlertSession.css.map */

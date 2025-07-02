@@ -27,20 +27,89 @@ const Layout = ({ layoutType }) => {
 
     const closeSidebar = () => {
         if (isSidebarOpen === true) {
-            setIsSidebarOpen(false)
+            setIsSidebarOpen(false);
         }
-    }
+    };
 
-    // Generate content for special cases
+    // Update getContentForAlert function di Layout.jsx
     const getContentForAlert = (alertType, alertConfig) => {
-        if (layoutType === "admin" && alertType === "confirmDelete") {
-            return (
-                <p>
-                    Are you sure you want to delete user
-                    <span> {alerts.confirmDelete?.user?.name}</span>? <br />
-                    This action cannot be undone.
-                </p>
-            );
+        if (layoutType === "admin") {
+            switch (alertType) {
+                case "confirmDelete":
+                    return (
+                        <p>
+                            Are you sure you want to delete user
+                            <span>
+                                {" "}
+                                {alerts.confirmDelete?.user?.name}
+                            </span>? <br />
+                            This action cannot be undone.
+                        </p>
+                    );
+                case "confirmRegistrationApprove":
+                    return (
+                        <p>
+                            Are you sure you want to approve registration for
+                            <span>
+                                {" "}
+                                {
+                                    alerts.confirmRegistrationApprove
+                                        ?.registration?.name
+                                }
+                            </span>
+                            <br />(
+                            {
+                                alerts.confirmRegistrationApprove?.registration
+                                    ?.email
+                            }
+                            )? <br />
+                            This will create a new user account.
+                        </p>
+                    );
+                case "confirmRegistrationReject":
+                    return (
+                        <p>
+                            Are you sure you want to reject registration for
+                            <span>
+                                {" "}
+                                {
+                                    alerts.confirmRegistrationReject
+                                        ?.registration?.name
+                                }
+                            </span>
+                            <br />(
+                            {
+                                alerts.confirmRegistrationReject?.registration
+                                    ?.email
+                            }
+                            )? <br />
+                            This action cannot be undone.
+                        </p>
+                    );
+                case "confirmRegistrationDelete":
+                    return (
+                        <p>
+                            Are you sure you want to permanently delete
+                            registration for
+                            <span>
+                                {" "}
+                                {
+                                    alerts.confirmRegistrationDelete
+                                        ?.registration?.name
+                                }
+                            </span>
+                            <br />(
+                            {
+                                alerts.confirmRegistrationDelete?.registration
+                                    ?.email
+                            }
+                            )? <br />
+                            This action cannot be undone.
+                        </p>
+                    );
+                default:
+                    return alertConfig.content;
+            }
         }
         return alertConfig.content;
     };
