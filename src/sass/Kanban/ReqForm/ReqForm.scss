@@ -79,12 +79,12 @@
 
                     .calendar-icon-clickable {
                         position: absolute;
-                        right: 40px;
+                        right: 15px;
                         top: 35%;
                         transform: translateY(-50%);
                         cursor: pointer;
                         color: #1c85b7;
-                        font-size: 15px;
+                        font-size: 20px;
                         transition: color 0.3s ease;
 
                         &:hover {
@@ -555,6 +555,64 @@
                         display: flex;
                         width: 150px;
                         height: 35px;
+                    }
+
+                    .date-input-container {
+                        position: relative;
+                        display: flex;
+                        width: 180px;
+
+                        input[type="date"] {
+                            padding: 6px 10px;
+                            border: 1px solid rgba(0, 102, 175, 0.5);
+                            border-radius: 8px;
+                            background-color: white;
+                            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+                            cursor: pointer;
+
+                            &::-webkit-calendar-picker-indicator {
+                                display: none;
+                            }
+
+                            &::-webkit-datetime-edit-month-field,
+                            &::-webkit-datetime-edit-day-field,
+                            &::-webkit-datetime-edit-year-field {
+                                background: transparent;
+                                color: #000000;
+
+                                &:hover {
+                                    background: transparent;
+                                }
+
+                                &:focus {
+                                    background: transparent;
+                                    outline: none;
+                                }
+                            }
+
+                            -webkit-appearance: none !important;
+                            -moz-appearance: none !important;
+                            appearance: none !important;
+                        }
+
+                        .calendar-icon-clickable {
+                            position: absolute;
+                            right: 40px;
+                            top: 35%;
+                            transform: translateY(-50%);
+                            cursor: pointer;
+                            color: #1c85b7;
+                            font-size: 15px;
+                            transition: color 0.3s ease;
+
+                            &:hover {
+                                color: #0066af;
+                            }
+
+                            &:active {
+                                transform: translateY(-50%) scale(0.95);
+                            }
+                        }
                     }
                 }
 

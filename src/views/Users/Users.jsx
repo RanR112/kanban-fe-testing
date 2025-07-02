@@ -7,6 +7,8 @@ import Plus from "../../assets/icons/plus.svg";
 import Trash from "../../assets/icons/trash.svg";
 import Edit from "../../assets/icons/edit.svg";
 import Search from "../../assets/icons/search.svg";
+import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import API from "../../services/api";
 import { DEPARTMENT_MAP } from "../../utils/constants";
 import { timeAgo, formatDateTime } from "../../utils/timeAgo"; // ✅ Import utility
@@ -234,7 +236,11 @@ export default function Users() {
                                 <tr key={user.id_users}>
                                     <td>{indexOfFirstItem + index + 1}</td>
                                     <td>{user.name}</td>
-                                    <td>{DEPARTMENT_MAP[user.department?.name] || "N/A"}</td>
+                                    <td>
+                                        {DEPARTMENT_MAP[
+                                            user.department?.name
+                                        ] || "N/A"}
+                                    </td>
                                     <td>
                                         <span
                                             className={`role-badge-admin role-${user.role.toLowerCase()}`}
@@ -299,28 +305,27 @@ export default function Users() {
                 <button
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage(currentPage - 1)}
-                    className="previous"
+                    className="pagination-button-admin previous"
                 >
-                    ← Previous
+                    <FaArrowLeft size={12} className="previous-icon" /> Previous
                 </button>
-                {[...Array(totalPages)].map((_, idx) => {
-                    const page = idx + 1;
-                    return (
-                        <button
-                            key={page}
-                            className={page === currentPage ? "active" : ""}
-                            onClick={() => setCurrentPage(page)}
-                        >
-                            {page}
-                        </button>
-                    );
-                })}
+                {[...Array(totalPages)].map((_, idx) => (
+                    <button
+                        key={idx + 1}
+                        className={`pagination-button-admin ${
+                            currentPage === idx + 1 ? "active" : ""
+                        }`}
+                        onClick={() => setCurrentPage(idx + 1)}
+                    >
+                        {idx + 1}
+                    </button>
+                ))}
                 <button
                     disabled={currentPage === totalPages}
                     onClick={() => setCurrentPage(currentPage + 1)}
-                    className="next"
+                    className="pagination-button-admin next"
                 >
-                    Next →
+                    Next <FaArrowRight size={12} className="next-icon" />
                 </button>
             </div>
         </div>

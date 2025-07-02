@@ -30,8 +30,8 @@
         /* Background gradasi utama */ linear-gradient(to bottom, #ffffff 25%, #c2d8f9 95%);
 
     background-size:
-        32px 32px,
-        32px 32px,
+        30px 30px,
+        30px 30px,
         100% 100%,
         100% 100%;
     background-blend-mode: multiply, multiply, normal, normal;
@@ -52,10 +52,31 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
-    height: auto;
 
     display: flex;
     flex-direction: column;
+
+    max-height: 100vh;
+    overflow-y: auto;
+
+    /* // Sembunyikan scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    /* // Chrome, Safari, Opera - SCSS nested syntax */
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
 
     input:-webkit-autofill {
         -webkit-box-shadow: 0 0 0 1000px white inset !important;
@@ -254,6 +275,64 @@
         }
     }
 
+    .date-input-container {
+        position: relative;
+        display: flex;
+        width: 100%;
+
+        input[type="date"] {
+            padding: 6px 10px;
+            border: 1px solid rgba(0, 102, 175, 0.5);
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+
+            &::-webkit-calendar-picker-indicator {
+                display: none;
+            }
+
+            &::-webkit-datetime-edit-month-field,
+            &::-webkit-datetime-edit-day-field,
+            &::-webkit-datetime-edit-year-field {
+                background: transparent;
+                color: #000000;
+
+                &:hover {
+                    background: transparent;
+                }
+
+                &:focus {
+                    background: transparent;
+                    outline: none;
+                }
+            }
+
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+        }
+
+        .calendar-icon-clickable {
+            position: absolute;
+            right: 14px;
+            top: 38%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #1c85b7;
+            font-size: 20px;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #0066af;
+            }
+
+            &:active {
+                transform: translateY(-50%) scale(0.95);
+            }
+        }
+    }
+
     @keyframes fadeInDown {
         0% {
             opacity: 0;
@@ -446,6 +525,64 @@
                 background: #1976d2;
             }
         }
+
+        .date-input-container {
+            position: relative;
+            display: flex;
+            width: 100%;
+
+            input[type="date"] {
+                padding: 6px 10px;
+                border: 1px solid rgba(0, 102, 175, 0.5);
+                border-radius: 8px;
+                background-color: white;
+                box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+
+                &::-webkit-calendar-picker-indicator {
+                    display: none;
+                }
+
+                &::-webkit-datetime-edit-month-field,
+                &::-webkit-datetime-edit-day-field,
+                &::-webkit-datetime-edit-year-field {
+                    background: transparent;
+                    color: #000000;
+
+                    &:hover {
+                        background: transparent;
+                    }
+
+                    &:focus {
+                        background: transparent;
+                        outline: none;
+                    }
+                }
+
+                -webkit-appearance: none !important;
+                -moz-appearance: none !important;
+                appearance: none !important;
+            }
+
+            .calendar-icon-clickable {
+                position: absolute;
+                right: 15px;
+                top: 38%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: #1c85b7;
+                font-size: 18px;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: #0066af;
+                }
+
+                &:active {
+                    transform: translateY(-50%) scale(0.95);
+                }
+            }
+        }
     }
 }
 
@@ -512,10 +649,6 @@
             background: transparent;
         }
     }
-
-    .signup-card {
-        margin-top: 340px;
-    }
 }
 
 @media (max-width: 1024px) {
@@ -558,10 +691,6 @@
             100% 100%;
         background-blend-mode: multiply, multiply, normal, normal;
         max-height: 100vh;
-    }
-
-    .signup-card {
-        margin-top: 0;
     }
 }
 
@@ -648,10 +777,66 @@
         background-blend-mode: multiply, multiply, normal, normal;
 
         max-height: 100vh;
-    }
 
-    .signup-card {
-        margin-top: 110px;
+        .signup-card {
+            .date-input-container {
+                position: relative;
+                display: flex;
+                width: 100%;
+
+                input[type="date"] {
+                    padding: 6px 10px;
+                    border: 1px solid rgba(0, 102, 175, 0.5);
+                    border-radius: 8px;
+                    background-color: white;
+                    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+
+                    &::-webkit-calendar-picker-indicator {
+                        display: none;
+                    }
+
+                    &::-webkit-datetime-edit-month-field,
+                    &::-webkit-datetime-edit-day-field,
+                    &::-webkit-datetime-edit-year-field {
+                        background: transparent;
+                        color: #000000;
+
+                        &:hover {
+                            background: transparent;
+                        }
+
+                        &:focus {
+                            background: transparent;
+                            outline: none;
+                        }
+                    }
+
+                    -webkit-appearance: none !important;
+                    -moz-appearance: none !important;
+                    appearance: none !important;
+                }
+
+                .calendar-icon-clickable {
+                    position: absolute;
+                    right: 15px;
+                    top: 38%;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                    color: #1c85b7;
+                    font-size: 18px;
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: #0066af;
+                    }
+
+                    &:active {
+                        transform: translateY(-50%) scale(0.95);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -696,9 +881,5 @@
         background-blend-mode: multiply, multiply, normal, normal;
 
         max-height: 100vh;
-    }
-
-    .signup-card {
-        margin-top: 150px;
     }
 }

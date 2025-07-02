@@ -5,6 +5,8 @@ import Search from "../../assets/icons/search.svg";
 import Check from "../../assets/icons/check.svg";
 import Cross from "../../assets/icons/xmark-white.svg";
 import Plus from "../../assets/icons/plus.svg";
+import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { DEPARTMENT_MAP } from "../../utils/constants";
 import { LoaderTable } from "../../components/LoaderTable";
 import "../../sass/Kanban/ReqKanban/ReqKanban.css";
@@ -93,8 +95,8 @@ export default function ReqKanban({
                 };
             case "incoming":
                 return {
-                    data: incomingPC,
-                    paginationData: pagination.incoming,
+                    data: pendingApprovals,
+                    paginationData: pagination.pending,
                 };
             case "done":
                 return { data: pcApproved, paginationData: pagination.done };
@@ -145,7 +147,7 @@ export default function ReqKanban({
             case "approved":
                 return fetchApprovedRequests(params);
             case "incoming":
-                return fetchIncomingForPC(params);
+                return fetchPendingApprovals(params);
             case "done":
                 return fetchPCApprovedRequests(params);
             case "all":
@@ -160,7 +162,6 @@ export default function ReqKanban({
         fetchMyRequests,
         fetchPendingApprovals,
         fetchApprovedRequests,
-        fetchIncomingForPC,
         fetchPCApprovedRequests,
     ]);
 
@@ -475,7 +476,7 @@ export default function ReqKanban({
                     onClick={() => setCurrentPage((prev) => prev - 1)}
                     className="pagination-button previous"
                 >
-                    ← Previous
+                    <FaArrowLeft size={12} className="previous-icon" /> Previous
                 </button>
                 {[...Array(paginationData.totalPages || 1)].map((_, idx) => (
                     <button
@@ -497,7 +498,7 @@ export default function ReqKanban({
                     onClick={() => setCurrentPage((prev) => prev + 1)}
                     className="pagination-button next"
                 >
-                    Next →
+                    Next <FaArrowRight size={12} className="next-icon" />
                 </button>
             </div>
         </div>

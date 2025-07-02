@@ -36,6 +36,44 @@ export default function AuditLog({
         return `${year}/${month}/${day} - ${hours}:${minutes}:${seconds}`;
     };
 
+    const getPaginationRange = (currentPage, totalPages) => {
+        const delta = 2; // Jumlah halaman yang ditampilkan di kiri dan kanan halaman aktif
+        const range = [];
+        const rangeWithDots = [];
+
+        // Selalu tampilkan halaman pertama
+        range.push(1);
+
+        // Tambahkan halaman di sekitar halaman aktif
+        for (
+            let i = Math.max(2, currentPage - delta);
+            i <= Math.min(totalPages - 1, currentPage + delta);
+            i++
+        ) {
+            range.push(i);
+        }
+
+        // Selalu tampilkan halaman terakhir jika lebih dari 1 halaman
+        if (totalPages > 1) {
+            range.push(totalPages);
+        }
+
+        // Hapus duplikat dan urutkan
+        const uniqueRange = [...new Set(range)].sort((a, b) => a - b);
+
+        // Tambahkan dots jika diperlukan
+        let prev = 0;
+        for (const page of uniqueRange) {
+            if (page - prev > 1) {
+                rangeWithDots.push("...");
+            }
+            rangeWithDots.push(page);
+            prev = page;
+        }
+
+        return rangeWithDots;
+    };
+
     const fetchData = async (page = 1, searchTerm = "") => {
         setLoading(true);
         setError("");
@@ -274,20 +312,32 @@ export default function AuditLog({
                         <FaArrowLeft size={12} className="previous-icon" />{" "}
                         Previous
                     </button>
-                    {[...Array(totalPages)].map((_, idx) => {
-                        const page = idx + 1;
-                        return (
-                            <button
-                                key={page}
-                                className={`auditlog__pagination-btn ${
-                                    page === currentPage ? "active-btn" : ""
-                                }`}
-                                onClick={() => handlePageChange(page)}
-                            >
-                                {page}
-                            </button>
-                        );
-                    })}
+                    {getPaginationRange(currentPage, totalPages).map(
+                        (page, index) => {
+                            if (page === "...") {
+                                return (
+                                    <span
+                                        key={`dots-${index}`}
+                                        className="auditlog__pagination-dots"
+                                    >
+                                        ...
+                                    </span>
+                                );
+                            }
+
+                            return (
+                                <button
+                                    key={page}
+                                    className={`auditlog__pagination-btn ${
+                                        page === currentPage ? "active-btn" : ""
+                                    }`}
+                                    onClick={() => handlePageChange(page)}
+                                >
+                                    {page}
+                                </button>
+                            );
+                        }
+                    )}
                     <button
                         disabled={currentPage === totalPages}
                         onClick={() => handlePageChange(currentPage + 1)}

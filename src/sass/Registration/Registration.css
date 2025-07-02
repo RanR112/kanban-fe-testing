@@ -3,6 +3,7 @@
   padding: 23px 48px 23px 30px;
   border-radius: 8px;
   font-family: "Poppins", sans-serif;
+  min-height: 100vh;
 }
 .registration .registration__header {
   display: flex;
@@ -61,7 +62,7 @@
 .registration .registration__table-container .registration__table tbody tr td {
   padding: 0.65rem;
   border-bottom: 1px solid #ddd;
-  font-size: 20px;
+  font-size: 17px;
   text-align: center;
   vertical-align: middle;
 }
@@ -91,6 +92,7 @@
   display: flex;
   justify-content: center;
   gap: 8px;
+  margin-top: 10px;
 }
 .registration .registration__table-container .registration__table tbody tr .registration__actions .registration__action-button {
   border: none;
@@ -100,13 +102,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   transition: background-color 0.2s ease;
 }
 .registration .registration__table-container .registration__table tbody tr .registration__actions .registration__action-button .registration__action-icon {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 .registration .registration__table-container .registration__table tbody tr .registration__actions .registration__action-button.view-button {
   background-color: #219cdf;
@@ -150,13 +152,13 @@
 }
 .registration .registration__pagination .registration__pagination-btn {
   padding: 0.3rem 0.8rem;
+  background: transparent;
+  border: 1px solid #0066af;
   color: #0066af;
   cursor: pointer;
   border-radius: 8px;
   font-size: 16px;
   transition: all 0.2s ease;
-  border: 1px solid #0066af;
-  background-color: white;
   min-width: 40px;
 }
 .registration .registration__pagination .registration__pagination-btn:hover:not(:disabled) {

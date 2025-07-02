@@ -193,12 +193,12 @@ class KanbanService {
     // Get status display text
     getStatusText(status) {
         const texts = {
-            PENDING_APPROVAL: "Menunggu Persetujuan",
-            APPROVED_BY_DEPARTMENT: "Disetujui Department",
-            PENDING_PC: "Menunggu PC",
-            APPROVED_BY_PC: "Disetujui PC",
-            REJECTED_BY_DEPARTMENT: "Ditolak Department",
-            REJECTED_BY_PC: "Ditolak PC",
+            PENDING_APPROVAL: "PENDING APPROVAL",
+            APPROVED_BY_DEPARTMENT: "APPROVED BY DEPARTMENT",
+            PENDING_PC: "PENDING PC",
+            APPROVED_BY_PC: "APPROVED BY PC",
+            REJECTED_BY_DEPARTMENT: "REJECTED BY DEPARTMENT",
+            REJECTED_BY_PC: "REJECTED BY PC",
         };
         return texts[status] || status;
     }

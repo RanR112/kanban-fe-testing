@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import SessionExpiredModal from "./SessionExpiredModal";
 import cookieStorage from "../services/cookieStorage";
+import LoaderPrimary from "./LoaderPrimary";
 
 // Your existing ProtectedRoute (keep as is)
 export default function ProtectedRoute({ children }) {
@@ -84,13 +85,21 @@ export default function ProtectedRoute({ children }) {
         }, 300);
     };
 
-    if (loading) {
-        return (
-            <div className="loading-container">
-                <div className="loading-spinner">Loading...</div>
-            </div>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <div
+    //             style={{
+    //                 justifyContent: "center",
+    //                 alignItems: "center",
+    //                 margin: "auto",
+    //                 width: "100%",
+    //                 height: "100%",
+    //             }}
+    //         >
+    //             <LoaderPrimary />
+    //         </div>
+    //     );
+    // }
 
     if (isExpired) {
         return (

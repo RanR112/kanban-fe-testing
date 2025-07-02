@@ -16,7 +16,7 @@
   padding-bottom: 30px;
 }
 .kanban-request-table .table-header h2 {
-  font-size: 30px;
+  font-size: 28px;
   font-style: italic;
   font-weight: 600;
 }
@@ -109,7 +109,7 @@
 .kanban-request-table .table-container .data-table tbody tr td {
   padding: 0.65rem;
   border-bottom: 1px solid #ddd;
-  font-size: 20px;
+  font-size: 17px;
   text-align: center;
   vertical-align: middle;
 }
@@ -155,8 +155,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   transition: background-color 0.2s ease;
 }
 .kanban-request-table .table-container .data-table tbody tr .actions .action-button .action-icon {

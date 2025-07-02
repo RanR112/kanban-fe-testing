@@ -178,11 +178,7 @@ export const UserForm = ({
                         {errors.email && (
                             <span className="error-text">{errors.email}</span>
                         )}
-                        {isProfile && (
-                            <span className="info-text">
-                                Email cannot be changed
-                            </span>
-                        )}
+
                     </FormField>
 
                     <FormField label="Phone Number">
@@ -209,11 +205,6 @@ export const UserForm = ({
                                 {errors.id_department}
                             </span>
                         )}
-                        {isProfile && (
-                            <span className="info-text">
-                                Department cannot be changed
-                            </span>
-                        )}
                     </FormField>
 
                     <FormField label="Role" required={!isProfile}>
@@ -228,17 +219,13 @@ export const UserForm = ({
                         {errors.role && (
                             <span className="error-text">{errors.role}</span>
                         )}
-                        {isProfile && (
-                            <span className="info-text">
-                                Role cannot be changed
-                            </span>
-                        )}
+
                     </FormField>
 
                     <FormField
                         label={
                             isEdit
-                                ? "New Password (leave blank to keep current)"
+                                ? "New Password"
                                 : "Password"
                         }
                         required={!isEdit}

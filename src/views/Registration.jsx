@@ -398,14 +398,11 @@ export default function Registration() {
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Employee ID</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Position</th>
                             <th>Department</th>
                             <th>Status</th>
                             <th>Email Verified</th>
-                            <th>Created At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -433,11 +430,9 @@ export default function Registration() {
                             data.map((item, index) => (
                                 <tr key={item.id_registration}>
                                     <td>{indexOfFirstItem + index + 1}</td>
-                                    <td>{item.employee_id}</td>
                                     <td>{item.name}</td>
                                     <td>{item.email}</td>
-                                    <td>{item.position}</td>
-                                    <td>{item.department_name}</td>
+                                    <td>{DEPARTMENT_MAP[item.department_name]}</td>
                                     <td>{getStatusBadge(item.status)}</td>
                                     <td>
                                         <span
@@ -451,7 +446,6 @@ export default function Registration() {
                                             {item.email_verified ? "Yes" : "No"}
                                         </span>
                                     </td>
-                                    <td>{item.created_at}</td>
                                     <td className="registration__actions">
                                         <button
                                             className="registration__action-button view-button"
@@ -510,7 +504,7 @@ export default function Registration() {
                                                 }
                                                 title="Delete Registration"
                                                 style={{
-                                                    backgroundColor: "#6c757d",
+                                                    backgroundColor: "ed1010",
                                                 }}
                                                 disabled={actionLoading}
                                             >
@@ -529,7 +523,6 @@ export default function Registration() {
                 </table>
             </div>
 
-            {totalPages > 1 && (
                 <div className="registration__pagination">
                     <button
                         disabled={currentPage === 1}
@@ -563,7 +556,6 @@ export default function Registration() {
                         Next <FaArrowRight size={12} className="next-icon" />
                     </button>
                 </div>
-            )}
 
             {/* Detail Modal */}
             {showDetail && selectedRegistration && (

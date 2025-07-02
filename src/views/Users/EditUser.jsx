@@ -135,7 +135,7 @@ export default function EditUsers() {
             showPassword={showPassword}
             showConfirmPassword={showConfirmPassword}
             onTogglePassword={togglePasswordVisibility}
-            submitButtonText="Update User"
+            submitButtonText="Update"
             isEdit={true}
             loading={loading}
         />

@@ -89,6 +89,7 @@
   display: flex;
   justify-content: center;
   gap: 8px;
+  margin-top: 10px;
 }
 .auditlog .auditlog__table-container .auditlog__table tbody tr .auditlog__actions .auditlog__view-btn {
   border: none;

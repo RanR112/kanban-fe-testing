@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { DEPARTMENT_MAP } from "../../utils/constants";
 import "../../sass/Kanban/ReqForm/ReqForm.css";
+import { FaArrowLeft } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
 import { LoaderButton } from "../../components/LoaderButton";
 import { useKanban } from "../../contexts/KanbanContext";
 import { useAuth } from "../../contexts/AuthContext";
@@ -99,13 +101,30 @@ export default function ReqForm() {
                 <div className="form-grid">
                     <div className="production-date">
                         <label>Production Date</label>
-                        <input
-                            type="date"
-                            name="tgl_produksi"
-                            value={formData.tgl_produksi}
-                            onChange={handleChange}
-                            required
-                        />
+                        <div className="date-input-container">
+                            <input
+                                type="date"
+                                name="tgl_produksi"
+                                onChange={handleChange}
+                                id="date-input"
+                                onClick={() => {
+                                    // Perlu ini untuk desktop
+                                    document
+                                        .querySelector(
+                                            'input[name="tgl_produksi"]'
+                                        )
+                                        .showPicker();
+                                }}
+                            />
+                            <FaCalendarAlt
+                                className="calendar-icon-clickable"
+                                onClick={() =>
+                                    document
+                                        .getElementById("date-input")
+                                        .showPicker()
+                                }
+                            />
+                        </div>
                     </div>
                     <div className="parts-number">
                         <label>Parts Number</label>
@@ -168,7 +187,7 @@ export default function ReqForm() {
                                         }
                                     }}
                                 >
-                                    ⟵
+                                    <FaArrowLeft size={14} className="arrow-icon" />
                                 </button>
                             </>
                         ) : (

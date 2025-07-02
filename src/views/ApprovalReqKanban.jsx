@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import "../sass/ApprovalReqKanban/ApprovalReqKanban.css";
 import Detail from "../assets/icons/list.svg";
 import Search from "../assets/icons/search.svg";
+import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { LoaderTable } from "../components/LoaderTable";
 import { useKanban } from "../contexts/KanbanContext";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function ApprovalReqKanban({
     navigationPath = "/user-lead/detailreq-user-lead",
-    dataSource = "approved", // 'approved', 'done' (for PC approved)
+    dataSource = "approved",
     title = "APPROVAL REQUEST",
 }) {
     const [search, setSearch] = useState("");
@@ -264,9 +266,9 @@ export default function ApprovalReqKanban({
                 <button
                     disabled={currentPage === 1}
                     onClick={() => handlePageChange(currentPage - 1)}
-                    className="approval-request__pagination-btn approval-request__pagination-btn--previous"
+                    className="approval-request__pagination-btn previous-btn"
                 >
-                    ← Previous
+                    <FaArrowLeft size={12} className="previous-icon" /> Previous
                 </button>
                 {[...Array(paginationData.totalPages)].map((_, idx) => {
                     const page = idx + 1;
@@ -275,7 +277,7 @@ export default function ApprovalReqKanban({
                             key={page}
                             className={`approval-request__pagination-btn ${
                                 page === currentPage
-                                    ? "approval-request__pagination-btn--active"
+                                    ? "active-btn"
                                     : ""
                             }`}
                             onClick={() => handlePageChange(page)}
@@ -287,9 +289,9 @@ export default function ApprovalReqKanban({
                 <button
                     disabled={currentPage === paginationData.totalPages}
                     onClick={() => handlePageChange(currentPage + 1)}
-                    className="approval-request__pagination-btn approval-request__pagination-btn--next"
+                    className="approval-request__pagination-btn next-btn"
                 >
-                    Next →
+                    Next <FaArrowRight size={12} className="next-icon" />
                 </button>
             </div>
         </div>

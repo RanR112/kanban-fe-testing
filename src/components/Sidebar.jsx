@@ -8,6 +8,8 @@ import closeIcon from "../assets/icons/xmark-solid.svg";
 import { DEPARTMENT_MAP } from "../utils/constants";
 import SIDEBAR_CONFIGS from "../config/sidebar";
 import { useAuth } from "../contexts/AuthContext";
+import { LoaderTable } from "./LoaderTable";
+import { LoaderButton } from "./LoaderButton";
 
 const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
     const { user, logout } = useAuth();
@@ -18,6 +20,7 @@ const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const config = SIDEBAR_CONFIGS[type];
+    const [loading, setLoading] = useState(false);
 
     // Mobile check (hanya untuk user dan userLead)
     useEffect(() => {
@@ -57,10 +60,13 @@ const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
         console.log("User initiated logout");
 
         try {
+            setLoading(true);
             await logout(user.id_users);
             console.log("Logout successful, navigating to login");
         } catch (error) {
             console.warn("Logout had issues but proceeding:", error);
+        } finally {
+            setLoading(true);
         }
 
         // Always navigate to login page
@@ -94,7 +100,9 @@ const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
                         <img src={Builder} alt="" className="icon" />
                     </div>
                     <div className="info">
-                        <div className="department">Loading ges...</div>
+                        <div className="department">
+                            <LoaderButton />
+                        </div>
                         <div className="time">{formattedTime}</div>
                         <div className="date">{formattedDate}</div>
                     </div>
@@ -153,9 +161,19 @@ const Sidebar = ({ type, isSidebarOpen, toggleSidebar }) => {
             </div>
 
             <div className="logout-section">
-                <button className="logout-button" onClick={handleLogout}>
-                    <img src={Logout} alt="Logout" />
-                    <span>Logout</span>
+                <button
+                    className="logout-button"
+                    onClick={handleLogout}
+                    disabled={loading}
+                >
+                    {loading ? (
+                        <LoaderButton />
+                    ) : (
+                        <>
+                            <img src={Logout} alt="Logout" />
+                            <span>Logout</span>
+                        </>
+                    )}
                 </button>
             </div>
         </div>

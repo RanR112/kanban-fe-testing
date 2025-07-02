@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "../../sass/Login/Login.css";
+import "../../sass/Auth/Signup/Signup.css";
 import Logo from "../../assets/images/logo.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import { FaCalendarAlt } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
 import { LoaderButton } from "../../components/LoaderButton";
 import {
@@ -188,9 +189,9 @@ export default function SignUp() {
     }, [alert]);
 
     return (
-        <div className="login-container">
+        <div className="signup-container">
             <form
-                className="login-card"
+                className="signup-card"
                 onSubmit={handleSignUp}
                 style={{ maxHeight: "90vh", overflowY: "auto" }}
             >
@@ -208,7 +209,8 @@ export default function SignUp() {
                     {/* Employee ID */}
                     <div>
                         <label className="label-input" htmlFor="employee_id">
-                            Employee ID <span style={{ color: "#ED1010" }}>*</span>
+                            Employee ID{" "}
+                            <span style={{ color: "#ED1010" }}>*</span>
                         </label>
                         <input
                             type="text"
@@ -224,7 +226,8 @@ export default function SignUp() {
                     {/* Full Name */}
                     <div>
                         <label className="label-input" htmlFor="name">
-                            Full Name <span style={{ color: "#ED1010" }}>*</span>
+                            Full Name{" "}
+                            <span style={{ color: "#ED1010" }}>*</span>
                         </label>
                         <input
                             type="text"
@@ -254,7 +257,8 @@ export default function SignUp() {
                     {/* Phone Number */}
                     <div>
                         <label className="label-input" htmlFor="no_hp">
-                            Phone Number <span style={{ color: "#ED1010" }}>*</span>
+                            Phone Number{" "}
+                            <span style={{ color: "#ED1010" }}>*</span>
                         </label>
                         <input
                             type="tel"
@@ -269,7 +273,8 @@ export default function SignUp() {
                     {/* Department */}
                     <div style={{ marginBottom: "15px" }}>
                         <label className="label-input" htmlFor="id_department">
-                            Department <span style={{ color: "#ED1010" }}>*</span>
+                            Department{" "}
+                            <span style={{ color: "#ED1010" }}>*</span>
                         </label>
                         <select
                             name="id_department"
@@ -326,13 +331,32 @@ export default function SignUp() {
                         <label className="label-input" htmlFor="hire_date">
                             Hire Date
                         </label>
-                        <input
-                            type="date"
-                            name="hire_date"
-                            value={formData.hire_date}
-                            onChange={handleInputChange}
-                            className="input"
-                        />
+                        <div className="date-input-container">
+                            <input
+                                type="date"
+                                name="hire_date"
+                                value={formData.hire_date}
+                                onChange={handleInputChange}
+                                className="input"
+                                id="date-input"
+                                onClick={() => {
+                                    // Perlu ini untuk desktop
+                                    document
+                                        .querySelector(
+                                            'input[name="hire_date"]'
+                                        )
+                                        .showPicker();
+                                }}
+                            />
+                            <FaCalendarAlt
+                                className="calendar-icon-clickable"
+                                onClick={() =>
+                                    document
+                                        .getElementById("date-input")
+                                        .showPicker()
+                                }
+                            />
+                        </div>
                     </div>
 
                     {/* Work Location (Optional) */}
@@ -381,7 +405,8 @@ export default function SignUp() {
                             className="label-input"
                             htmlFor="confirmPassword"
                         >
-                            Confirm Password <span style={{ color: "#ED1010" }}>*</span>
+                            Confirm Password{" "}
+                            <span style={{ color: "#ED1010" }}>*</span>
                         </label>
                         <div className="input-password">
                             <input

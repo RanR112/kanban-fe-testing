@@ -61,7 +61,7 @@
 .approval-request .approval-request__table-container .approval-request__table tbody tr td {
   padding: 0.65rem;
   border-bottom: 1px solid #ddd;
-  font-size: 20px;
+  font-size: 17px;
   text-align: center;
   vertical-align: middle;
 }
@@ -98,8 +98,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background-color: #219cdf;
   color: white;
   transition: background-color 0.2s ease;
@@ -128,13 +128,13 @@
 }
 .approval-request .approval-request__pagination .approval-request__pagination-btn {
   padding: 0.3rem 0.8rem;
+  background: transparent;
+  border: 1px solid #0066af;
   color: #0066af;
   cursor: pointer;
   border-radius: 8px;
   font-size: 16px;
   transition: all 0.2s ease;
-  border: 1px solid #0066af;
-  background-color: white;
   min-width: 40px;
 }
 .approval-request .approval-request__pagination .approval-request__pagination-btn:hover:not(:disabled) {
@@ -363,7 +363,7 @@
     width: 75%;
   }
   .approval-request .approval-request__header h2 {
-    font-size: 23px;
+    font-size: 22px;
     margin: 0;
     text-align: left;
   }

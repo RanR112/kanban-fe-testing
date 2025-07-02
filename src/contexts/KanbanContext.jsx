@@ -362,10 +362,16 @@ export const KanbanProvider = ({ children }) => {
                     cleanedParams
                 ).toString();
                 const response = await kanbanApiCall(
-                    `/kanban/incoming-pc${queryString ? `?${queryString}` : ""}`
+                    `/kanban/pending${queryString ? `?${queryString}` : ""}`
                 );
 
-                setIncomingPC(response.data || response.requests || []);
+                const newData = response.data || response.requests || [];
+                setIncomingPC(newData);
+
+                // Console log yang benar - log data langsung dari response
+                console.log("Incoming PC Response:", response);
+                console.log("Incoming PC Data:", newData);
+
                 setPagination((prev) => ({
                     ...prev,
                     incoming: {
@@ -377,6 +383,7 @@ export const KanbanProvider = ({ children }) => {
 
                 return { success: true, data: response };
             } catch (error) {
+                console.error("Error fetching incoming PC:", error);
                 setError(error.message);
                 return { success: false, message: error.message };
             } finally {
@@ -397,7 +404,7 @@ export const KanbanProvider = ({ children }) => {
                     cleanedParams
                 ).toString();
                 const response = await kanbanApiCall(
-                    `/kanban/done${queryString ? `?${queryString}` : ""}`
+                    `/kanban/approved${queryString ? `?${queryString}` : ""}`
                 );
 
                 console.log("PC approved requests response:", response);

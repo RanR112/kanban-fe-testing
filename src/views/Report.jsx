@@ -3,12 +3,15 @@ import "../sass/Report/Report.css";
 import Pdf from "../assets/icons/pdf.svg";
 import Excel from "../assets/icons/excel.svg";
 import API from "../services/api";
+import { LoaderButton } from "../components/LoaderButton";
 
 export default function Report() {
     const [form, setForm] = useState({
         month: "",
         year: "",
     });
+    const [loading, setLoading] = useState(false);
+    const [file, setFile] = useState('');
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,6 +39,7 @@ export default function Report() {
         if (!file) return console.log("Tipe file tidak dikenali.");
 
         try {
+            setLoading(true);
             const response = await API.get(file.url, { responseType: "blob" });
 
             const blob = new Blob([response.data], { type: file.mime });
@@ -51,6 +55,8 @@ export default function Report() {
             link.remove();
         } catch (err) {
             console.log(`Gagal mendownload laporan`, err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -96,15 +102,17 @@ export default function Report() {
                 <div className="export-buttons">
                     <button
                         className="btn pdf-btn"
-                        onClick={(e) => handleDownload(e, "pdf")}
+                        onClick={(e) => handleDownload(e, "pdf") && setFile('pdf')}
+                        disabled={loading}
                     >
-                        <img src={Pdf} alt="" /> Export PDF
+                        <img src={Pdf} alt="" /> {loading && file === 'pdf' ? <LoaderButton /> : "Export PDF"}
                     </button>
                     <button
                         className="btn excel-btn"
-                        onClick={(e) => handleDownload(e, "excel")}
+                        onClick={(e) => handleDownload(e, "excel") && setFile('excel')}
+                        disabled={loading}
                     >
-                        <img src={Excel} alt="" /> Export Excel
+                        <img src={Excel} alt="" /> {loading && file === 'excel' ? <LoaderButton /> : "Export Excel"}
                     </button>
                 </div>
             </div>

@@ -72,7 +72,9 @@ export default function Profile() {
             } catch (error) {
                 console.error("Error fetching user profile:", error);
                 if (error.response?.status === 403) {
-                    console.log("You don't have permission to view this profile");
+                    console.log(
+                        "You don't have permission to view this profile"
+                    );
                     navigate("/");
                 } else {
                     console.log("Failed to load profile data");
@@ -143,9 +145,10 @@ export default function Profile() {
     // Show loading while fetching initial data
     if (authLoading || initialLoading) {
         return (
-            <div className="loading-container">
-                <div className="spinner"></div>
-                <LoaderPrimary />
+            <div className="container-detail">
+                <div className="loader">
+                    <LoaderPrimary />
+                </div>
             </div>
         );
     }
@@ -165,7 +168,7 @@ export default function Profile() {
                 showPassword={showPassword}
                 showConfirmPassword={showConfirmPassword}
                 onTogglePassword={togglePasswordVisibility}
-                submitButtonText="Update Profile"
+                submitButtonText="Update"
                 isEdit={true}
                 loading={loading}
                 isProfile={true}

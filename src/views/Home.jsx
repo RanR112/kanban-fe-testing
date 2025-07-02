@@ -105,7 +105,7 @@ export default function Home() {
                         {displayUser.department.toUpperCase()}
                     </span>
                 </h2>
-                <h3 className="request-text">TO REQUEST KANBAN</h3>
+                <h3 className="request-text">TO REQUEST KANBAN SYSTEM</h3>
             </div>
         </div>
     );

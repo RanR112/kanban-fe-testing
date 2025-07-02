@@ -88,7 +88,7 @@ export default function AddUsers() {
             showPassword={showPassword}
             showConfirmPassword={showConfirmPassword}
             onTogglePassword={togglePasswordVisibility}
-            submitButtonText="Create User"
+            submitButtonText="Save"
             loading={loading}
         />
     );
