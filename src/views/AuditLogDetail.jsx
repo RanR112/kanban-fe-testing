@@ -8,7 +8,7 @@ import {
     FaDesktop,
 } from "react-icons/fa";
 import API from "../services/api";
-import { LoaderTable } from "../components/LoaderTable";
+import LoaderPrimary from "../components/LoaderPrimary";
 
 export default function AuditLogDetail() {
     const { id } = useParams();
@@ -91,7 +91,7 @@ export default function AuditLogDetail() {
                     justifyContent: "center",
                 }}
             >
-                <LoaderTable />
+                <LoaderPrimary />
             </div>
         );
     }
