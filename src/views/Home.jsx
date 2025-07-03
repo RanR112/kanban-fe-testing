@@ -89,7 +89,7 @@ export default function Home() {
         <div className="home-wrapper">
             <div className="home-container">
                 <h1 className="company-name">
-                    PT AUTOMOTIVE FASTENERS AOYAMA INDONESIA
+                    PT SEGARA TECHNOLOGY INDONESIA
                 </h1>
                 <h2 className="welcome-text">
                     WELCOME BACK{" "}
