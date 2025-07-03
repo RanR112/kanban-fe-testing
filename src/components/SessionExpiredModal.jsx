@@ -17,9 +17,9 @@ const SessionExpiredModal = ({ onConfirm, alertConfirm, fadeOutConfirm }) => {
                         </div>
                     </div>
                     <div className="alert-content-session-confirm">
-                        <h2>Sesi Habis</h2>
+                        <h2>Session Expired</h2>
                         <p>
-                            Sesi login Anda telah habis. Silakan login kembali.
+                            Your login session has expired. Please login again.
                         </p>
                     </div>
                     <div className="alert-buttons-session-confirm">

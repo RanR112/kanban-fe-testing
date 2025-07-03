@@ -11,7 +11,7 @@ export default function Report() {
         year: "",
     });
     const [loading, setLoading] = useState(false);
-    const [file, setFile] = useState('');
+    const [file, setFile] = useState("");
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -102,17 +102,33 @@ export default function Report() {
                 <div className="export-buttons">
                     <button
                         className="btn pdf-btn"
-                        onClick={(e) => handleDownload(e, "pdf") && setFile('pdf')}
+                        onClick={(e) =>
+                            handleDownload(e, "pdf") && setFile("pdf")
+                        }
                         disabled={loading}
                     >
-                        <img src={Pdf} alt="" /> {loading && file === 'pdf' ? <LoaderButton /> : "Export PDF"}
+                        {loading && file === "pdf" ? (
+                            <LoaderButton />
+                        ) : (
+                            <>
+                                <img src={Pdf} alt="" /> Export PDF
+                            </>
+                        )}
                     </button>
                     <button
                         className="btn excel-btn"
-                        onClick={(e) => handleDownload(e, "excel") && setFile('excel')}
+                        onClick={(e) =>
+                            handleDownload(e, "excel") && setFile("excel")
+                        }
                         disabled={loading}
                     >
-                        <img src={Excel} alt="" /> {loading && file === 'excel' ? <LoaderButton /> : "Export Excel"}
+                        {loading && file === "excel" ? (
+                            <LoaderButton />
+                        ) : (
+                            <>
+                                <img src={Excel} alt="" /> Export Excel
+                            </>
+                        )}
                     </button>
                 </div>
             </div>
